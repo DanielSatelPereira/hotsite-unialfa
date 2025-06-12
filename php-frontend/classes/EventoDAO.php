@@ -3,8 +3,6 @@ require_once 'Conexao.php';
 
 class EventoDAO
 {
-    public static function  listarPorArea($area, $limite = null)
-
     public static function buscarPorId($id)
     {
         try {
@@ -22,7 +20,7 @@ class EventoDAO
         }
     }
 
-    public static function  listarPorArea($area, $limite = null)
+    public static function listarPorArea($area, $limite = null)
     {
         try {
             $conn = Conexao::conectar();
@@ -38,12 +36,12 @@ class EventoDAO
             }
 
             $stmt->execute();
-            $resultados = $stmt->fetchAll();
-            $conn = null; // Libera a conexão
+            $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $conn = null;
             return $resultados;
         } catch (PDOException $e) {
             error_log("Erro ao listar eventos por área: " . $e->getMessage());
-            return []; // Retorna array vazio em caso de erro
+            return [];
         }
     }
 

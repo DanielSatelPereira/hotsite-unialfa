@@ -3,7 +3,25 @@ require_once 'Conexao.php';
 
 class EventoDAO
 {
-    public static function listarPorArea($area, $limite = null)
+
+    public static function buscarPorId($id)
+    {
+        try {
+            $con = Conexao::conectar();
+            $sql = "SELECT * FROM eventos WHERE id = :id";
+            $stmt = $con->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            $evento = $stmt->fetch(PDO::FETCH_ASSOC);
+            $con = null;
+            return $evento;
+        } catch (PDOException $e) {
+            error_log("Erro ao buscar evento por ID: " . $e->getMessage());
+            return null;
+        }
+    }
+
+    public static function  listarPorArea($area, $limite = null)
     {
         try {
             $conn = Conexao::conectar();
@@ -28,20 +46,17 @@ class EventoDAO
         }
     }
 
-    public static function buscarPorId($id)
+    public static function buscarPorTermo($termo)
     {
         try {
-            $con = Conexao::conectar();
-            $sql = "SELECT * FROM eventos WHERE id = :id";
-            $stmt = $con->prepare($sql);
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            $stmt->execute();
-            $evento = $stmt->fetch(PDO::FETCH_ASSOC);
-            $con = null;
-            return $evento;
+            $conn = Conexao::conectar();
+            $sql = "SELECT * FROM eventos WHERE titulo LIKE :termo OR descricao LIKE :termo";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute(['termo' => "%$termo%"]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            error_log("Erro ao buscar evento por ID: " . $e->getMessage());
-            return null;
+            error_log("Erro ao buscar por termo: " . $e->getMessage());
+            return [];
         }
     }
 }

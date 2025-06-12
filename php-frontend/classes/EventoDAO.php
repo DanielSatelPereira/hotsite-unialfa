@@ -3,6 +3,7 @@ require_once 'Conexao.php';
 
 class EventoDAO
 {
+    public static function  listarPorArea($area, $limite = null)
 
     public static function buscarPorId($id)
     {

@@ -15,21 +15,20 @@ function renderEventosPorArea($titulo, $eventos)
 
         echo <<<HTML
         <div class="col-6 col-md-3">
-            <a href="/eventos_detalhe/<?= $evento['id'] ?> class="text-decoration-none text-dark">
-<div class="card text-center p-2 h-100">
-    <strong class="text-primary">{$tituloEvento}</strong>
-    <img src="img/{$imagem}" class="img-fluid my-2" alt="Imagem do evento {$tituloEvento}">
-    <small>
-        {$data}<br>
-        {$local}<br>
-        <b>{$descricao}</b>
-    </small>
-</div>
-</a>
-</div>
+            <a href="pages/eventos_detalhe.php?id={$id}" class="text-decoration-none text-dark">
+                <div class="card text-center p-2 h-100">
+                    <strong class="text-primary">{$tituloEvento}</strong>
+                    <img src="img/{$imagem}" class="img-fluid my-2" alt="Imagem do evento {$tituloEvento}">
+                    <small>
+                        {$data}<br>
+                        {$local}<br>
+                        <b>{$descricao}</b>
+                    </small>
+                </div>
+            </a>
+        </div>
 HTML;
-}
+    }
 
-echo "</div>
-</div>";
+    echo "</div></div>";
 }

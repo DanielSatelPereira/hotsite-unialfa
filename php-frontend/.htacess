@@ -1,3 +1,5 @@
+//Ignorar por Enquanto a simplificação das urls
+
 RewriteEngine On
 
 # Remove .php da URL

@@ -1,0 +1,35 @@
+<?php
+function renderEventosPorArea($titulo, $eventos)
+{
+    echo "<div class='container'>";
+    echo "<h5 class='fw-bold my-4'>" . htmlspecialchars($titulo) . "</h5>";
+    echo "<div class='row g-3'>";
+
+    foreach ($eventos as $evento) {
+        $id = htmlspecialchars($evento['id']);
+        $tituloEvento = htmlspecialchars($evento['titulo']);
+        $imagem = htmlspecialchars($evento['imagem']);
+        $data = htmlspecialchars($evento['data_evento']);
+        $local = htmlspecialchars($evento['local']);
+        $descricao = htmlspecialchars($evento['descricao']);
+
+        echo <<<HTML
+        <div class="col-6 col-md-3">
+            <a href="/eventos_detalhe/<?= $evento['id'] ?> class="text-decoration-none text-dark">
+<div class="card text-center p-2 h-100">
+    <strong class="text-primary">{$tituloEvento}</strong>
+    <img src="img/{$imagem}" class="img-fluid my-2" alt="Imagem do evento {$tituloEvento}">
+    <small>
+        {$data}<br>
+        {$local}<br>
+        <b>{$descricao}</b>
+    </small>
+</div>
+</a>
+</div>
+HTML;
+}
+
+echo "</div>
+</div>";
+}

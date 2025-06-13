@@ -42,8 +42,24 @@ include '../includes/header.php';
     </div>
     <?php endforeach; ?>
     <?php else: ?>
-    <p class="text-muted">Nenhum evento encontrado.</p>
+    <div class="col-12 text-center mt-5">
+        <h3 class="text-danger">
+            <i class="fas fa-search-minus"></i> Nenhum evento encontrado
+        </h3>
+        <p class="text-muted">Não encontramos resultados para sua busca.</p>
+
+        <?php if (!empty($busca)): ?>
+        <p>Você buscou por: <strong><?= htmlspecialchars($busca) ?></strong></p>
+        <?php elseif (!empty($area)): ?>
+        <p>Área selecionada: <strong><?= htmlspecialchars($area) ?></strong></p>
+        <?php endif; ?>
+
+        <a href="<?= $baseurl ?>index.php" class="btn btn-outline-primary mt-3">
+            <i class="fas fa-arrow-left me-2"></i>Voltar à Home
+        </a>
+    </div>
     <?php endif; ?>
+
 </div>
 
 <?php include '../includes/footer.php'; ?>

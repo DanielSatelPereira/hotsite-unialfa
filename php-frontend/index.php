@@ -1,27 +1,27 @@
 <?php
+$pageTitle = 'Início - αEventos';
 include 'classes/EventoDAO.php';
-$eventosPedagogia = EventoDAO::listarPorArea('Pedagogia', 4);
-
-$eventosSistemas = EventoDAO::listarPorArea('Sistemas para Internet', 4);
-$eventosDireito = EventoDAO::listarPorArea('Direito', 4);
 include 'includes/header.php';
 include 'includes/helpers.php';
+
+$eventosPedagogia = EventoDAO::listarPorArea('Pedagogia', 4);
+$eventosSistemas = EventoDAO::listarPorArea('Sistemas para Internet', 4);
+$eventosDireito = EventoDAO::listarPorArea('Direito', 4);
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
-    <a class="navbar-brand" href="#"><strong>a</strong>Eventos</a>
     <div class="ms-auto d-flex align-items-center">
-        <input class="form-control me-2" type="search" placeholder="Procurar eventos">
-        <button class="btn btn-outline-secondary"><i class="fas fa-search"></i></button>
-        <a href="#" class="btn btn-dark ms-3">Cadastro / Login</a>
+
     </div>
 </nav>
 
 <div id="carouselEventos" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="https://via.placeholder.com/1200x400.png" text="Banner+Vestibular+de+Inverno+UniALFA"
-                class="d-block w-100" alt="Banner do Evento">
+            <img src="img/cteste_1.jpg" text="teste_1" class="d-block w-100" alt="Banner do Evento">
+        </div>
+        <div class="carousel-item active">
+            <img src="img/cteste_2.jpg" text="teste_2" class="d-block w-100" alt="Banner do Evento">
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselEventos" data-bs-slide="prev">
@@ -76,8 +76,6 @@ include 'includes/helpers.php';
 renderEventosPorArea('Pedagogia', $eventosPedagogia);
 renderEventosPorArea('Sistemas para Internet', $eventosSistemas);
 renderEventosPorArea('Direito', $eventosDireito);
+
+include 'includes/footer.php';
 ?>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<?php include 'includes/footer.php'; ?>

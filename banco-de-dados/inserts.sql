@@ -5,7 +5,8 @@ USE unialfa_eventos;
 -- TABELAS
 CREATE TABLE alunos (
   ra INT PRIMARY KEY,
-  nome VARCHAR(100) NOT NULL
+  nome VARCHAR(100) NOT NULL,
+  senha VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE cursos (
@@ -15,7 +16,9 @@ CREATE TABLE cursos (
 
 CREATE TABLE palestrantes (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  nome VARCHAR(100) NOT NULL
+  nome VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  senha VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE eventos (
@@ -50,9 +53,9 @@ INSERT INTO cursos (nome) VALUES
 ('Pedagogia'), ('Sistemas para Internet'), ('Direito');
 
 -- Palestrantes
-INSERT INTO palestrantes (nome) VALUES
-('Ana Souza'), ('Carlos Lima'), ('Fernanda Torres'),
-('João Mendes'), ('Luciana Rocha');
+INSERT INTO palestrantes (nome, email, senha) VALUES
+('Ana Souza', 'ana@gmail.com', 'aninha123'), ('Carlos Lima', 'carlos@gmail.com', 'limoeiro50'), ('Fernanda Torres', 'fernandaTorres@gmail.com', 'oscarQmePerdeu25'),
+('João Mendes', 'joão@gmail.com', 'joãoMendes21'), ('Luciana Rocha', 'luciana@gmail.com', 'lucasPedra34');
 
 -- Eventos
 INSERT INTO eventos (titulo, descricao, data, hora, local, idCurso, idPalestrante) VALUES
@@ -68,9 +71,9 @@ INSERT INTO eventos (titulo, descricao, data, hora, local, idCurso, idPalestrant
 ('Educação Inclusiva', 'Ensino para todos.', '2025-07-05', '08:30:00', 'Sala 9', 1, 5);
 
 -- Alunos (para futuros testes com inscrições)
-INSERT INTO alunos (ra, nome) VALUES
-(1001, 'Gabriel Silva'),
-(1002, 'Mariana Oliveira');
+INSERT INTO alunos (ra, nome, senha) VALUES
+(1001, 'Gabriel Silva', 'Gabs2876'),
+(1002, 'Mariana Oliveira', 'MariMaria908');
 
 -- Inscrições (exemplo)
 INSERT INTO inscricoes (idAluno, idEvento) VALUES

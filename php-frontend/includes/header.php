@@ -52,6 +52,9 @@ $baseurl = '/hotsite-unialfa/php-frontend/';
                     <li class="nav-item">
                         <a class="nav-link" href="<?= $baseurl ?>pages/palestrantes.php">Palestrantes</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= $baseurl ?>pages/todos_eventos.php">Todos os Eventos</a>
+                    </li>
 
 
                     <!-- Outros links de navegação podem ir aqui -->

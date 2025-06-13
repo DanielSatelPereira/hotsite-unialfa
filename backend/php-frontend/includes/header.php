@@ -1,5 +1,9 @@
 <?php
-$baseurl = '/hotsite-unialfa/php-frontend/';
+// Verifica se a constante BASE_URL está definida (definida em constants.php)
+if (!defined('BASE_URL')) {
+    define('BASE_PATH', __DIR__);
+    require_once __DIR__ . '/../backend/php-frontend/config/constants.php';
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,21 +18,18 @@ $baseurl = '/hotsite-unialfa/php-frontend/';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Font Awesome -->
-
-    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
     <!-- CSS personalizado -->
-    <link rel="stylesheet" href="<?= $baseurl ?>css/style.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/frontend/assets/css/style.css">
 </head>
 
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
         <div class="container">
-
             <!-- Logo e nome do site -->
-            <a class="navbar-brand fw-bold" href="<?= $baseurl ?>index.php">
+            <a class="navbar-brand fw-bold" href="<?= BASE_URL ?>/">
                 <i class="fas fa-calendar-check me-1 text-primary"></i><strong>α</strong>Eventos
             </a>
 
@@ -41,27 +42,25 @@ $baseurl = '/hotsite-unialfa/php-frontend/';
             <div class="collapse navbar-collapse" id="navbarConteudo">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= $baseurl ?>index.php">Home</a>
+                        <a class="nav-link" href="<?= BASE_URL ?>/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= $baseurl ?>pages/sobre.php">Sobre</a>
+                        <a class="nav-link" href="<?= BASE_URL ?>/frontend/pages/sobre.php">Sobre</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= $baseurl ?>pages/institucional.php">Institucional</a>
+                        <a class="nav-link" href="<?= BASE_URL ?>/frontend/pages/institucional.php">Institucional</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= $baseurl ?>pages/palestrantes.php">Palestrantes</a>
+                        <a class="nav-link" href="<?= BASE_URL ?>/frontend/pages/palestrantes.php">Palestrantes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= $baseurl ?>pages/todos_eventos.php">Todos os Eventos</a>
+                        <a class="nav-link" href="<?= BASE_URL ?>/frontend/pages/todos_eventos.php">Todos os Eventos</a>
                     </li>
-
-
-                    <!-- Outros links de navegação podem ir aqui -->
                 </ul>
 
                 <!-- Campo de busca -->
-                <form class="d-flex me-3" role="search" method="GET" action="<?= $baseurl ?>pages/eventos.php">
+                <form class="d-flex me-3" role="search" method="GET"
+                    action="<?= BASE_URL ?>/frontend/pages/eventos.php">
                     <input class="form-control me-2" type="search" name="q" placeholder="Buscar eventos"
                         aria-label="Buscar">
                     <button class="btn btn-outline-primary" type="submit">

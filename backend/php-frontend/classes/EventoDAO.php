@@ -1,18 +1,24 @@
 <?php
-require_once 'Conexao.php';
+require_once __DIR__ . '/../config/constants.php';
+require_once __DIR__ . '/Conexao.php';
 
 class EventoDAO
 {
     /**
-     * Busca um evento pelo ID
+     * Busca um evento completo com informações relacionadas
      * @param int $id ID do evento
-     * @return array|null Retorna o evento ou null se não encontrar
+     * @return array|null Retorna o evento com detalhes ou null se não encontrar
      */
     public static function buscarPorId($id)
     {
+        $con = null;
         try {
             $con = Conexao::conectar();
-            $sql = "SELECT * FROM eventos WHERE id = :id";
+            $sql = "SELECT e.*, c.nome as nome_curso, p.nome as nome_palestrante 
+                    FROM eventos e
+                    LEFT JOIN cursos c ON e.idCurso = c.id
+                    LEFT JOIN palestrantes p ON e.idPalestrante = p.id
+                    WHERE e.id = :id";
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
@@ -22,29 +28,33 @@ class EventoDAO
             error_log("Erro ao buscar evento por ID: " . $e->getMessage());
             return null;
         } finally {
-            $con = null; // Garante que a conexão será fechada
+            $con = null;
         }
     }
 
     /**
-     * Lista eventos por área
-     * @param string $area Área dos eventos
+     * Lista eventos por curso
+     * @param int $idCurso ID do curso
      * @param int|null $limite Limite de resultados
      * @return array Retorna array de eventos
      */
-    public static function listarPorArea($area, $limite = null)
+    public static function listarPorCurso($idCurso, $limite = null)
     {
         $conn = null;
         try {
             $conn = Conexao::conectar();
-            $sql = "SELECT * FROM eventos WHERE area = :area ORDER BY data_evento DESC";
+            $sql = "SELECT e.*, p.nome as nome_palestrante 
+                    FROM eventos e
+                    LEFT JOIN palestrantes p ON e.idPalestrante = p.id
+                    WHERE e.idCurso = :idCurso
+                    ORDER BY e.data DESC, e.hora DESC";
 
             if ($limite !== null && is_numeric($limite)) {
                 $sql .= " LIMIT :limite";
             }
 
             $stmt = $conn->prepare($sql);
-            $stmt->bindValue(':area', $area, PDO::PARAM_STR);
+            $stmt->bindValue(':idCurso', $idCurso, PDO::PARAM_INT);
 
             if ($limite !== null && is_numeric($limite)) {
                 $stmt->bindValue(':limite', (int)$limite, PDO::PARAM_INT);
@@ -53,7 +63,7 @@ class EventoDAO
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            error_log("Erro ao listar eventos por área: " . $e->getMessage());
+            error_log("Erro ao listar eventos por curso: " . $e->getMessage());
             return [];
         } finally {
             $conn = null;

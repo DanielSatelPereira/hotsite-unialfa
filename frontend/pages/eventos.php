@@ -1,41 +1,50 @@
 <?php
 $pageTitle = 'Eventos - αEventos';
-require_once '../classes/EventoDAO.php';
+require_once __DIR__ . '/../../../backend/php-frontend/config/constants.php';
+require_once CLASSES_DIR . '/EventoDAO.php';
+require_once INCLUDES_DIR . '/header.php';
 
+// Verifica se há busca ou área válida
 $busca = $_GET['q'] ?? null;
-$area = $_GET['area'] ?? null;
-$areasValidas = ['Pedagogia', 'Sistemas para Internet', 'Direito'];
+$idCurso = $_GET['id'] ?? null;
+$titulo = "Todos os Eventos";
 
 // Define título e busca eventos
 if ($busca) {
     $eventos = EventoDAO::buscarPorTermo($busca);
     $titulo = "Resultados para: " . htmlspecialchars($busca);
-} elseif (in_array($area, $areasValidas)) {
-    $eventos = EventoDAO::listarPorArea($area);
-    $titulo = "Eventos de " . htmlspecialchars($area);
+} elseif ($idCurso) {
+    $eventos = EventoDAO::listarPorCurso($idCurso);
+
+    // Mapeia ID do curso para nome (substitua por uma consulta ao banco se necessário)
+    $nomesCursos = [
+        1 => 'Pedagogia',
+        2 => 'Sistemas para Internet',
+        3 => 'Direito'
+    ];
+    $titulo = "Eventos de " . ($nomesCursos[$idCurso] ?? 'Área Desconhecida');
 } else {
-    header('Location: ../index.php');
+    header('Location: ' . BASE_URL . '/');
     exit;
 }
-
-include '../includes/header.php';
 ?>
 
 <h2 class="mb-4"><?= $titulo ?></h2>
 
 <div class="row g-3">
-    <?php if (count($eventos) > 0): ?>
+    <?php if (!empty($eventos)): ?>
     <?php foreach ($eventos as $evento): ?>
     <div class="col-6 col-md-3">
-        <a href="eventos_detalhe.php?id=<?= $evento['id'] ?>" class="text-decoration-none text-dark">
+        <a href="<?= BASE_URL ?>/frontend/pages/eventos_detalhe.php?id=<?= $evento['id'] ?>"
+            class="text-decoration-none text-dark">
             <div class="card text-center p-2 h-100">
                 <strong class="text-primary"><?= htmlspecialchars($evento['titulo']) ?></strong>
-                <img src="../img/<?= htmlspecialchars($evento['imagem']) ?>" class="img-fluid my-2"
-                    alt="Imagem do evento <?= htmlspecialchars($evento['titulo']) ?>">
+                <img src="<?= BASE_URL ?>/frontend/assets/img/<?= htmlspecialchars($evento['imagem'] ?? 'default.jpg') ?>"
+                    class="img-fluid my-2" alt="Imagem do evento <?= htmlspecialchars($evento['titulo']) ?>">
                 <small>
-                    <?= htmlspecialchars($evento['data_evento']) ?><br>
+                    <?= date('d/m/Y', strtotime($evento['data'])) ?><br>
                     <?= htmlspecialchars($evento['local']) ?><br>
-                    <b><?= htmlspecialchars($evento['descricao']) ?></b>
+                    <b><?= htmlspecialchars(substr($evento['descricao'], 0, 50)) ?>...</b>
                 </small>
             </div>
         </a>
@@ -50,16 +59,15 @@ include '../includes/header.php';
 
         <?php if (!empty($busca)): ?>
         <p>Você buscou por: <strong><?= htmlspecialchars($busca) ?></strong></p>
-        <?php elseif (!empty($area)): ?>
-        <p>Área selecionada: <strong><?= htmlspecialchars($area) ?></strong></p>
+        <?php elseif (!empty($idCurso)): ?>
+        <p>Área selecionada: <strong><?= $nomesCursos[$idCurso] ?? 'Área Desconhecida' ?></strong></p>
         <?php endif; ?>
 
-        <a href="<?= $baseurl ?>index.php" class="btn btn-outline-primary mt-3">
+        <a href="<?= BASE_URL ?>/" class="btn btn-outline-primary mt-3">
             <i class="fas fa-arrow-left me-2"></i>Voltar à Home
         </a>
     </div>
     <?php endif; ?>
-
 </div>
 
-<?php include '../includes/footer.php'; ?>
+<?php include INCLUDES_DIR . '/footer.php'; ?>

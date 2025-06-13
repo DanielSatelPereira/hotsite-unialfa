@@ -1,16 +1,11 @@
-//Ignorar por Enquanto a simplificação das urls
+<?php
+// CAMINHOS ABSOLUTOS (Windows)
+define('ROOT_PATH', 'C:/xampp/htdocs/hotsite-unialfa'); // Caminho absoluto FIXO
+define('PHP_BACKEND', ROOT_PATH . '/backend/php-frontend');
 
-RewriteEngine On
+// URLs
+define('BASE_URL', 'http://localhost/hotsite-unialfa');
 
-# Remove .php da URL
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}.php -f
-RewriteRule ^([^/]+)$ $1.php [L]
-
-# /area/NOME → eventos.php?area=NOME
-RewriteRule ^eventos/area/([a-zA-Z0-9_%\s-]+)$ eventos.php?area=$1 [L,QSA]
-
-# /eventos_detalhe/ID → eventos_detalhe.php?id=ID
-RewriteRule ^eventos_detalhe/([0-9]+)$ eventos_detalhe.php?id=$1 [L,QSA]
-
-ErrorDocument 404 /hotsite-unialfa/php-frontend/pages/404.php
+// DIRETÓRIOS
+define('CLASSES_DIR', PHP_BACKEND . '/classes');
+define('INCLUDES_DIR', PHP_BACKEND . '/includes');

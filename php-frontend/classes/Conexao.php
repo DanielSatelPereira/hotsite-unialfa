@@ -3,7 +3,7 @@
 class Conexao
 {
     private static $host = 'localhost';
-    private static $db = 'aeventos';
+    private static $db = 'unialfa_eventos';
     private static $user = 'root';
     private static $pass = '';
 

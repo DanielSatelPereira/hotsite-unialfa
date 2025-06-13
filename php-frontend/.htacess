@@ -12,3 +12,5 @@ RewriteRule ^eventos/area/([a-zA-Z0-9_%\s-]+)$ eventos.php?area=$1 [L,QSA]
 
 # /eventos_detalhe/ID → eventos_detalhe.php?id=ID
 RewriteRule ^eventos_detalhe/([0-9]+)$ eventos_detalhe.php?id=$1 [L,QSA]
+
+ErrorDocument 404 /hotsite-unialfa/php-frontend/pages/404.php

@@ -1,22 +1,27 @@
 <?php
+// Título da página
 $pageTitle = "Início - αEventos";
-require_once __DIR__ . '\config\constants.php';
-require_once CLASSES_DIR . '/EventoDAO.php';
-require_once INCLUDES_DIR . '/header.php';
-require_once INCLUDES_DIR . '/helpers.php';
 
-$eventosPedagogia = EventoDAO::listarPorCurso(1, 4); // ID 1 = Pedagogia
-$eventosSistemas = EventoDAO::listarPorCurso(2, 4); // ID 2 = Sistemas
-$eventosDireito = EventoDAO::listarPorCurso(3, 4);  // ID 3 = Direito
+// Importações de configuração e componentes
+require_once 'C:/xampp/htdocs/hotsite-unialfa/backend/php-frontend/config/constants.php';
+require_once 'C:/xampp/htdocs/hotsite-unialfa/backend/php-frontend/classes/EventoDAO.php';
+require_once 'C:/xampp/htdocs/hotsite-unialfa/backend/php-frontend/includes/header.php';
+require_once 'C:/xampp/htdocs/hotsite-unialfa/backend/php-frontend/includes/helpers.php';
+
+// Listagem de eventos por curso (ID do curso, limite de eventos)
+$eventosPedagogia = EventoDAO::listarPorCurso(1, 4);
+$eventosSistemas  = EventoDAO::listarPorCurso(2, 4);
+$eventosDireito   = EventoDAO::listarPorCurso(3, 4);
 ?>
 
+<!-- Carrossel -->
 <div id="carouselEventos" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="<?= BASE_URL ?>/frontend/assets/img/cteste_1.jpg" class="d-block w-100" alt="Banner do Evento">
+            <img src="<?= IMG_URL ?>/cteste_1.jpg" class="d-block w-100" alt="Banner do Evento">
         </div>
         <div class="carousel-item">
-            <img src="<?= BASE_URL ?>/frontend/assets/img/cteste_2.jpg" class="d-block w-100" alt="Banner do Evento">
+            <img src="<?= IMG_URL ?>/cteste_2.jpg" class="d-block w-100" alt="Banner do Evento">
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselEventos" data-bs-slide="prev">
@@ -27,6 +32,7 @@ $eventosDireito = EventoDAO::listarPorCurso(3, 4);  // ID 3 = Direito
     </button>
 </div>
 
+<!-- Cards de Áreas -->
 <div class="container py-5">
     <h3 class="mb-4">Eventos por área</h3>
     <div class="row row-cols-2 row-cols-sm-3 row-cols-md-5 g-3">
@@ -63,11 +69,12 @@ $eventosDireito = EventoDAO::listarPorCurso(3, 4);  // ID 3 = Direito
     </div>
 </div>
 
-
+<!-- Listagem dinâmica dos eventos -->
 <?php
 renderEventosPorArea('Pedagogia', $eventosPedagogia);
 renderEventosPorArea('Sistemas para Internet', $eventosSistemas);
 renderEventosPorArea('Direito', $eventosDireito);
 
+// Rodapé
 include INCLUDES_DIR . '/footer.php';
 ?>

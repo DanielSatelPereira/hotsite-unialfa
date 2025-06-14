@@ -1,11 +1,9 @@
 <?php
-// Verifica se a constante BASE_URL está definida (definida em constants.php)
+// Verificação de segurança
 if (!defined('BASE_URL')) {
-    define('BASE_PATH', __DIR__);
-    require_once __DIR__ . '/../backend/php-frontend/config/constants.php';
+    die('Acesso direto não permitido');
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -28,11 +26,9 @@ if (!defined('BASE_URL')) {
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
         <div class="container">
-            <!-- Logo e nome do site -->
             <a class="navbar-brand fw-bold" href="<?= BASE_URL ?>/">
                 <i class="fas fa-calendar-check me-1 text-primary"></i><strong>α</strong>Eventos
             </a>
-
             <!-- Botão do menu hamburguer (mobile) -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarConteudo">
                 <span class="navbar-toggler-icon"></span>

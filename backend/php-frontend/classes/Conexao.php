@@ -1,24 +1,24 @@
 <?php
+require_once __DIR__ . '/../config/environment.php';
 
 class Conexao
 {
-    private static $host = 'localhost';
-    private static $db = 'unialfa_eventos';
-    private static $user = 'root';
-    private static $pass = '';
-
     public static function conectar()
     {
         try {
             $conn = new PDO(
-                "mysql:host=" . self::$host . ";dbname=" . self::$db,
-                self::$user,
-                self::$pass
+                "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=" . DB_CHARSET,
+                DB_USER,
+                DB_PASS
             );
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $conn;
         } catch (PDOException $e) {
-            die("Erro na conexão: " . $e->getMessage());
+            // Em produção, registra log
+            error_log("[ERRO BD] " . $e->getMessage());
+
+            header("Location: /pages/erro.php?msg=Erro na conexão com o banco de dados");
+            exit;
         }
     }
 }

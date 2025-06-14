@@ -14,25 +14,49 @@ router.get('/', (req,res) => {
 
 router.post('/', async (req, res) => {
 
-    const registerBodySchema = z.object({
-        nome: z.string(),
-        email: z.string().email(),
-        senha: z.string().min (6)
-    })
+    try {
 
-    const objSalvar = registerBodySchema.parse(
-        req.body
-    )
+        const registerBodySchema = z.object({
+            nome: z.string(),
+            email: z.string().email(),
+            senha: z.string().min (6)
+        })
 
-    objSalvar.senha = await hash(objSalvar.senha, 8)
+        const objSalvar = registerBodySchema.parse(
+            req.body
+        )
 
-    const id_palestrante = await knex('palestrantes').insert(objSalvar)
+        const existeEmail = await knex('palestrantes')
+            .where({ email: objSalvar.email })
+            .first()
 
-    const palestrantes = await knex('palestrantes').where({id: id_palestrante[0]})
+        if (existeEmail) {
+            res.status(409).json({ mensagem: 'E-mail já cadastrado' })
+            return
+        }
 
-    res.json({ palestrantes: palestrantes})
+        objSalvar.senha = await hash(objSalvar.senha, 8)
 
-    return
+        const id_palestrante = await knex('palestrantes').insert(objSalvar)
+
+        const palestrantes = await knex('palestrantes').where({id: id_palestrante[0]})
+
+        res.json({ palestrantes: palestrantes})
+
+    } catch (error) {
+        
+        if (error instanceof z.ZodError) {
+                res.status(400).json({
+                mensagem: 'Dados inválidos',
+                erros: error.errors
+            })
+            return 
+        }
+
+        console.error(error)
+        res.status(500).json({ mensagem: 'Erro interno no servidor' })
+        return
+    }
 })
 
 router.put('/', async (req, res) => {
@@ -71,6 +95,15 @@ router.delete('/', async (req, res) => {
 
     try {
         const {id} = deleteBodySchema.parse(req.body)
+
+        const palestrante = await knex('palestrantes')
+            .where({ id })
+            .first()
+
+        if (!palestrante) {
+            res.status(404).json({ mensagem: 'Palestrante não encontrado' })
+            return
+        }
 
         await knex('palestrantes')
             .where({id})

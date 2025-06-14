@@ -1,14 +1,14 @@
 import {Router} from 'express'
-import knex from './../database/knex'
+import knex from '../database/knex'
 import { z } from 'zod'
 import { hash } from 'bcrypt'
 
 const router = Router()
 
 router.get('/', (req,res) => {
-    knex('palestrantes')
+    knex('usuarios')
         .then((resposta) => {
-            res.json({palestrantes:resposta})
+            res.json({usuarios:resposta})
         })
 })
 
@@ -19,14 +19,14 @@ router.post('/', async (req, res) => {
         const registerBodySchema = z.object({
             nome: z.string(),
             email: z.string().email(),
-            senha: z.string().min (6)
+            senha: z.string().min (6),
         })
 
         const objSalvar = registerBodySchema.parse(
             req.body
         )
 
-        const existeEmail = await knex('palestrantes')
+        const existeEmail = await knex('usuarios')
             .where({ email: objSalvar.email })
             .first()
 
@@ -37,24 +37,24 @@ router.post('/', async (req, res) => {
 
         objSalvar.senha = await hash(objSalvar.senha, 8)
 
-        const id_palestrante = await knex('palestrantes').insert(objSalvar)
+        const id_usuario = await knex('usuarios').insert(objSalvar)
 
-        const palestrantes = await knex('palestrantes').where({id: id_palestrante[0]})
+        const usuarios = await knex('usuarios').where({id: id_usuario[0]})
 
-        res.json({ palestrantes: palestrantes})
+        res.json({ usuarios: usuarios})
 
     } catch (error) {
         
         if (error instanceof z.ZodError) {
                 res.status(400).json({
-                mensagem: 'Dados inválidos',
+                mensagem: 'Os dados inseridos são inválidos',
                 erros: error.errors
             })
             return 
         }
 
         console.error(error)
-        res.status(500).json({ mensagem: 'Erro interno no servidor' })
+        res.status(500).json({ mensagem: 'Não foi possível realizar o cadastro' })
         return
     }
 })
@@ -71,19 +71,42 @@ router.put('/', async (req, res) => {
     try {
         const objAlterar = updateBodySchema.parse(req.body);
 
+        const usuario = await knex('usuarios')
+            .where({ id: objAlterar.id })
+            .first()
+
+        if (!usuario) {
+            res.status(404).json({ mensagem: 'Palestrante não encontrado' })
+            return
+        }
+
+        if (usuario.tipo !== 2) {
+            res.status(403).json({ mensagem: 'Palestrante não encontrado' })
+            return
+        }
+
         if (objAlterar.senha) {
             objAlterar.senha = await hash(objAlterar.senha, 8);
         }
 
-        await knex('palestrantes')
+        await knex('usuarios')
             .where({ id: objAlterar.id })
             .update(objAlterar);
 
-        const palestranteAtualizado = await knex('palestrantes')
+        const palestranteAtualizado = await knex('usuarios')
             .where({ id: objAlterar.id });
 
-        res.json({ palestrante: palestranteAtualizado });
+        res.json({ usuario: palestranteAtualizado });
     } catch (error) {
+        
+        if (error instanceof z.ZodError) {
+                res.status(400).json({
+                mensagem: 'Os dados inseridos são inválidos',
+                erros: error.errors
+            })
+            return 
+        }
+
         res.status(400).json({ error: "Erro ao atualizar palestrante" });
     }
 
@@ -96,16 +119,21 @@ router.delete('/', async (req, res) => {
     try {
         const {id} = deleteBodySchema.parse(req.body)
 
-        const palestrante = await knex('palestrantes')
+        const usuario = await knex('usuarios')
             .where({ id })
             .first()
 
-        if (!palestrante) {
+        if (!usuario) {
             res.status(404).json({ mensagem: 'Palestrante não encontrado' })
             return
         }
 
-        await knex('palestrantes')
+        if (usuario.tipo !== 2) {
+            res.status(403).json({ mensagem: 'Palestrante não encontrado' })
+            return
+        }
+
+        await knex('usuarios')
             .where({id})
             .del()
 

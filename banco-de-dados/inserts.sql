@@ -4,11 +4,12 @@ USE unialfa_eventos;
 
 -- TABELAS
 CREATE TABLE usuarios (
-  id INT PRIMARY KEY,
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  ra INT(13) UNIQUE,
   nome VARCHAR(100) NOT NULL,
   email VARCHAR(100) NOT NULL,
   senha VARCHAR(50) NOT NULL,
-  tipo INT(11) NOT NULL DEFAULT 1
+  tipo INT(11) NOT NULL DEFAULT 2
 );
 
 CREATE TABLE cursos (
@@ -31,9 +32,9 @@ CREATE TABLE eventos (
 
 CREATE TABLE inscricoes (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  idUsuarios INT,
+  raUsuarios INT,
   idEvento INT,
-  FOREIGN KEY (idUsuarios) REFERENCES usuarios(id),
+  FOREIGN KEY (raUsuarios) REFERENCES usuarios(ra),
   FOREIGN KEY (idEvento) REFERENCES eventos(id)
 );
 
@@ -48,9 +49,9 @@ INSERT INTO cursos (nome) VALUES
 ('Pedagogia'), ('Sistemas para Internet'), ('Direito');
 
 -- Usuários
-INSERT INTO usuarios (id, nome, email, senha, tipo) VALUES
-(1, 'Ana Souza', 'ana@gmail.com', 'aninha123', 2), (2, 'Carlos Lima', 'carlos@gmail.com', 'limoeiro50', 2), (3, 'Fernanda Torres', 'fernandaTorres@gmail.com', 'oscarQmePerdeu25', 2), (4, 'João Mendes', 'joão@gmail.com', 'joãoMendes21', 2), (5, 'Luciana Rocha', 'luciana@gmail.com', 'lucasPedra34', 2), (1001, 'Gabriel Silva', 'gameplays@gmail.com', 'Gabs2876', 1),
-(1002, 'Mariana Oliveira', 'marizinha857@gmail.com', 'MariMaria908', 1);
+INSERT INTO usuarios (id, ra, nome, email, senha, tipo) VALUES
+(NULL, NULL, 'Ana Souza', 'ana@gmail.com', 'aninha123', 2), (NULL, NULL, 'Carlos Lima', 'carlos@gmail.com', 'limoeiro50', 2), (NULL, NULL, 'Fernanda Torres', 'fernandaTorres@gmail.com', 'oscarQmePerdeu25', 2), (NULL, NULL, 'João Mendes', 'joão@gmail.com', 'joãoMendes21', 2), (NULL, NULL, 'Luciana Rocha', 'luciana@gmail.com', 'lucasPedra34', 2), (NULL, 1001, 'Gabriel Silva', 'gameplays@gmail.com', 'Gabs2876', 1),
+(NULL, 1002, 'Mariana Oliveira', 'marizinha857@gmail.com', 'MariMaria908', 1);
 
 -- Eventos
 INSERT INTO eventos (titulo, descricao, data, hora, local, idCurso, idUsuarios) VALUES
@@ -66,7 +67,7 @@ INSERT INTO eventos (titulo, descricao, data, hora, local, idCurso, idUsuarios) 
 ('Educação Inclusiva', 'Ensino para todos.', '2025-07-05', '08:30:00', 'Sala 9', 1, 5);
 
 -- Inscrições (exemplo)
-INSERT INTO inscricoes (idUsuarios, idEvento) VALUES
+INSERT INTO inscricoes (raUsuarios, idEvento) VALUES
 (1001, 1), (1002, 3);
 
 -- Certificados (exemplo)

@@ -4,7 +4,7 @@ USE unialfa_eventos;
 
 -- TABELAS
 CREATE TABLE usuarios (
-  id INT AUTO_INCREMENT PRIMARY KEY,
+  id INT PRIMARY KEY,
   nome VARCHAR(100) NOT NULL,
   email VARCHAR(100) NOT NULL,
   senha VARCHAR(50) NOT NULL,
@@ -49,12 +49,11 @@ INSERT INTO cursos (nome) VALUES
 
 -- Usuários
 INSERT INTO usuarios (id, nome, email, senha, tipo) VALUES
-('Ana Souza', 'ana@gmail.com', 'aninha123', 2), ('Carlos Lima', 'carlos@gmail.com', 'limoeiro50', 2), ('Fernanda Torres', 'fernandaTorres@gmail.com', 'oscarQmePerdeu25', 2),
-('João Mendes', 'joão@gmail.com', 'joãoMendes21', 2), ('Luciana Rocha', 'luciana@gmail.com', 'lucasPedra34', 2), (1001, 'Gabriel Silva', 'gameplays@gmail.com', 'Gabs2876', 1),
+(1, 'Ana Souza', 'ana@gmail.com', 'aninha123', 2), (2, 'Carlos Lima', 'carlos@gmail.com', 'limoeiro50', 2), (3, 'Fernanda Torres', 'fernandaTorres@gmail.com', 'oscarQmePerdeu25', 2), (4, 'João Mendes', 'joão@gmail.com', 'joãoMendes21', 2), (5, 'Luciana Rocha', 'luciana@gmail.com', 'lucasPedra34', 2), (1001, 'Gabriel Silva', 'gameplays@gmail.com', 'Gabs2876', 1),
 (1002, 'Mariana Oliveira', 'marizinha857@gmail.com', 'MariMaria908', 1);
 
 -- Eventos
-INSERT INTO eventos (titulo, descricao, data, hora, local, idCurso, idPalestrante) VALUES
+INSERT INTO eventos (titulo, descricao, data, hora, local, idCurso, idUsuarios) VALUES
 ('Introdução à Didática', 'Conceitos iniciais de didática.', '2025-06-20', '14:00:00', 'Auditório A', 1, 1),
 ('Direito Digital', 'Aspectos jurídicos na era digital.', '2025-06-22', '10:00:00', 'Sala 12', 3, 2),
 ('Front-end Moderno', 'Explorando HTML, CSS e JS modernos.', '2025-06-25', '09:00:00', 'Lab 5', 2, 3),

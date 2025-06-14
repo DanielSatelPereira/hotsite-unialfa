@@ -38,27 +38,22 @@ class EventoDAO
      * @param int|null $limite Limite de resultados
      * @return array Retorna array de eventos
      */
-    public static function listarPorCurso($idCurso, $limite = null)
+    public static function listarPorCurso($idCurso, $limit = 10, $offset = 0)
     {
         $conn = null;
         try {
             $conn = Conexao::conectar();
             $sql = "SELECT e.*, p.nome as nome_palestrante 
-                    FROM eventos e
-                    LEFT JOIN palestrantes p ON e.idPalestrante = p.id
-                    WHERE e.idCurso = :idCurso
-                    ORDER BY e.data DESC, e.hora DESC";
-
-            if ($limite !== null && is_numeric($limite)) {
-                $sql .= " LIMIT :limite";
-            }
+                FROM eventos e
+                LEFT JOIN palestrantes p ON e.idPalestrante = p.id
+                WHERE e.idCurso = :idCurso
+                ORDER BY e.data DESC, e.hora DESC
+                LIMIT :limit OFFSET :offset";  // Correção aqui
 
             $stmt = $conn->prepare($sql);
             $stmt->bindValue(':idCurso', $idCurso, PDO::PARAM_INT);
-
-            if ($limite !== null && is_numeric($limite)) {
-                $stmt->bindValue(':limite', (int)$limite, PDO::PARAM_INT);
-            }
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);  // Usando $limit
+            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);  // Usando $offset
 
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);

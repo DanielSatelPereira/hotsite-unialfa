@@ -1,8 +1,11 @@
 <?php
+// Configurações
 $pageTitle = 'Eventos - αEventos';
-require_once __DIR__ . '/../../../backend/php-frontend/config/constants.php';
-require_once CLASSES_DIR . '/EventoDAO.php';
-require_once INCLUDES_DIR . '/header.php';
+require_once 'C:/xampp/htdocs/hotsite-unialfa/backend/php-frontend/config/constants.php';
+require_once 'C:/xampp/htdocs/hotsite-unialfa/backend/php-frontend/classes/EventoDAO.php';
+require_once 'C:/xampp/htdocs/hotsite-unialfa/backend/php-frontend/classes/CursoDAO.php';
+require_once 'C:/xampp/htdocs/hotsite-unialfa/backend/php-frontend/includes/header.php';
+
 
 // Verifica se há busca ou área válida
 $busca = $_GET['q'] ?? null;
@@ -11,18 +14,11 @@ $titulo = "Todos os Eventos";
 
 // Define título e busca eventos
 if ($busca) {
-    $eventos = EventoDAO::buscarPorTermo($busca);
+    $eventos = EventoDAO::buscarPorTermo(htmlspecialchars(trim($busca)));
     $titulo = "Resultados para: " . htmlspecialchars($busca);
-} elseif ($idCurso) {
+} elseif ($idCurso && $idCurso > 0) {
     $eventos = EventoDAO::listarPorCurso($idCurso);
-
-    // Mapeia ID do curso para nome (substitua por uma consulta ao banco se necessário)
-    $nomesCursos = [
-        1 => 'Pedagogia',
-        2 => 'Sistemas para Internet',
-        3 => 'Direito'
-    ];
-    $titulo = "Eventos de " . ($nomesCursos[$idCurso] ?? 'Área Desconhecida');
+    $titulo = "Eventos de " . htmlspecialchars(CursoDAO::getNomeCurso($idCurso));
 } else {
     header('Location: ' . BASE_URL . '/');
     exit;

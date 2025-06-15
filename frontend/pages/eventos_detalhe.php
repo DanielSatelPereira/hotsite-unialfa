@@ -89,6 +89,28 @@ include __DIR__ . '/../../backend/php-frontend/includes/header.php';
     </div>
 </div>
 
-
+<div class="mt-4">
+    <?php if ($usuarioLogado): ?>
+    <?php if (eventoDisponivelParaInscricao($evento['id'])): ?>
+    <a href="<?= BASE_URL ?>/frontend/pages/inscricao.php?evento_id=<?= $evento['id'] ?>"
+        class="btn btn-success btn-lg">
+        <i class="fas fa-calendar-check me-2"></i> Realizar Inscrição
+    </a>
+    <?php else: ?>
+    <div class="alert alert-warning">
+        Inscrições encerradas para este evento
+    </div>
+    <?php endif; ?>
+    <?php else: ?>
+    <div class="border p-4 rounded bg-light text-center">
+        <h5><i class="fas fa-lock me-2"></i>Acesso Restrito</h5>
+        <p>Para se inscrever neste evento, faça login com seu RA UniALFA</p>
+        <a href="<?= BASE_URL ?>/frontend/pages/login.php?redirect=<?= urlencode($_SERVER['REQUEST_URI']) ?>"
+            class="btn btn-primary">
+            <i class="fas fa-sign-in-alt me-2"></i> Fazer Login
+        </a>
+    </div>
+    <?php endif; ?>
+</div>
 
 <?php include __DIR__ . '/../../backend/php-frontend/includes/footer.php'; ?>

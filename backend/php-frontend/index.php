@@ -42,6 +42,7 @@ $eventosDireito   = EventoDAO::listarPorCurso(3, 4);
                     <div class="card-body">
                         <i class="fas fa-chalkboard-teacher fa-2x mb-2 text-primary"></i>
                         <p class="card-text fw-bold">Pedagogia</p>
+                        <small class="text-muted"><?= count($eventosPedagogia) ?> eventos</small>
                     </div>
                 </div>
             </a>
@@ -52,6 +53,7 @@ $eventosDireito   = EventoDAO::listarPorCurso(3, 4);
                     <div class="card-body">
                         <i class="fas fa-laptop-code fa-2x mb-2 text-success"></i>
                         <p class="card-text fw-bold">Sistemas</p>
+                        <small class="text-muted"><?= count($eventosSistemas) ?> eventos</small>
                     </div>
                 </div>
             </a>
@@ -62,6 +64,7 @@ $eventosDireito   = EventoDAO::listarPorCurso(3, 4);
                     <div class="card-body">
                         <i class="fas fa-balance-scale fa-2x mb-2 text-danger"></i>
                         <p class="card-text fw-bold">Direito</p>
+                        <small class="text-muted"><?= count($eventosDireito) ?> eventos</small>
                     </div>
                 </div>
             </a>
@@ -77,4 +80,3 @@ renderEventosPorArea('Direito', $eventosDireito);
 
 // Rodapé
 include INCLUDES_DIR . '/footer.php';
-?>

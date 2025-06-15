@@ -20,6 +20,7 @@ router.post('/', async (req, res) => {
             nome: z.string(),
             email: z.string().email(),
             senha: z.string().min (6),
+            tipo: z.coerce.number().int()
         })
 
         const objSalvar = registerBodySchema.parse(
@@ -75,13 +76,8 @@ router.put('/', async (req, res) => {
             .where({ id: objAlterar.id })
             .first()
 
-        if (!usuario) {
+        if (!usuario || usuario.tipo !== 2) {
             res.status(404).json({ mensagem: 'Palestrante não encontrado' })
-            return
-        }
-
-        if (usuario.tipo !== 2) {
-            res.status(403).json({ mensagem: 'Palestrante não encontrado' })
             return
         }
 
@@ -97,6 +93,7 @@ router.put('/', async (req, res) => {
             .where({ id: objAlterar.id });
 
         res.json({ usuario: palestranteAtualizado });
+        
     } catch (error) {
         
         if (error instanceof z.ZodError) {
@@ -114,7 +111,10 @@ router.put('/', async (req, res) => {
 
 router.delete('/', async (req, res) => {
 
-    const deleteBodySchema = z.object({id: z.number()})
+    const deleteBodySchema = z.object({
+        id: z.number(),
+        tipo: z.coerce.number().int()
+    })
 
     try {
         const {id} = deleteBodySchema.parse(req.body)
@@ -123,13 +123,8 @@ router.delete('/', async (req, res) => {
             .where({ id })
             .first()
 
-        if (!usuario) {
+        if (!usuario || usuario.tipo !== 2) {
             res.status(404).json({ mensagem: 'Palestrante não encontrado' })
-            return
-        }
-
-        if (usuario.tipo !== 2) {
-            res.status(403).json({ mensagem: 'Palestrante não encontrado' })
             return
         }
 
@@ -140,9 +135,17 @@ router.delete('/', async (req, res) => {
         res.json({ mensagem: 'Palestrante deletado com sucesso!' })
 
     } catch (error) {
-        res.status(400).json({ erro: 'Erro ao deletar' })
-        return
+
+        if (error instanceof z.ZodError) {
+            res.status(400).json({ erro: 'Erro de validação', detalhes: error.errors });
+            return 
+        }
+
+        res.status(500).json({ erro: 'Não é possível deletar um palestrante vinculado a um evento!'});
+        return 
     }
 })
+
+//console.error("ERRO DETECTADO:", error); para ver qual é o erro exato que está ocorrendo
 
 export default router

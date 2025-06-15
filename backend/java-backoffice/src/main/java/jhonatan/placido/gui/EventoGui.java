@@ -1,77 +1,115 @@
-package jhonatan.placido.gui;
-
-import jhonatan.placido.dao.EventoDao;
-import jhonatan.placido.model.Evento;
-import jhonatan.placido.service.EventoService;
-
-import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class EventoGui extends JFrame {
+private void confirmar(ActionEvent event) {
+    Evento evento = new Evento(
+            tfTitulo.getText(),
+            tfDescricao.getText(),
+            tfData.getText(),
+            tfHora.getText(),
+            tfLocal.getText()
+    );
 
-    private JTextField txtTitulo = new JTextField();
-    private JTextArea txtDescricao = new JTextArea();
-    private JTextField txtData = new JTextField();
-    private JTextField txtHora = new JTextField();
-    private JTextField txtLocal = new JTextField();
-    private JButton btnSalvar = new JButton("Salvar");
+    boolean sucesso = eventoService.salvarBD(evento);
 
-    public EventoGui(EventoService connection) {
-        setTitle("Cadastro de Evento");
-        setSize(400, 400);
-        setLayout(null);
+    if (sucesso) {
+        JOptionPane.showMessageDialog(this, "Evento salvo com sucesso!");
+        limparCampos();
+        tbEventos.setModel(montarTableModel());
+    } else {
+        JOptionPane.showMessageDialog(this, "Erro ao salvar evento!");
+    }
+}
 
-        JLabel lblTitulo = new JLabel("Título:");
-        JLabel lblDescricao = new JLabel("Descrição:");
-        JLabel lblData = new JLabel("Data (YYYY-MM-DD):");
-        JLabel lblHora = new JLabel("Hora (HH:MM):");
-        JLabel lblLocal = new JLabel("Local:");
-
-        lblTitulo.setBounds(20, 20, 100, 20);
-        txtTitulo.setBounds(150, 20, 200, 20);
-
-        lblDescricao.setBounds(20, 60, 100, 20);
-        txtDescricao.setBounds(150, 60, 200, 60);
-
-        lblData.setBounds(20, 140, 130, 20);
-        txtData.setBounds(150, 140, 200, 20);
-
-        lblHora.setBounds(20, 180, 130, 20);
-        txtHora.setBounds(150, 180, 200, 20);
-
-        lblLocal.setBounds(20, 220, 100, 20);
-        txtLocal.setBounds(150, 220, 200, 20);
-
-        btnSalvar.setBounds(150, 270, 100, 30);
-
-        add(lblTitulo); add(txtTitulo);
-        add(lblDescricao); add(txtDescricao);
-        add(lblData); add(txtData);
-        add(lblHora); add(txtHora);
-        add(lblLocal); add(txtLocal);
-        add(btnSalvar);
-
-        btnSalvar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Evento evento = new Evento(
-                        txtTitulo.getText(),
-                        txtDescricao.getText(),
-                        txtData.getText(),
-                        txtHora.getText(),
-                        txtLocal.getText()
-                );
-                EventoDao dao = new EventoDao();
-                if (dao.salvar(evento)) {
-                    JOptionPane.showMessageDialog(null, "Evento salvo com sucesso!");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Erro ao salvar evento.");
-                }
-            }
-        });
-
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setVisible(true);
+private void alterar(ActionEvent event) {
+    if (tfID.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Selecione um evento para alterar.");
+        return;
     }
 
+    Evento evento = new Evento(
+            tfTitulo.getText(),
+            tfDescricao.getText(),
+            tfData.getText(),
+            tfHora.getText(),
+            tfLocal.getText()
+    );
+    evento.setId(Integer.parseInt(tfID.getText()));
+
+    boolean sucesso = eventoService.atualizarBD(evento);
+
+    if (sucesso) {
+        JOptionPane.showMessageDialog(this, "Evento atualizado com sucesso!");
+        limparCampos();
+        tbEventos.setModel(montarTableModel());
+    } else {
+        JOptionPane.showMessageDialog(this, "Erro ao atualizar evento!");
+    }
+}
+
+private void remover(ActionEvent event) {
+    var opcao = JOptionPane.showConfirmDialog(
+            this,
+            "Deseja realmente excluir o evento?",
+            "Remover Evento",
+            JOptionPane.YES_NO_OPTION);
+
+    if (opcao > 0) return;
+
+    eventoService.deletarPorId(Integer.parseInt(tfID.getText()));
+    limparCampos();
+    tbEventos.setModel(montarTableModel());
+}
+
+private void limparCampos(ActionEvent event) {
+    limparCampos();
+}
+
+private void limparCampos() {
+    tfID.setText(null);
+    tfTitulo.setText(null);
+    tfDescricao.setText(null);
+    tfData.setText(null);
+    tfHora.setText(null);
+    tfLocal.setText(null);
+    btAlterar.setEnabled(false); // Desabilita botão após limpar
+}
+
+private void selecionar(ListSelectionEvent e) {
+    var linha = tbEventos.getSelectedRow();
+    if (linha != -1) {
+        var evento = eventoService.buscarPorId((Integer) tbEventos.getValueAt(linha, 0));
+
+        tfID.setText(String.valueOf(evento.getId()));
+        tfTitulo.setText(evento.getTitulo());
+        tfDescricao.setText(evento.getDescricao());
+        tfData.setText(evento.getData());
+        tfHora.setText(evento.getHora());
+        tfLocal.setText(evento.getLocal());
+
+        btAlterar.setEnabled(true); // Habilita botão após selecionar
+    }
+}
+
+private DefaultTableModel montarTableModel() {
+    var tableModel = new DefaultTableModel();
+    tableModel.addColumn("ID");
+    tableModel.addColumn("Título");
+    tableModel.addColumn("Descrição");
+    tableModel.addColumn("Data");
+    tableModel.addColumn("Hora");
+    tableModel.addColumn("Local");
+
+    eventoService.listarBD().forEach(e ->
+            tableModel.addRow(new Object[]{
+                    e.getId(),
+                    e.getTitulo(),
+                    e.getDescricao(),
+                    e.getData(),
+                    e.getHora(),
+                    e.getLocal()
+            })
+    );
+
+    return tableModel;
+}
 }

@@ -1,6 +1,7 @@
 package jhonatan.placido.dao;
 
 import jhonatan.placido.model.Evento;
+import jhonatan.placido.model.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -68,6 +69,11 @@ public class EventoDao extends Dao implements DaoInterface {
             System.out.println("Erro ao listar eventos: " + e.getMessage());
         }
         return eventos;
+    }
+
+    @Override
+    public List<Usuario> listarUsuario() {
+        return List.of();
     }
 
     @Override

@@ -3,6 +3,7 @@ import cors from 'cors';
 import routes from './routes';
 import usuarioRouter from './routes/usuario';
 import inscricaoRouter from './routes/inscricao';
+import siteRouter from './routes/site';
 
 const app = express();
 const PORT = 3001;
@@ -18,6 +19,7 @@ app.use(express.json());
 // Rotas da API com prefixo /api
 app.use('/api/usuarios', usuarioRouter);
 app.use('/api/inscricoes', inscricaoRouter);
+app.use('/api/site', siteRouter);
 
 // Rotas existentes (sem prefixo /api)
 app.use(routes);

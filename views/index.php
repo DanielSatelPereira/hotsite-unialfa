@@ -1,12 +1,19 @@
 <?php
+// php/index.php
+
+session_start();
+$usuarioLogado = isset($_SESSION['usuario']);
+
+// Carrega configurações
+require_once __DIR__ . '/config/config.php';
+
 // Título da página
 $pageTitle = "Início - αEventos";
 
-// Importações de configuração e componentes
-require_once 'C:/xampp/htdocs/hotsite-unialfa/backend/php-frontend/config/constants.php';
-require_once 'C:/xampp/htdocs/hotsite-unialfa/backend/php-frontend/classes/EventoDAO.php';
-require_once 'C:/xampp/htdocs/hotsite-unialfa/backend/php-frontend/includes/header.php';
-require_once 'C:/xampp/htdocs/hotsite-unialfa/backend/php-frontend/includes/helpers.php';
+// Importações de classes e componentes
+require_once CLASSES_DIR . '/EventoDAO.php';
+require_once INCLUDES_DIR . '/header.php';
+require_once INCLUDES_DIR . '/helpers.php';
 
 // Listagem de eventos por curso (ID do curso, limite de eventos)
 $eventosPedagogia = EventoDAO::listarPorCurso(1, 4);
@@ -37,7 +44,7 @@ $eventosDireito   = EventoDAO::listarPorCurso(3, 4);
     <h3 class="mb-4">Eventos por área</h3>
     <div class="row row-cols-2 row-cols-sm-3 row-cols-md-5 g-3">
         <div class="col">
-            <a href="<?= BASE_URL ?>/frontend/pages/eventos.php?id=1" class="text-decoration-none text-dark">
+            <a href="<?= BASE_URL ?>/php/views/eventos/listar.php?id=1" class="text-decoration-none text-dark">
                 <div class="card text-center h-100">
                     <div class="card-body">
                         <i class="fas fa-chalkboard-teacher fa-2x mb-2 text-primary"></i>
@@ -48,7 +55,7 @@ $eventosDireito   = EventoDAO::listarPorCurso(3, 4);
             </a>
         </div>
         <div class="col">
-            <a href="<?= BASE_URL ?>/frontend/pages/eventos.php?id=2" class="text-decoration-none text-dark">
+            <a href="<?= BASE_URL ?>/php/views/eventos/listar.php?id=2" class="text-decoration-none text-dark">
                 <div class="card text-center h-100">
                     <div class="card-body">
                         <i class="fas fa-laptop-code fa-2x mb-2 text-success"></i>
@@ -59,7 +66,7 @@ $eventosDireito   = EventoDAO::listarPorCurso(3, 4);
             </a>
         </div>
         <div class="col">
-            <a href="<?= BASE_URL ?>/frontend/pages/eventos.php?id=3" class="text-decoration-none text-dark">
+            <a href="<?= BASE_URL ?>/php/views/eventos/listar.php?id=3" class="text-decoration-none text-dark">
                 <div class="card text-center h-100">
                     <div class="card-body">
                         <i class="fas fa-balance-scale fa-2x mb-2 text-danger"></i>
@@ -79,4 +86,4 @@ renderEventosPorArea('Sistemas para Internet', $eventosSistemas);
 renderEventosPorArea('Direito', $eventosDireito);
 
 // Rodapé
-include INCLUDES_DIR . '/footer.php';
+require_once INCLUDES_DIR . '/footer.php';

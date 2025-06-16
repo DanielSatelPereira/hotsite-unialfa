@@ -1,5 +1,4 @@
 <?php
-// php/index.php
 
 session_start();
 $usuarioLogado = isset($_SESSION['usuario']);
@@ -11,14 +10,14 @@ require_once __DIR__ . '/config/config.php';
 $pageTitle = "Início - αEventos";
 
 // Importações de classes e componentes
-require_once CLASSES_DIR . '/EventoDAO.php';
+require_once CLASSES_DIR . '/ApiHelper.php';
 require_once INCLUDES_DIR . '/header.php';
 require_once INCLUDES_DIR . '/helpers.php';
 
 // Listagem de eventos por curso (ID do curso, limite de eventos)
-$eventosPedagogia = EventoDAO::listarPorCurso(1, 4);
-$eventosSistemas  = EventoDAO::listarPorCurso(2, 4);
-$eventosDireito   = EventoDAO::listarPorCurso(3, 4);
+$respPedagogia = ApiHelper::chamarAPI("eventos/area/1?limite=4");
+$respSistemas  = ApiHelper::chamarAPI("eventos/area/2?limite=4");
+$respDireito   = ApiHelper::chamarAPI("eventos/area/3?limite=4");
 ?>
 
 <!-- Carrossel -->
@@ -81,9 +80,9 @@ $eventosDireito   = EventoDAO::listarPorCurso(3, 4);
 
 <!-- Listagem dinâmica dos eventos -->
 <?php
-renderEventosPorArea('Pedagogia', $eventosPedagogia);
-renderEventosPorArea('Sistemas para Internet', $eventosSistemas);
-renderEventosPorArea('Direito', $eventosDireito);
+$eventosPedagogia = $respPedagogia['sucesso'] ? $respPedagogia['data'] : [];
+$eventosSistemas  = $respSistemas['sucesso']  ? $respSistemas['data']  : [];
+$eventosDireito   = $respDireito['sucesso']   ? $respDireito['data']   : [];
 
 // Rodapé
 require_once INCLUDES_DIR . '/footer.php';

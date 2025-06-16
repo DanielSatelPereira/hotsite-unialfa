@@ -9,7 +9,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Dados dinâmicos do header (podem vir do Node.js)
-$headerData = ApiHelper::chamarAPI('site/header');
+$headerData = ApiHelper::chamarAPI('api/site/header');
 $menuItens = $headerData['menu'] ?? [
     ['url' => '/', 'texto' => 'Home'],
     ['url' => '/frontend/pages/sobre.php', 'texto' => 'Sobre'],
@@ -32,7 +32,7 @@ $usuarioLogado = $_SESSION['usuario'] ?? null;
 
     <!-- Preload de recursos críticos -->
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" as="style">
-    <link rel="preload" href="<?= BASE_URL ?>/frontend/assets/css/style.css" as="style">
+    <link rel="preload" href="<?= BASE_URL ?>/assets/css/style.css" as="style">
 
     <!-- CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -61,36 +61,36 @@ $usuarioLogado = $_SESSION['usuario'] ?? null;
             <div class="collapse navbar-collapse" id="navbarConteudo">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <?php foreach ($menuItens as $item): ?>
-                        <li class="nav-item">
-                            <a class="nav-link <?= str_contains($_SERVER['REQUEST_URI'], $item['url']) ? 'active' : '' ?>"
-                                href="<?= BASE_URL . $item['url'] ?>">
-                                <?= htmlspecialchars($item['texto']) ?>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= str_contains($_SERVER['REQUEST_URI'], $item['url']) ? 'active' : '' ?>"
+                            href="<?= BASE_URL . $item['url'] ?>">
+                            <?= htmlspecialchars($item['texto']) ?>
+                        </a>
+                    </li>
                     <?php endforeach; ?>
                 </ul>
 
                 <div class="d-flex">
                     <?php if ($usuarioLogado): ?>
-                        <div class="dropdown">
-                            <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
-                                id="dropdownUser" data-bs-toggle="dropdown">
-                                <img src="<?= BASE_URL ?>/frontend/assets/img/avatars/<?= $usuarioLogado['avatar'] ?? 'default.png' ?>"
-                                    alt="Perfil" width="32" height="32" class="rounded-circle me-2">
-                                <span><?= htmlspecialchars($usuarioLogado['nome']) ?></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="<?= BASE_URL ?>/perfil">Perfil</a></li>
-                                <li><a class="dropdown-item" href="<?= BASE_URL ?>/meus-eventos">Meus Eventos</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="<?= BASE_URL ?>/logout">Sair</a></li>
-                            </ul>
-                        </div>
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
+                            id="dropdownUser" data-bs-toggle="dropdown">
+                            <img src="<?= BASE_URL ?>/frontend/assets/img/avatars/<?= $usuarioLogado['avatar'] ?? 'default.png' ?>"
+                                alt="Perfil" width="32" height="32" class="rounded-circle me-2">
+                            <span><?= htmlspecialchars($usuarioLogado['nome']) ?></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="<?= BASE_URL ?>/perfil">Perfil</a></li>
+                            <li><a class="dropdown-item" href="<?= BASE_URL ?>/meus-eventos">Meus Eventos</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="<?= BASE_URL ?>/logout">Sair</a></li>
+                        </ul>
+                    </div>
                     <?php else: ?>
-                        <a href="<?= BASE_URL ?>/login" class="btn btn-outline-primary me-2">Login</a>
-                        <a href="<?= BASE_URL ?>/cadastro" class="btn btn-primary">Cadastre-se</a>
+                    <a href="<?= BASE_URL ?>/login" class="btn btn-outline-primary me-2">Login</a>
+                    <a href="<?= BASE_URL ?>/cadastro" class="btn btn-primary">Cadastre-se</a>
                     <?php endif; ?>
                 </div>
             </div>

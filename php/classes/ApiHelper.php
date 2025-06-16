@@ -1,43 +1,54 @@
 <?php
 class ApiHelper
 {
-    private const NODE_API_BASE = 'http://localhost:3001/api/'; // Altere se necessário
+    private const NODE_API_BASE = 'http://localhost:3001/api/';
 
-    public static function chamarAPI(string $endpoint, array $dados = [], string $metodo = 'GET')
+    private static function request(string $endpoint, array $dados = [], string $metodo = 'GET'): array
     {
         $url = self::NODE_API_BASE . ltrim($endpoint, '/');
+        $ch = curl_init($url);
 
-        $opcoes = [
-            'http' => [
-                'method'  => $metodo,
-                'header'  => 'Content-type: application/json',
-                'content' => $dados ? json_encode($dados) : ''
-            ]
-        ];
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $metodo);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
 
-        $contexto = stream_context_create($opcoes);
-
-        try {
-            $resposta = file_get_contents($url, false, $contexto);
-            return json_decode($resposta, true);
-        } catch (Exception $e) {
-            error_log("Erro na chamada API: " . $e->getMessage());
-            return [
-                'sucesso' => false,
-                'erro' => 'Falha na comunicação com o servidor'
-            ];
+        if (in_array($metodo, ['POST', 'PUT', 'PATCH'])) {
+            $payload = json_encode($dados);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
         }
+
+        $resposta = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+            error_log('cURL Error (' . curl_errno($ch) . '): ' . curl_error($ch));
+            curl_close($ch);
+            return ['sucesso' => false, 'erro' => 'Erro na comunicação com a API'];
+        }
+
+        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        $data = json_decode($resposta, true);
+        return [
+            'sucesso' => ($status >= 200 && $status < 300),
+            'status' => $status,
+            'data' => $data
+        ];
     }
 
-    // Métodos específicos para facilitar
-    public static function listarEventos()
+    public static function chamarAPI(string $endpoint, array $dados = [], string $metodo = 'GET'): array
     {
-        return self::chamarAPI('eventos');
+        return self::request($endpoint, $dados, strtoupper($metodo));
     }
 
-    public static function inscreverAluno($alunoId, $eventoId)
+    public static function listarEventos(): array
     {
-        return self::chamarAPI('inscricoes', [
+        return self::request('eventos', [], 'GET');
+    }
+
+    public static function inscreverAluno(int $alunoId, int $eventoId): array
+    {
+        return self::request('inscricoes', [
             'aluno_id' => $alunoId,
             'evento_id' => $eventoId
         ], 'POST');

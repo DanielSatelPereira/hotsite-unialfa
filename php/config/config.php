@@ -1,19 +1,21 @@
 <?php
-
-// Configurações de caminhos absolutos
-define('BASE_DIR', 'C:/xampp/htdocs/hotsite-unialfa');
-define('PHP_DIR', BASE_DIR . '/php');
-define('CLASSES_DIR', PHP_DIR . '/classes');
-define('INCLUDES_DIR', PHP_DIR . '/includes');
-define('VIEWS_DIR', PHP_DIR . '/views');
-define('ASSETS_DIR', BASE_DIR . '/assets');
-
-// URLs do sistema
+// Caminhos base
+define('BASE_PATH', dirname(__DIR__)); // Caminho absoluto
 define('BASE_URL', 'http://localhost/hotsite-unialfa');
-define('IMG_URL', BASE_URL . '/assets/img');
 
-// Configurações do banco de dados (se necessário)
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'unialfa_eventos');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+// Diretórios
+define('CLASSES_DIR', BASE_PATH . '/php/classes/');
+define('HELPERS_DIR', BASE_PATH . '/php/helpers/');
+define('IMG_URL', BASE_URL . '/php/assets/img');
+define('INCLUDES_DIR', __DIR__ . '/php/includes');
+
+// API
+define('API_BASE_URL', 'http://localhost:3001'); // URL da sua API Node.js local
+
+// Autoloader
+spl_autoload_register(function ($class) {
+    $classPath = CLASSES_DIR . $class . '.php';
+    if (file_exists($classPath)) {
+        require_once $classPath;
+    }
+});

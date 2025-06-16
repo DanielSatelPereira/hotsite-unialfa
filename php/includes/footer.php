@@ -1,6 +1,6 @@
 <?php
 // Busca dados dinâmicos do footer
-$footerData = ApiHelper::chamarAPI('site/footer');
+$footerData = ApiHelper::chamarAPI('api/site/footer');
 ?>
 </main> <!-- Fecha a tag main do header -->
 
@@ -9,12 +9,11 @@ $footerData = ApiHelper::chamarAPI('site/footer');
         <div class="row g-4">
             <!-- Logo e Descrição -->
             <div class="col-lg-4">
-                <img src="<?= BASE_URL ?>/frontend/assets/img/unialfa-logo-footer.png"
-                    alt="UniALFA"
-                    class="img-fluid mb-3"
-                    loading="lazy"
-                    style="max-height: 50px">
-                <p class="small"><?= $footerData['descricao'] ?? 'Promovendo educação de qualidade desde 1992. Transformando vidas através do conhecimento e inovação.' ?></p>
+                <img src="<?= BASE_URL ?>/frontend/assets/img/unialfa-logo-footer.png" alt="UniALFA"
+                    class="img-fluid mb-3" loading="lazy" style="max-height: 50px">
+                <p class="small">
+                    <?= $footerData['descricao'] ?? 'Promovendo educação de qualidade desde 1992. Transformando vidas através do conhecimento e inovação.' ?>
+                </p>
             </div>
 
             <!-- Links Rápidos -->
@@ -29,12 +28,11 @@ $footerData = ApiHelper::chamarAPI('site/footer');
                             ['url' => '/frontend/pages/contato.php', 'texto' => 'Contato']
                         ] as $link
                     ): ?>
-                        <li class="mb-2">
-                            <a href="<?= BASE_URL . $link['url'] ?>"
-                                class="text-white text-decoration-none hover-primary">
-                                <?= htmlspecialchars($link['texto']) ?>
-                            </a>
-                        </li>
+                    <li class="mb-2">
+                        <a href="<?= BASE_URL . $link['url'] ?>" class="text-white text-decoration-none hover-primary">
+                            <?= htmlspecialchars($link['texto']) ?>
+                        </a>
+                    </li>
                     <?php endforeach; ?>
                 </ul>
             </div>
@@ -73,17 +71,14 @@ $footerData = ApiHelper::chamarAPI('site/footer');
                             ['url' => 'https://www.linkedin.com/school/unialfa/', 'icone' => 'linkedin-in']
                         ] as $rede
                     ): ?>
-                        <a href="<?= $rede['url'] ?>"
-                            target="_blank"
-                            class="text-white fs-5 hover-primary"
-                            aria-label="<?= ucfirst($rede['icone']) ?>">
-                            <i class="fab fa-<?= $rede['icone'] ?>"></i>
-                        </a>
+                    <a href="<?= $rede['url'] ?>" target="_blank" class="text-white fs-5 hover-primary"
+                        aria-label="<?= ucfirst($rede['icone']) ?>">
+                        <i class="fab fa-<?= $rede['icone'] ?>"></i>
+                    </a>
                     <?php endforeach; ?>
                 </div>
                 <a href="<?= $footerData['site_url'] ?? 'https://www.alfaumuarama.edu.br/fau/index.php' ?>"
-                    target="_blank"
-                    class="btn btn-outline-light btn-sm hover-primary">
+                    target="_blank" class="btn btn-outline-light btn-sm hover-primary">
                     Site Oficial
                 </a>
             </div>
@@ -112,14 +107,16 @@ $footerData = ApiHelper::chamarAPI('site/footer');
 </footer>
 
 <!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+</script>
 
 <?php if (isset($scripts)): ?>
-    <!-- Scripts específicos da página -->
-    <?php foreach ($scripts as $script): ?>
-        <script src="<?= BASE_URL ?>/frontend/assets/js/<?= $script ?>.js?v=<?= filemtime(BASE_PATH . '/frontend/assets/js/' . $script . '.js') ?>"></script>
-    <?php endforeach; ?>
+<!-- Scripts específicos da página -->
+<?php foreach ($scripts as $script): ?>
+<script
+    src="<?= BASE_URL ?>/frontend/assets/js/<?= $script ?>.js?v=<?= filemtime(BASE_PATH . '/frontend/assets/js/' . $script . '.js') ?>">
+</script>
+<?php endforeach; ?>
 <?php endif; ?>
 </body>
 

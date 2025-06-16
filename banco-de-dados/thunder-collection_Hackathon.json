@@ -2,7 +2,7 @@
     "clientName": "Thunder Client",
     "collectionName": "Hackathon",
     "collectionId": "6215f2c1-f0b8-4f8d-8029-1265aad3728f",
-    "dateExported": "2025-06-16T13:54:00.822Z",
+    "dateExported": "2025-06-16T14:13:12.797Z",
     "version": "1.2",
     "folders": [
         {
@@ -11,6 +11,13 @@
             "containerId": "",
             "created": "2025-06-16T13:22:38.441Z",
             "sortNum": 10000
+        },
+        {
+            "_id": "14bf04af-9323-450a-8d65-74c04e31b173",
+            "name": "Rotas Eventos",
+            "containerId": "",
+            "created": "2025-06-16T14:01:51.147Z",
+            "sortNum": 20000
         }
     ],
     "requests": [
@@ -24,6 +31,18 @@
             "sortNum": 20000,
             "created": "2025-06-16T13:23:02.472Z",
             "modified": "2025-06-16T13:34:49.072Z",
+            "headers": []
+        },
+        {
+            "_id": "80536d4c-14b1-4262-b4d2-672a49a23986",
+            "colId": "6215f2c1-f0b8-4f8d-8029-1265aad3728f",
+            "containerId": "14bf04af-9323-450a-8d65-74c04e31b173",
+            "name": "Listar todos os Eventos",
+            "url": "http://localhost:3001/eventos",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2025-06-16T14:01:51.147Z",
+            "modified": "2025-06-16T14:03:21.690Z",
             "headers": []
         },
         {
@@ -44,6 +63,30 @@
             }
         },
         {
+            "_id": "79e1a005-f095-4d9f-b942-1733945841f7",
+            "colId": "6215f2c1-f0b8-4f8d-8029-1265aad3728f",
+            "containerId": "14bf04af-9323-450a-8d65-74c04e31b173",
+            "name": "Listar por ID",
+            "url": "http://localhost:3001/eventos/1",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2025-06-16T14:01:51.148Z",
+            "modified": "2025-06-16T14:03:06.663Z",
+            "headers": []
+        },
+        {
+            "_id": "ad51cb47-530c-4707-b92d-2beca0a927e3",
+            "colId": "6215f2c1-f0b8-4f8d-8029-1265aad3728f",
+            "containerId": "14bf04af-9323-450a-8d65-74c04e31b173",
+            "name": "Listar Eventos por Area",
+            "url": "http://localhost:3001/eventos/area/2",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2025-06-16T14:10:16.049Z",
+            "modified": "2025-06-16T14:10:51.489Z",
+            "headers": []
+        },
+        {
             "_id": "73094a98-5b26-45d0-831d-a10d6b6d4831",
             "colId": "6215f2c1-f0b8-4f8d-8029-1265aad3728f",
             "containerId": "74c7c5ca-6584-49a3-8af8-65758b47c1bc",
@@ -61,6 +104,30 @@
             }
         },
         {
+            "_id": "a12353ea-1fb9-4d10-974b-a11dbb7cc104",
+            "colId": "6215f2c1-f0b8-4f8d-8029-1265aad3728f",
+            "containerId": "14bf04af-9323-450a-8d65-74c04e31b173",
+            "name": "Lista pelo filtro cursos e tem paginação",
+            "url": "http://localhost:3001/eventos/curso/2?limit=3&offset=0",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2025-06-16T14:01:51.149Z",
+            "modified": "2025-06-16T14:05:27.117Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "limit",
+                    "value": "3",
+                    "isPath": false
+                },
+                {
+                    "name": "offset",
+                    "value": "0",
+                    "isPath": false
+                }
+            ]
+        },
+        {
             "_id": "91d4aa9f-bfa8-4148-a741-d69752660bc0",
             "colId": "6215f2c1-f0b8-4f8d-8029-1265aad3728f",
             "containerId": "74c7c5ca-6584-49a3-8af8-65758b47c1bc",
@@ -71,7 +138,19 @@
             "created": "2025-06-16T13:23:23.325Z",
             "modified": "2025-06-16T13:52:46.140Z",
             "headers": []
+        },
+        {
+            "_id": "d13e76cb-1b1d-4d9b-b180-e55df8f507f1",
+            "colId": "6215f2c1-f0b8-4f8d-8029-1265aad3728f",
+            "containerId": "14bf04af-9323-450a-8d65-74c04e31b173",
+            "name": "(Futuro) Busca Filtro Semana",
+            "url": "http://localhost:3001/usuario/8",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2025-06-16T14:01:51.150Z",
+            "modified": "2025-06-16T14:01:51.147Z",
+            "headers": []
         }
     ],
-    "ref": "0Dkl6u_zd3NwznXFFqkXZBLDLb67LjyMht0akSBh1XvfRcEPwPiN9dKUoIGe7I7e513ZRklhj_1xy7IkhIlWtQ"
+    "ref": "0Dkl6u_zd3NwznXFFqkXZHZ_kmY8JRBq7vKpbsAJUktTLGamsckM5hfYyJpNzFDEgGiAz3ZeogvoRN65nnQKuQ"
 }

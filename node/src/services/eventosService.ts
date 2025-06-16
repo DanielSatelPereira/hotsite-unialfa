@@ -1,4 +1,3 @@
-// src/services/eventosService.ts
 import knex from '../database/knex';
 
 export async function buscarPorId(id: number) {
@@ -27,6 +26,7 @@ export async function listarPorCurso(idCurso: number, limit = 10, offset = 0) {
             .join('usuarios as u', 'e.idUsuarios', 'u.id')
             .select('e.*', 'u.nome as nome_organizador')
             .where('e.idCurso', idCurso)
+            .andWhere('e.visibilidade', 'publico')
             .orderBy([{ column: 'e.data', order: 'desc' }, { column: 'e.hora', order: 'desc' }])
             .limit(limit)
             .offset(offset);

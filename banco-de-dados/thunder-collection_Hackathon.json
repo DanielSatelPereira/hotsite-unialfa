@@ -1,0 +1,77 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Hackathon",
+    "collectionId": "6215f2c1-f0b8-4f8d-8029-1265aad3728f",
+    "dateExported": "2025-06-16T13:54:00.822Z",
+    "version": "1.2",
+    "folders": [
+        {
+            "_id": "74c7c5ca-6584-49a3-8af8-65758b47c1bc",
+            "name": "Rotas Usuários",
+            "containerId": "",
+            "created": "2025-06-16T13:22:38.441Z",
+            "sortNum": 10000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "9d3dce5b-4225-4de3-9eed-640b54bb863d",
+            "colId": "6215f2c1-f0b8-4f8d-8029-1265aad3728f",
+            "containerId": "74c7c5ca-6584-49a3-8af8-65758b47c1bc",
+            "name": "Listar",
+            "url": "http://localhost:3001/usuario",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2025-06-16T13:23:02.472Z",
+            "modified": "2025-06-16T13:34:49.072Z",
+            "headers": []
+        },
+        {
+            "_id": "46f28fcc-0f7f-4955-a36d-841f913e26b7",
+            "colId": "6215f2c1-f0b8-4f8d-8029-1265aad3728f",
+            "containerId": "74c7c5ca-6584-49a3-8af8-65758b47c1bc",
+            "name": "Criar",
+            "url": "http://localhost:3001/usuario",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2025-06-16T13:23:08.197Z",
+            "modified": "2025-06-16T13:45:10.887Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"nome\": \"Daniel\",\r\n  \"email\": \"daniel@teste.com\",\r\n  \"senha\": \"123456\"\r\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "73094a98-5b26-45d0-831d-a10d6b6d4831",
+            "colId": "6215f2c1-f0b8-4f8d-8029-1265aad3728f",
+            "containerId": "74c7c5ca-6584-49a3-8af8-65758b47c1bc",
+            "name": "Atualizar",
+            "url": "http://localhost:3001/usuario/1",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2025-06-16T13:23:16.581Z",
+            "modified": "2025-06-16T13:47:57.711Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"ra\": \"001\",\r\n  \"nome\": \"Ana Souza\",\r\n  \"email\": \"Ana123@gmail.com\",\r\n  \"senha\": \"novaSenha123\"\r\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "91d4aa9f-bfa8-4148-a741-d69752660bc0",
+            "colId": "6215f2c1-f0b8-4f8d-8029-1265aad3728f",
+            "containerId": "74c7c5ca-6584-49a3-8af8-65758b47c1bc",
+            "name": "Deletar",
+            "url": "http://localhost:3001/usuario/8",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2025-06-16T13:23:23.325Z",
+            "modified": "2025-06-16T13:52:46.140Z",
+            "headers": []
+        }
+    ],
+    "ref": "0Dkl6u_zd3NwznXFFqkXZBLDLb67LjyMht0akSBh1XvfRcEPwPiN9dKUoIGe7I7e513ZRklhj_1xy7IkhIlWtQ"
+}

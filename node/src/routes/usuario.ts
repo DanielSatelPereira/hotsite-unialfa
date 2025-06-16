@@ -1,148 +1,128 @@
-import {Router} from 'express'
-import knex from '../database/knex'
-import { z } from 'zod'
-import { hash } from 'bcrypt'
+import { Router } from 'express';
+import { z } from 'zod';
+import {
+    listarUsuarios,
+    cadastrarUsuario,
+    atualizarUsuario,
+    deletarUsuario
+} from '../services/usuarioService';
+import knex from '../database/knex';
+import { hash } from 'bcrypt';
 
-const router = Router()
+const router = Router();
+const SALT_ROUNDS = 8;
 
-router.get('/', (req,res) => {
-    knex('usuarios')
-        .then((resposta) => {
-            res.json({usuarios:resposta})
-        })
-})
+// Tipos de dados
+interface IUsuarioCreate {
+    nome: string;
+    email: string;
+    senha: string;
+}
 
+// Listar todos os usuários
+router.get('/', async (_, res) => {
+    try {
+        const usuarios = await listarUsuarios();
+        return res.json({ usuarios });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ mensagem: 'Erro ao listar usuários' });
+    }
+});
+
+// Cadastrar novo usuário
 router.post('/', async (req, res) => {
-
-    try {
-
-        const registerBodySchema = z.object({
-            nome: z.string(),
-            email: z.string().email(),
-            senha: z.string().min (6),
-        })
-
-        const objSalvar = registerBodySchema.parse(
-            req.body
-        )
-
-        const existeEmail = await knex('usuarios')
-            .where({ email: objSalvar.email })
-            .first()
-
-        if (existeEmail) {
-            res.status(409).json({ mensagem: 'E-mail já cadastrado' })
-            return
-        }
-
-        objSalvar.senha = await hash(objSalvar.senha, 8)
-
-        const id_usuario = await knex('usuarios').insert(objSalvar)
-
-        const usuarios = await knex('usuarios').where({id: id_usuario[0]})
-
-        res.json({ usuarios: usuarios})
-
-    } catch (error) {
-        
-        if (error instanceof z.ZodError) {
-                res.status(400).json({
-                mensagem: 'Os dados inseridos são inválidos',
-                erros: error.errors
-            })
-            return 
-        }
-
-        console.error(error)
-        res.status(500).json({ mensagem: 'Não foi possível realizar o cadastro' })
-        return
-    }
-})
-
-router.put('/', async (req, res) => {
-
-    let updateBodySchema = z.object({
-        id: z.number(),
-        nome: z.string(),
+    const schema = z.object({
+        nome: z.string().min(3),
         email: z.string().email(),
-        senha: z.string().min (6)
-    })
+        senha: z.string().min(6)
+    });
 
     try {
-        const objAlterar = updateBodySchema.parse(req.body);
+        const data = schema.parse(req.body);
+        const existente = await knex('usuarios').where({ email: data.email }).first();
 
-        const usuario = await knex('usuarios')
-            .where({ id: objAlterar.id })
-            .first()
-
-        if (!usuario) {
-            res.status(404).json({ mensagem: 'Palestrante não encontrado' })
-            return
+        if (existente) {
+            return res.status(409).json({ mensagem: 'E-mail já cadastrado' });
         }
 
-        if (usuario.tipo !== 2) {
-            res.status(403).json({ mensagem: 'Palestrante não encontrado' })
-            return
-        }
+        const novoUsuario = await cadastrarUsuario({
+            ...data,
+            senha: await hash(data.senha, SALT_ROUNDS)
+        });
+        return res.status(201).json({ usuario: novoUsuario });
 
-        if (objAlterar.senha) {
-            objAlterar.senha = await hash(objAlterar.senha, 8);
-        }
-
-        await knex('usuarios')
-            .where({ id: objAlterar.id })
-            .update(objAlterar);
-
-        const palestranteAtualizado = await knex('usuarios')
-            .where({ id: objAlterar.id });
-
-        res.json({ usuario: palestranteAtualizado });
     } catch (error) {
-        
         if (error instanceof z.ZodError) {
-                res.status(400).json({
-                mensagem: 'Os dados inseridos são inválidos',
+            return res.status(400).json({
+                mensagem: 'Dados inválidos',
                 erros: error.errors
-            })
-            return 
+            });
         }
-
-        res.status(400).json({ error: "Erro ao atualizar palestrante" });
+        console.error(error);
+        return res.status(500).json({ mensagem: 'Erro ao cadastrar usuário' });
     }
+});
 
-})
-
-router.delete('/', async (req, res) => {
-
-    const deleteBodySchema = z.object({id: z.number()})
+// Atualizar usuário
+router.put('/:id', async (req, res) => {
+    const schema = z.object({
+        nome: z.string().min(3).optional(),
+        email: z.string().email().optional(),
+        senha: z.string().min(6).optional()
+    });
 
     try {
-        const {id} = deleteBodySchema.parse(req.body)
-
-        const usuario = await knex('usuarios')
-            .where({ id })
-            .first()
-
-        if (!usuario) {
-            res.status(404).json({ mensagem: 'Palestrante não encontrado' })
-            return
+        const id = parseInt(req.params.id);
+        if (isNaN(id)) {
+            return res.status(400).json({ mensagem: 'ID inválido' });
         }
 
-        if (usuario.tipo !== 2) {
-            res.status(403).json({ mensagem: 'Palestrante não encontrado' })
-            return
+        const data = schema.parse(req.body);
+        const updateData: any = { id };
+
+        if (data.nome) updateData.nome = data.nome;
+        if (data.email) updateData.email = data.email;
+        if (data.senha) updateData.senha = await hash(data.senha, SALT_ROUNDS);
+
+        const atualizado = await atualizarUsuario(updateData);
+        if (!atualizado) {
+            return res.status(404).json({ mensagem: 'Usuário não encontrado' });
         }
 
-        await knex('usuarios')
-            .where({id})
-            .del()
-
-        res.json({ mensagem: 'Palestrante deletado com sucesso!' })
+        const { senha: _, ...usuarioSemSenha } = atualizado;
+        return res.json({ usuario: usuarioSemSenha });
 
     } catch (error) {
-        res.status(400).json({ erro: 'Erro ao deletar' })
-        return
+        if (error instanceof z.ZodError) {
+            return res.status(400).json({
+                mensagem: 'Dados inválidos',
+                erros: error.errors
+            });
+        }
+        console.error(error);
+        return res.status(500).json({ mensagem: 'Erro ao atualizar usuário' });
     }
-})
+});
 
-export default router
+// Deletar usuário
+router.delete('/:id', async (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        if (isNaN(id)) {
+            return res.status(400).json({ mensagem: 'ID inválido' });
+        }
+
+        const deletado = await deletarUsuario(id);
+        if (!deletado) {
+            return res.status(404).json({ mensagem: 'Usuário não encontrado' });
+        }
+
+        return res.json({ mensagem: 'Usuário deletado com sucesso' });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ mensagem: 'Erro ao deletar usuário' });
+    }
+});
+
+export default router;

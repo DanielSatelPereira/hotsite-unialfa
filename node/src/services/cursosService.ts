@@ -4,7 +4,7 @@ import knex from '../database/knex';
 interface Curso {
     id: number;
     nome: string;
-    // adicione outros campos se existirem, como descrição, etc.
+    // adicione outros campos quando existirem, como descrição, etc.
 }
 
 export async function buscarPorId(id: number): Promise<Curso | null> {

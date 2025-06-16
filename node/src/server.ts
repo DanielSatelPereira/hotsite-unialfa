@@ -8,27 +8,28 @@ import siteRouter from './routes/site';
 const app = express();
 const PORT = 3001;
 
-// Middlewares globais
+// Middlewares
 app.use(cors({
-    origin: 'http://localhost:80', // Ou o URL do seu PHP
+    origin: ['http://localhost', 'http://localhost:80', 'http://localhost:3001'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type']
 }));
 app.use(express.json());
 
-// Rotas da API com prefixo /api
+// Rotas com prefixo /api
 app.use('/api/usuarios', usuarioRouter);
 app.use('/api/inscricoes', inscricaoRouter);
 app.use('/api/site', siteRouter);
 
-// Rotas existentes (sem prefixo /api)
+// Outras rotas 
 app.use(routes);
 
-// Rota raiz (opcional)
+// Rota raiz (debug/teste)
 app.get('/', (_, res) => {
     res.send('API do Projeto UniAlfa - UniAlfa Events');
 });
 
+// Inicialização
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });

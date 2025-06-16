@@ -5,6 +5,7 @@ import usuario from './usuario';
 import certificados from './certificados';
 import session from './session';
 
+
 const routes = Router();
 
 routes.use('/cursos', cursos);

@@ -7,10 +7,15 @@ const router = Router();
 router.get('/', async (_, res) => {
     try {
         const eventos = await EventoService.listarTodos();
-        res.json(eventos);
+        res.json({
+            sucesso: true,
+            dados: eventos
+        });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ mensagem: 'Erro ao listar eventos' });
+        res.status(500).json({
+            sucesso: false,
+            erro: 'Falha ao listar eventos'
+        });
     }
 });
 

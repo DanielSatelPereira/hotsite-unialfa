@@ -1,14 +1,12 @@
 <?php
 $pageTitle = "Institucional - UniALFA | αEventos";
-require_once __DIR__ . '/../../backend/php-frontend/config/constants.php';
-require_once __DIR__ . '/../../backend/php-frontend/includes/header.php';
+require_once __DIR__ . '/../../includes/header.php';
 ?>
 
 <div class="container py-5">
     <!-- Cabeçalho -->
     <div class="text-center mb-5">
-        <img src="<?= BASE_URL ?>/frontend/assets/img/unialfa-logo.png" alt="Logo UniALFA" class="img-fluid mb-4"
-            style="max-height: 80px">
+        <img src="<?= IMG_URL ?>/unialfa-logo.png" alt="Logo UniALFA" class="img-fluid mb-4" style="max-height: 80px">
         <h1 class="display-5 fw-bold text-primary">
             <i class="fas fa-university me-2"></i>Sobre a UniALFA
         </h1>
@@ -23,8 +21,8 @@ require_once __DIR__ . '/../../backend/php-frontend/includes/header.php';
         <div class="card-body">
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-4 mb-lg-0">
-                    <img src="<?= BASE_URL ?>/frontend/assets/img/unialfa-campus.jpg" class="img-fluid rounded shadow"
-                        alt="Campus UniALFA" loading="lazy">
+                    <img src="<?= IMG_URL ?>/unialfa-campus.jpg" class="img-fluid rounded shadow" alt="Campus UniALFA"
+                        loading="lazy">
                 </div>
                 <div class="col-lg-6">
                     <p class="mb-4">Fundada em 1992, a UniALFA (Centro Universitário UniAlfa) se consolidou como uma das
@@ -87,10 +85,11 @@ require_once __DIR__ . '/../../backend/php-frontend/includes/header.php';
                         <span class="badge bg-success">Node.js</span>
                         <span class="badge bg-warning text-dark">Java</span>
                         <span class="badge bg-info">MySQL</span>
+                        <span class="badge bg-dark">TypeScript</span>
                     </div>
 
                     <div class="mt-4">
-                        <a href="<?= BASE_URL ?>/frontend/pages/sobre.php" class="btn btn-outline-success">
+                        <a href="<?= BASE_URL ?>/php/views/info/sobre.php" class="btn btn-outline-success">
                             <i class="fas fa-users me-2"></i>Conheça a equipe
                         </a>
                     </div>
@@ -103,19 +102,42 @@ require_once __DIR__ . '/../../backend/php-frontend/includes/header.php';
     <div class="text-center">
         <h4 class="mb-4">Conheça mais sobre a UniALFA</h4>
         <div class="d-flex flex-wrap justify-content-center gap-3">
-            <a href="https://www.alfaumuarama.edu.br/fau/index.php" target="_blank" class="btn btn-primary px-4">
+            <a href="https://www.alfaumuarama.edu.br/fau/index.php" target="_blank" class="btn btn-primary px-4"
+                rel="noopener noreferrer">
                 <i class="fas fa-globe me-2"></i>Site Oficial
             </a>
-            <a href="https://www.instagram.com/unialfaumuarama/" target="_blank" class="btn btn-instagram px-4"
-                style="background: #E1306C; color: white;">
+            <a href="https://www.instagram.com/unialfaumuarama/" target="_blank" class="btn px-4 text-white"
+                style="background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);"
+                rel="noopener noreferrer">
                 <i class="fab fa-instagram me-2"></i>Instagram
             </a>
-            <a href="https://www.facebook.com/unialfaumuarama/" target="_blank" class="btn btn-facebook px-4"
-                style="background: #3b5998; color: white;">
+            <a href="https://www.facebook.com/unialfaumuarama/" target="_blank" class="btn px-4 text-white"
+                style="background: #1877f2;" rel="noopener noreferrer">
                 <i class="fab fa-facebook-f me-2"></i>Facebook
             </a>
         </div>
     </div>
 </div>
 
-<?php require_once __DIR__ . '/../../backend/php-frontend/includes/footer.php'; ?>
+<?php require_once __DIR__ . '/../../includes/footer.php'; ?>
+
+<style>
+/* Efeito hover nos cards */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Melhoria nos botões de redes sociais */
+.btn-instagram:hover {
+    opacity: 0.9;
+}
+
+.btn-facebook:hover {
+    opacity: 0.9;
+}
+</style>

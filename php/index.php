@@ -1,33 +1,37 @@
 <?php
+// php/index.php
 
+// 1. Configuração inicial
 session_start();
-$usuarioLogado = isset($_SESSION['usuario']);
 
-// Carrega configurações
-require_once __DIR__ . '/config/config.php';
+// 2. Inclui o ApiHelper primeiro
+require './api/ApiHelper.php';
+
+// 3. Agora pode usar a classe
+//$eventos = ApiHelper::chamarAPI('eventos/curso/1?limite=4');
 
 // Título da página
 $pageTitle = "Início - αEventos";
 
-// Importações de classes e componentes
-require_once CLASSES_DIR . '/ApiHelper.php';
-require_once INCLUDES_DIR . '/header.php';
-require_once INCLUDES_DIR . '/helpers.php';
+// Importações diretas (caminhos relativos)
+require './api/ApiHelper.php';
+require './public/includes/header.php';
+require '../includes/helpers.php';
 
-// Listagem de eventos por curso (ID do curso, limite de eventos)
-$respPedagogia = ApiHelper::chamarAPI("eventos/area/1?limite=4");
-$respSistemas  = ApiHelper::chamarAPI("eventos/area/2?limite=4");
-$respDireito   = ApiHelper::chamarAPI("eventos/area/3?limite=4");
+// Requisição dos eventos
+//$eventosPedagogia = ApiHelper::chamarAPI('eventos/curso/1?limite=4');
+//$eventosSistemas = ApiHelper::chamarAPI('eventos/curso/2?limite=4');
+//$eventosDireito = ApiHelper::chamarAPI('eventos/curso/3?limite=4');
 ?>
 
 <!-- Carrossel -->
 <div id="carouselEventos" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="<?= IMG_URL ?>/cteste_1.jpg" class="d-block w-100" alt="Banner do Evento">
+            <img src="/assets/img/cteste_1.jpg" class="d-block w-100" alt="Banner do Evento">
         </div>
         <div class="carousel-item">
-            <img src="<?= IMG_URL ?>/cteste_2.jpg" class="d-block w-100" alt="Banner do Evento">
+            <img src="/assets/img/cteste_2.jpg" class="d-block w-100" alt="Banner do Evento">
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselEventos" data-bs-slide="prev">
@@ -43,34 +47,34 @@ $respDireito   = ApiHelper::chamarAPI("eventos/area/3?limite=4");
     <h3 class="mb-4">Eventos por área</h3>
     <div class="row row-cols-2 row-cols-sm-3 row-cols-md-5 g-3">
         <div class="col">
-            <a href="<?= BASE_URL ?>/php/views/eventos/listar.php?id=1" class="text-decoration-none text-dark">
+            <a href="/views/eventos/lista.php?id=1" class="text-decoration-none text-dark">
                 <div class="card text-center h-100">
                     <div class="card-body">
                         <i class="fas fa-chalkboard-teacher fa-2x mb-2 text-primary"></i>
                         <p class="card-text fw-bold">Pedagogia</p>
-                        <small class="text-muted"><?= count($eventosPedagogia) ?> eventos</small>
+                        <small class="text-muted"><?= count($eventosPedagogia['dados'] ?? []) ?> eventos</small>
                     </div>
                 </div>
             </a>
         </div>
         <div class="col">
-            <a href="<?= BASE_URL ?>/php/views/eventos/listar.php?id=2" class="text-decoration-none text-dark">
+            <a href="/views/eventos/lista.php?id=2" class="text-decoration-none text-dark">
                 <div class="card text-center h-100">
                     <div class="card-body">
                         <i class="fas fa-laptop-code fa-2x mb-2 text-success"></i>
                         <p class="card-text fw-bold">Sistemas</p>
-                        <small class="text-muted"><?= count($eventosSistemas) ?> eventos</small>
+                        <small class="text-muted"><?= count($eventosSistemas['dados'] ?? []) ?> eventos</small>
                     </div>
                 </div>
             </a>
         </div>
         <div class="col">
-            <a href="<?= BASE_URL ?>/php/views/eventos/listar.php?id=3" class="text-decoration-none text-dark">
+            <a href="/views/eventos/lista.php?id=3" class="text-decoration-none text-dark">
                 <div class="card text-center h-100">
                     <div class="card-body">
                         <i class="fas fa-balance-scale fa-2x mb-2 text-danger"></i>
                         <p class="card-text fw-bold">Direito</p>
-                        <small class="text-muted"><?= count($eventosDireito) ?> eventos</small>
+                        <small class="text-muted"><?= count($eventosDireito['dados'] ?? []) ?> eventos</small>
                     </div>
                 </div>
             </a>
@@ -80,9 +84,9 @@ $respDireito   = ApiHelper::chamarAPI("eventos/area/3?limite=4");
 
 <!-- Listagem dinâmica dos eventos -->
 <?php
-$eventosPedagogia = $respPedagogia['sucesso'] ? $respPedagogia['data'] : [];
-$eventosSistemas  = $respSistemas['sucesso']  ? $respSistemas['data']  : [];
-$eventosDireito   = $respDireito['sucesso']   ? $respDireito['data']   : [];
+renderEventosPorArea('Pedagogia', $eventosPedagogia['dados'] ?? []);
+renderEventosPorArea('Sistemas para Internet', $eventosSistemas['dados'] ?? []);
+renderEventosPorArea('Direito', $eventosDireito['dados'] ?? []);
 
 // Rodapé
-require_once INCLUDES_DIR . '/footer.php';
+require './public/includes/footer.php';

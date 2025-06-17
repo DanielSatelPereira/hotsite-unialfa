@@ -1,11 +1,39 @@
 <?php
+session_start();
 
 $pageTitle = "Login - αEventos";
-
+require './api/ApiHelper.php';
 include './public/includes/header.php';
-?>
 
-<!-- Conteúdo principal da página -->
+$api = new ApiHelper();
+$mensagem = "";
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
+
+    $dadosLogin = [
+        'email' => $email,
+        'senha' => $senha
+    ];
+
+    $resultado = $api->post('session', $dadosLogin);
+
+    if (isset($resultado['message']) && $resultado['message'] === 'Usuário logado!' && isset($resultado['usuario'])) {
+        // Login OK → Salvar os dados na sessão
+        $_SESSION['usuario_id'] = $resultado['usuario']['id'];
+        $_SESSION['usuario_ra'] = $resultado['usuario']['ra'];
+        $_SESSION['usuario_nome'] = $resultado['usuario']['nome'];
+        $_SESSION['usuario_email'] = $resultado['usuario']['email'];
+        $_SESSION['usuario_tipo'] = $resultado['usuario']['tipo'];
+
+        $mensagem = "Login bem-sucedido! Sessão criada.";
+        // Aqui você pode redirecionar depois, mas vou deixar só a mensagem pra você testar.
+    } else {
+        $mensagem = "Falha no login: " . ($resultado['message'] ?? 'Erro inesperado ao autenticar.');
+    }
+}
+?>
 
 <main class="login-container">
     <div class="container">
@@ -16,23 +44,19 @@ include './public/includes/header.php';
                         <h3><i class="fas fa-user-graduate me-2"></i>Acesso Acadêmico</h3>
                     </div>
                     <div class="card-body login-body">
-                        <!-- Mensagem de erro -->
-                        <div class="alert alert-danger login-alert alert-dismissible fade show d-none">
-                            Mensagem de erro aqui
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
+
+                        <?php if (!empty($mensagem)): ?>
+                        <div class="alert alert-info"><?= htmlspecialchars($mensagem) ?></div>
+                        <?php endif; ?>
 
                         <form method="POST" class="needs-validation" novalidate>
-                            <!-- Campos do formulário (mantidos iguais) -->
                             <div class="login-input-group">
                                 <label for="email" class="form-label">E-mail Institucional</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                     <input type="email" class="form-control" id="email" name="email"
                                         placeholder="seu.email@unialfa.edu.br" required>
-                                    <div class="invalid-feedback">
-                                        Por favor, insira um e-mail válido.
-                                    </div>
+                                    <div class="invalid-feedback">Por favor, insira um e-mail válido.</div>
                                 </div>
                             </div>
 
@@ -44,18 +68,14 @@ include './public/includes/header.php';
                                     <button class="btn btn-outline-secondary toggle-password" type="button">
                                         <i class="fas fa-eye"></i>
                                     </button>
-                                    <div class="invalid-feedback">
-                                        Por favor, insira sua senha.
-                                    </div>
+                                    <div class="invalid-feedback">Por favor, insira sua senha.</div>
                                 </div>
                             </div>
 
-                            <!-- Grupo de botões atualizado -->
                             <div class="button-group mt-4">
                                 <button type="submit" class="btn btn-confirm btn-lg py-2">
                                     <i class="fas fa-sign-in-alt me-2"></i>Confirmar Acesso
                                 </button>
-
                                 <a href="cadastro.php" class="btn btn-register btn-lg py-2">
                                     <i class="fas fa-user-plus me-2"></i>Criar Nova Conta
                                 </a>
@@ -66,6 +86,7 @@ include './public/includes/header.php';
                                 </p>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -73,7 +94,6 @@ include './public/includes/header.php';
     </div>
 </main>
 
-<!-- Scripts (mantidos iguais) -->
 <script>
 // Mostrar/esconder senha
 document.querySelectorAll('.toggle-password').forEach(button => {

@@ -11,16 +11,12 @@ router.post("/", async (req, res) => {
         const registerBodySchema = z.object({
             email: z.string().email(),
             senha: z.string(),
-            tipo: z.coerce.number().int()
         })
 
         const objSalvar = registerBodySchema.parse(req.body)
 
         const user = await knex("usuarios")
-            .where({
-                email: objSalvar.email,
-                tipo: objSalvar.tipo
-            })
+            .where({ email: objSalvar.email, })
             .first()
 
         if (!user) {
@@ -46,7 +42,14 @@ router.post("/", async (req, res) => {
         }
 
         res.json({
-            message: "Usuário logado!"
+            message: "Usuário logado!",
+            usuario: {
+                id: user.id,
+                ra: user.ra,
+                nome: user.nome,
+                email: user.email,
+                tipo: user.tipo
+            }
         })
 
     } catch {

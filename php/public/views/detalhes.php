@@ -1,4 +1,5 @@
 <?php
+session_start();
 $pageTitle = 'Detalhes do Evento - αEventos';
 include '../includes/header.php';
 require '../../api/ApiHelper.php';
@@ -13,7 +14,7 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 $eventoId = intval($_GET['id']);
 $api = new ApiHelper();
 
-// Faz o GET para a API buscando o evento específico
+// Buscar o evento na API
 $evento = $api->get('eventos/' . $eventoId);
 
 if (!$evento) {
@@ -21,19 +22,32 @@ if (!$evento) {
     include '../includes/footer.php';
     exit;
 }
+
+// Verificar se o usuário está logado e já inscrito
+$usuarioLogado = isset($_SESSION['usuario_ra']) && $_SESSION['usuario_tipo'] == 2;
+$jaInscrito = false;
+
+if ($usuarioLogado) {
+    $inscricoesUsuario = $api->get('inscricoes/usuario/' . $_SESSION['usuario_ra']);
+    if ($inscricoesUsuario && is_array($inscricoesUsuario)) {
+        foreach ($inscricoesUsuario as $inscricao) {
+            if ($inscricao['titulo'] == $evento['titulo']) {
+                $jaInscrito = true;
+                break;
+            }
+        }
+    }
+}
 ?>
 
 <div class="container py-5">
     <div class="row">
         <div class="col-md-8">
-            <!-- Imagem de destaque -->
             <img src="../assets/img/eventos/<?= htmlspecialchars($evento['imagem'] ?? 'default.jpg') ?>"
                 alt="<?= htmlspecialchars($evento['titulo']) ?>" class="img-fluid rounded mb-4 shadow-sm">
 
-            <!-- Título do Evento -->
             <h2 class="mb-3 text-primary"><?= htmlspecialchars($evento['titulo']) ?></h2>
 
-            <!-- Informações principais -->
             <ul class="list-unstyled mb-4">
                 <li><i class="fas fa-calendar-day me-2 text-warning"></i> Data: <?= htmlspecialchars($evento['data']) ?>
                 </li>
@@ -43,17 +57,27 @@ if (!$evento) {
                     <?= htmlspecialchars($evento['local'] ?? 'A definir') ?></li>
             </ul>
 
-            <!-- Descrição -->
             <p><?= nl2br(htmlspecialchars($evento['descricao'])) ?></p>
 
             <!-- Botão de Inscrição -->
-            <a href="../inscricoes/inscrever.php?id=<?= urlencode($evento['id']) ?>" class="btn text-white"
+            <?php if ($usuarioLogado): ?>
+            <?php if ($jaInscrito): ?>
+            <button class="btn btn-secondary" disabled>
+                <i class="fas fa-check"></i> Você já está inscrito
+            </button>
+            <?php else: ?>
+            <a href="inscrever.php?id=<?= urlencode($evento['id']) ?>" class="btn text-white"
                 style="background-color: #0511F2;">
                 <i class="fas fa-check-circle me-1"></i> Inscrever-se
             </a>
+            <?php endif; ?>
+            <?php else: ?>
+            <a href="../../login.php" class="btn btn-warning text-dark">
+                <i class="fas fa-sign-in-alt me-1"></i> Faça login para se inscrever
+            </a>
+            <?php endif; ?>
         </div>
 
-        <!-- Informações Extras -->
         <div class="col-md-4">
             <div class="card shadow-sm mb-4">
                 <div class="card-header text-white" style="background-color: #0511F2;">

@@ -1,6 +1,23 @@
 <?php
+session_start();
+
 $pageTitle = "Início - αEventos";
+require './api/ApiHelper.php';
+require './public/includes/helpers.php';
 include './public/includes/header.php';
+
+$api = new ApiHelper();
+
+// Exibir mensagem de sucesso (exemplo: depois da inscrição)
+if (isset($_SESSION['mensagem_sucesso'])) {
+    echo '<div class="alert alert-success text-center">' . htmlspecialchars($_SESSION['mensagem_sucesso']) . '</div>';
+    unset($_SESSION['mensagem_sucesso']);
+}
+
+// Buscar os eventos por área
+$pedagogia = $api->get('eventos/area/' . urlencode('Pedagogia'));
+$sistemas = $api->get('eventos/area/' . urlencode('Sistemas para Internet'));
+$direito = $api->get('eventos/area/' . urlencode('Direito'));
 ?>
 
 <!-- Carrossel -->
@@ -21,52 +38,20 @@ include './public/includes/header.php';
     </button>
 </div>
 
-<!-- Seção de Eventos por Área -->
-<div class="container py-5">
-    <h3 class="mb-4 text-primary">Eventos por área</h3>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+<!-- Eventos por Área -->
+<?php
+if ($pedagogia && is_array($pedagogia)) {
+    renderEventosPorArea('Eventos de Pedagogia', $pedagogia);
+}
 
-        <!-- Pedagogia -->
-        <div class="col">
-            <a href="./public/views/eventos.php?area=Pedagogia" class="text-decoration-none text-dark">
-                <div class="card text-center h-100">
-                    <div class="card-body">
-                        <i class="fas fa-chalkboard-teacher fa-2x mb-2" style="color: #FFA500;"></i>
-                        <p class="card-text fw-bold">Pedagogia</p>
-                        <small class="text-muted">5 eventos</small>
-                    </div>
-                </div>
-            </a>
-        </div>
+if ($sistemas && is_array($sistemas)) {
+    renderEventosPorArea('Eventos de Sistemas para Internet', $sistemas);
+}
 
-        <!-- Sistemas -->
-        <div class="col">
-            <a href="./public/views/eventos.php?area=Sistemas" class="text-decoration-none text-dark">
-                <div class="card text-center h-100">
-                    <div class="card-body">
-                        <i class="fas fa-laptop-code fa-2x mb-2" style="color: #FFA500;"></i>
-                        <p class="card-text fw-bold">Sistemas</p>
-                        <small class="text-muted">3 eventos</small>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <!-- Direito -->
-        <div class="col">
-            <a href="./public/views/eventos.php?area=Direito" class="text-decoration-none text-dark">
-                <div class="card text-center h-100">
-                    <div class="card-body">
-                        <i class="fas fa-balance-scale fa-2x mb-2" style="color: #FFA500;"></i>
-                        <p class="card-text fw-bold">Direito</p>
-                        <small class="text-muted">7 eventos</small>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-    </div>
-</div>
+if ($direito && is_array($direito)) {
+    renderEventosPorArea('Eventos de Direito', $direito);
+}
+?>
 
 <?php
 include './public/includes/footer.php';

@@ -1,38 +1,35 @@
+<?php
+
 class ApiHelper
 {
-private static $apiBaseUrl = 'http://localhost:3001/api';
+    private $baseUrl = 'http://localhost:3001/';
 
-public static function chamarAPI($endpoint, $params = [], $method = 'GET')
-{
-$url = self::$apiBaseUrl . '/' . ltrim($endpoint, '/');
+    public function get($endpoint)
+    {
+        $url = $this->baseUrl . ltrim($endpoint, '/');
 
-$options = [
-'http' => [
-'method' => $method,
-'header' => "Content-type: application/json\r\n",
-'timeout' => 15
-]
-];
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-if ($method === 'POST') {
-$options['http']['content'] = json_encode($params);
-} elseif ($method === 'GET' && !empty($params)) {
-$url .= '?' . http_build_query($params);
-}
+        $response = curl_exec($ch);
+        curl_close($ch);
 
-try {
-$context = stream_context_create($options);
-$response = file_get_contents($url, false, $context);
+        return json_decode($response, true);
+    }
 
-return [
-'sucesso' => true,
-'dados' => json_decode($response, true)
-];
-} catch (Exception $e) {
-return [
-'sucesso' => false,
-'erro' => 'Serviço indisponível'
-];
-}
-}
+    public function post($endpoint, $data)
+    {
+        $url = $this->baseUrl . ltrim($endpoint, '/');
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        return json_decode($response, true);
+    }
 }

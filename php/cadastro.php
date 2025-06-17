@@ -1,6 +1,66 @@
 <?php
 $pageTitle = "Cadastro - αEventos";
 include './public/includes/header.php';
+require './api/ApiHelper.php';
+
+$api = new ApiHelper();
+$mensagem = "";
+
+// Quando o formulário for enviado
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nome = $_POST['nome'];
+    $ra = $_POST['ra'];
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
+    $confirmarSenha = $_POST['confirmar_senha'];
+    $curso = $_POST['curso'];
+
+    // Validação simples das senhas
+    if ($senha !== $confirmarSenha) {
+        $mensagem = "As senhas não coincidem!";
+    } else {
+        // Verificar se o RA existe na tabela usuarios
+        $usuarios = $api->get('usuario');
+
+        $raEncontrado = false;
+        $usuarioJaCadastrado = false;
+
+        if ($usuarios && is_array($usuarios)) {
+            foreach ($usuarios as $usuario) {
+                if ($usuario['ra'] == $ra) {
+                    $raEncontrado = true;
+                    if (!empty($usuario['senha'])) {
+                        $usuarioJaCadastrado = true;
+                    }
+                    break;
+                }
+            }
+        }
+
+        if (!$raEncontrado) {
+            $mensagem = "RA não encontrado no sistema. Fale com a coordenação.";
+        } elseif ($usuarioJaCadastrado) {
+            $mensagem = "Este RA já possui cadastro. Faça login ou recupere sua senha.";
+        } else {
+            // Faz o cadastro via API (atualiza os dados do usuário no banco)
+            $data = [
+                'ra' => intval($ra),
+                'nome' => $nome,
+                'email' => $email,
+                'senha' => $senha
+            ];
+
+            $resultado = $api->post('usuario', $data);
+
+            if ($resultado && isset($resultado['sucesso']) && $resultado['sucesso'] === true) {
+                header('Location: login.php');
+                exit;
+            } else {
+                $mensagem = "Erro ao realizar o cadastro. Tente novamente.";
+            }
+        }
+    }
+}
 ?>
 
 <main class="register-container">
@@ -12,7 +72,13 @@ include './public/includes/header.php';
                         <h3><i class="fas fa-user-plus me-2"></i>Criar Nova Conta</h3>
                     </div>
                     <div class="card-body login-body">
+
+                        <?php if (!empty($mensagem)): ?>
+                        <div class="alert alert-danger"><?= htmlspecialchars($mensagem) ?></div>
+                        <?php endif; ?>
+
                         <form method="POST" class="needs-validation" novalidate>
+
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="login-input-group">
@@ -28,7 +94,7 @@ include './public/includes/header.php';
                                         <label for="ra" class="form-label">RA (Registro Acadêmico)</label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-id-card"></i></span>
-                                            <input type="text" class="form-control" id="ra" name="ra">
+                                            <input type="text" class="form-control" id="ra" name="ra" required>
                                         </div>
                                     </div>
                                 </div>
@@ -79,12 +145,13 @@ include './public/includes/header.php';
                                 <button type="submit" class="btn btn-confirm btn-lg py-2">
                                     <i class="fas fa-check-circle me-2"></i>Confirmar Cadastro
                                 </button>
-
                                 <a href="login.php" class="btn btn-register btn-lg py-2">
                                     <i class="fas fa-sign-in-alt me-2"></i>Já tenho uma conta
                                 </a>
                             </div>
+
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -92,9 +159,8 @@ include './public/includes/header.php';
     </div>
 </main>
 
-<!-- Scripts semelhantes à página de login -->
 <script>
-// Validação do formulário
+// Validação simples de senha
 (() => {
     'use strict'
     const forms = document.querySelectorAll('.needs-validation')
@@ -106,7 +172,6 @@ include './public/includes/header.php';
             }
             form.classList.add('was-validated')
 
-            // Validação adicional para senhas iguais
             const senha = document.getElementById('senha')
             const confirmarSenha = document.getElementById('confirmar_senha')
             if (senha.value !== confirmarSenha.value) {
@@ -118,18 +183,6 @@ include './public/includes/header.php';
         }, false)
     })
 })()
-
-// Validação em tempo real para senhas
-document.getElementById('confirmar_senha').addEventListener('input', function() {
-    const senha = document.getElementById('senha').value
-    if (this.value !== senha) {
-        this.setCustomValidity("As senhas não coincidem")
-        this.classList.add('is-invalid')
-    } else {
-        this.setCustomValidity("")
-        this.classList.remove('is-invalid')
-    }
-})
 </script>
 
 <?php

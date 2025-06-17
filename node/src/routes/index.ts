@@ -1,12 +1,12 @@
 import { Router } from "express"
 import session from "./session"
-import usuarios from "./usuario"
+import usuario from "./usuario"
 import certificados from "./certificados"
 
-const routes  = Router()
+const routes = Router()
 
 routes.use('/session', session)
-routes.use('/usuarios', usuarios)
+routes.use('/usuario', usuario)
 routes.use('/certificados', certificados)
 
 export default routes

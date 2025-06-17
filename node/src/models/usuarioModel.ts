@@ -3,6 +3,7 @@ import { hash } from 'bcrypt'
 
 export interface Usuario {
   id?: number
+  ra: number
   nome: string
   email: string
   senha: string
@@ -22,10 +23,11 @@ export const UsuarioModel = {
     return knex<Usuario>('usuarios').where({ id }).first()
   },
 
-  async inserir(usuario: Usuario) {
-    const senhaHash = await hash(usuario.senha, 8)
-    const [id] = await knex<Usuario>('usuarios').insert({ ...usuario, senha: senhaHash })
-    return id
+  async atualizarPorRa(ra: number, usuario: Partial<Usuario>) {
+    if (usuario.senha) {
+      usuario.senha = await hash(usuario.senha, 8)
+    }
+    return knex<Usuario>('usuarios').where({ ra }).update(usuario)
   },
 
   async atualizar(usuario: Usuario) {

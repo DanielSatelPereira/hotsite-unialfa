@@ -3,41 +3,36 @@ $pageTitle = 'Erro 404 - Página Não Encontrada | αEventos';
 include '../includes/header.php';
 ?>
 
-<div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8 text-center">
-            <!-- Ícone animado -->
-            <div class="mb-4" style="font-size: 5rem;">
-                <i class="fas fa-map-marked-alt text-primary"></i>
-            </div>
+<div class="card-container" style="padding-top: 60px; padding-bottom: 60px;">
+    <div class="card" style="max-width: 600px; text-align: center;">
+        <!-- Ícone de erro -->
+        <div class="error-icon">
+            <i class="fas fa-map-marked-alt" style="color: var(--azul-principal);"></i>
+        </div>
 
-            <!-- Código e título do erro -->
-            <h1 class="display-4 fw-bold mb-3">
-                <span class="text-muted">Erro</span> 404
-            </h1>
-            <h2 class="h4 text-muted mb-4">Página Não Encontrada</h2>
+        <!-- Título do erro -->
+        <h1 style="margin-bottom: 0.5em;">
+            <span style="color: gray;">Erro</span> 404
+        </h1>
+        <h2 style="font-size: 1.2em; color: gray;">Página Não Encontrada</h2>
 
-            <!-- Mensagem principal -->
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-body">
-                    <p class="lead mb-0">A página que você está procurando não foi encontrada.</p>
-                </div>
-            </div>
+        <!-- Mensagem -->
+        <p class="lead">A página que você está procurando não foi encontrada.</p>
 
-            <!-- Ações -->
-            <div class="d-flex justify-content-center gap-3 mt-5">
-                <a href="/" class="btn btn-primary px-4">
-                    <i class="fas fa-home me-2"></i>Página Inicial
-                </a>
-
-                <a href="/login" class="btn btn-outline-primary px-4">
-                    <i class="fas fa-sign-in-alt me-2"></i>Fazer Login
-                </a>
-
-                <a href="/contato" class="btn btn-outline-secondary px-4">
-                    <i class="fas fa-headset me-2"></i>Suporte
-                </a>
-            </div>
+        <!-- Botões -->
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 30px;">
+            <a href="/" class="btn-primary"
+                style="padding: 10px 20px; border-radius: 5px; color: white; text-decoration: none;">
+                <i class="fas fa-home" style="margin-right: 5px;"></i>Página Inicial
+            </a>
+            <a href="/login" class="btn-outline-primary"
+                style="padding: 10px 20px; border-radius: 5px; text-decoration: none;">
+                <i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i>Fazer Login
+            </a>
+            <a href="/contato" class="btn-outline-primary"
+                style="padding: 10px 20px; border-radius: 5px; text-decoration: none;">
+                <i class="fas fa-headset" style="margin-right: 5px;"></i>Suporte
+            </a>
         </div>
     </div>
 </div>

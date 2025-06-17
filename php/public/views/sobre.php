@@ -4,160 +4,97 @@ include '../includes/header.php';
 ?>
 
 <main class="about-container">
-    <div class="container">
+    <div class="container py-5">
+
         <!-- Cabeçalho -->
-        <section class="page-header">
-            <h1><i class="fas fa-lightbulb me-2"></i>Sobre o Projeto</h1>
-            <p class="lead">Desenvolvido durante o <span class="badge bg-primary">Hackathon UniALFA 2023</span></p>
-            <div class="divider"></div>
+        <section class="mb-5">
+            <h1 class="mb-3 text-primary"><i class="fas fa-lightbulb me-2"></i> Sobre o Projeto</h1>
+            <p class="lead">O αEventos é um sistema acadêmico desenvolvido durante o <strong>Hackathon UniALFA
+                    2025</strong>, por alunos para alunos.</p>
+            <p>Nosso objetivo foi criar um portal moderno e intuitivo para divulgação e gerenciamento de eventos
+                acadêmicos.</p>
         </section>
 
-        <!-- Seção Objetivo -->
-        <section class="card info-card">
-            <div class="card-header">
-                <h2 class="h4 mb-0"><i class="fas fa-bullseye me-2"></i>Objetivo</h2>
-            </div>
-            <div class="card-body">
-                <p>O αEventos foi criado para centralizar a divulgação de eventos acadêmicos por área de conhecimento,
-                    proporcionando:</p>
-                <ul>
-                    <li>Acesso unificado a informações de eventos</li>
-                    <li>Interface intuitiva para alunos e professores</li>
-                    <li>Integração com sistemas existentes da UniALFA</li>
-                    <li>Plataforma escalável para futuras expansões</li>
-                </ul>
-            </div>
+        <!-- Objetivo -->
+        <section class="mb-5">
+            <h2 class="h4 mb-3"><i class="fas fa-bullseye me-2 text-warning"></i> Objetivo do Sistema</h2>
+            <ul>
+                <li>Divulgar eventos por área de conhecimento</li>
+                <li>Facilitar o processo de inscrição</li>
+                <li>Integrar diferentes tecnologias aprendidas em sala</li>
+                <li>Praticar o uso de APIs, programação orientada a objetos e front-end com UX</li>
+            </ul>
         </section>
 
-        <!-- Seção Equipe -->
-        <section class="card info-card">
-            <div class="card-header">
-                <h2 class="h4 mb-0"><i class="fas fa-users me-2"></i>Nossa Equipe</h2>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4 team-member">
-                        <div class="team-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <h3>Daniel</h3>
-                        <p class="text-muted">Frontend, UX e integração PHP</p>
-                        <div>
-                            <span class="badge bg-primary me-1">PHP</span>
-                            <span class="badge bg-primary">Bootstrap</span>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 team-member">
-                        <div class="team-icon">
-                            <i class="fab fa-node-js"></i>
-                        </div>
-                        <h3>Gabriela</h3>
-                        <p class="text-muted">API Node.js e integração</p>
-                        <div>
-                            <span class="badge bg-success me-1">Node.js</span>
-                            <span class="badge bg-success">API</span>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 team-member">
-                        <div class="team-icon">
-                            <i class="fab fa-java"></i>
-                        </div>
-                        <h3>Time Java</h3>
-                        <p class="text-muted">Alexandre, Leonardo e Jhonnatan</p>
-                        <div>
-                            <span class="badge bg-warning me-1">Java</span>
-                            <span class="badge bg-warning">Backoffice</span>
-                        </div>
-                    </div>
+        <!-- Equipe -->
+        <section class="mb-5">
+            <h2 class="h4 mb-3"><i class="fas fa-users me-2 text-warning"></i> Nossa Equipe</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <h5>Daniel</h5>
+                    <p class="text-muted">Frontend, UX e PHP</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Gabriela</h5>
+                    <p class="text-muted">API com Node.js e integração</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Alexandre, Leonardo e Jhonnatan</h5>
+                    <p class="text-muted">Aplicação Java para Backoffice</p>
                 </div>
             </div>
         </section>
 
-        <!-- Seção Tecnologias -->
-        <section class="card info-card">
-            <div class="card-header">
-                <h2 class="h4 mb-0"><i class="fas fa-layer-group me-2"></i>Tecnologias Utilizadas</h2>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6 tech-category">
-                        <h3><i class="fas fa-desktop me-2"></i>Frontend</h3>
-                        <ul>
-                            <li><i class="fas fa-check-circle text-success me-2"></i>Bootstrap 5</li>
-                            <li><i class="fas fa-check-circle text-success me-2"></i>Font Awesome</li>
-                            <li><i class="fas fa-check-circle text-success me-2"></i>JavaScript</li>
-                        </ul>
-                    </div>
-
-                    <div class="col-md-6 tech-category">
-                        <h3><i class="fas fa-server me-2"></i>Backend</h3>
-                        <ul>
-                            <li><i class="fas fa-check-circle text-success me-2"></i>PHP OOP</li>
-                            <li><i class="fas fa-check-circle text-success me-2"></i>Node.js (futuro)</li>
-                            <li><i class="fas fa-check-circle text-success me-2"></i>Java</li>
-                        </ul>
-                    </div>
-
-                    <div class="col-md-6 tech-category">
-                        <h3><i class="fas fa-database me-2"></i>Banco de Dados</h3>
-                        <ul>
-                            <li><i class="fas fa-check-circle text-success me-2"></i>MySQL</li>
-                            <li><i class="fas fa-check-circle text-success me-2"></i>Knex.js (futuro)</li>
-                        </ul>
-                    </div>
-
-                    <div class="col-md-6 tech-category">
-                        <h3><i class="fas fa-tools me-2"></i>Ferramentas</h3>
-                        <ul>
-                            <li><i class="fas fa-check-circle text-success me-2"></i>Git/GitHub</li>
-                            <li><i class="fas fa-check-circle text-success me-2"></i>XAMPP</li>
-                        </ul>
-                    </div>
+        <!-- Tecnologias -->
+        <section class="mb-5">
+            <h2 class="h4 mb-3"><i class="fas fa-layer-group me-2 text-warning"></i> Tecnologias Utilizadas</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-desktop me-2"></i> Frontend (PHP)</h5>
+                    <ul>
+                        <li>PHP puro com POO básica</li>
+                        <li>Bootstrap 5</li>
+                        <li>Font Awesome</li>
+                        <li>JavaScript simples</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5><i class="fas fa-server me-2"></i> Backend (API)</h5>
+                    <ul>
+                        <li>Node.js com Express</li>
+                        <li>Knex.js (MySQL)</li>
+                        <li>API RESTful</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5><i class="fab fa-java me-2"></i> Sistema Java</h5>
+                    <ul>
+                        <li>CRUD de usuários</li>
+                        <li>Gestão administrativa</li>
+                        <li>Conexão com o mesmo banco</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5><i class="fas fa-database me-2"></i> Banco de Dados</h5>
+                    <ul>
+                        <li>MySQL</li>
+                        <li>Estrutura relacional com chaves estrangeiras</li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Seção Roadmap -->
-        <section class="card info-card">
-            <div class="card-header">
-                <h2 class="h4 mb-0"><i class="fas fa-road me-2"></i>Próximas Etapas</h2>
-            </div>
-            <div class="card-body">
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-badge bg-warning">
-                            <i class="fas fa-rocket"></i>
-                        </div>
-                        <div class="timeline-content">
-                            <h3 class="h6">Integração com API Node.js</h3>
-                            <p>Conclusão da integração entre frontend PHP e backend Node.js</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-badge bg-primary">
-                            <i class="fas fa-tachometer-alt"></i>
-                        </div>
-                        <div class="timeline-content">
-                            <h3 class="h6">Painel Administrativo</h3>
-                            <p>Desenvolvimento do backoffice para gestão de eventos</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-badge bg-success">
-                            <i class="fas fa-users-cog"></i>
-                        </div>
-                        <div class="timeline-content">
-                            <h3 class="h6">Sistema de Inscrições</h3>
-                            <p>Implementação completa do fluxo de inscrição em eventos</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Roadmap -->
+        <section>
+            <h2 class="h4 mb-3"><i class="fas fa-road me-2 text-warning"></i> Próximas Etapas</h2>
+            <ul>
+                <li>Finalizar a API Node.js</li>
+                <li>Concluir o sistema de inscrições via frontend</li>
+                <li>Integrar o painel administrativo em Java</li>
+                <li>Se possível, gerar certificados automatizados</li>
+            </ul>
         </section>
+
     </div>
 </main>
 

@@ -1,33 +1,34 @@
 <?php
 $pageTitle = "Institucional - UniALFA | αEventos";
-require_once __DIR__ . '/../includes/header.php';
+include '../includes/header.php';
 ?>
 
 <div class="container py-5">
     <!-- Cabeçalho -->
     <div class="text-center mb-5">
-        <img src="/assets/img/unialfa-logo.png" alt="Logo UniALFA" class="img-fluid mb-4" style="max-height: 80px">
+        <img src="../assets/img/unialfa-logo.png" alt="Logo UniALFA" class="img-fluid mb-4" style="max-height: 80px">
         <h1 class="display-5 fw-bold text-primary">
-            <i class="fas fa-university me-2"></i>Sobre a UniALFA
+            <i class="fas fa-university me-2"></i> Sobre a UniALFA
         </h1>
         <p class="lead">Mais de 30 anos transformando vidas pela educação</p>
     </div>
 
     <!-- Seção História -->
     <div class="card shadow-sm mb-5 border-primary">
-        <div class="card-header bg-primary text-white">
-            <h2 class="h4 mb-0"><i class="fas fa-landmark me-2"></i>Nossa História</h2>
+        <div class="card-header text-white" style="background-color: #0511F2;">
+            <h2 class="h4 mb-0"><i class="fas fa-landmark me-2"></i> Nossa História</h2>
         </div>
         <div class="card-body">
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-4 mb-lg-0">
-                    <img src="/assets/img/unialfa-campus.jpg" class="img-fluid rounded shadow" alt="Campus UniALFA"
+                    <img src="../assets/img/unialfa-campus.jpg" class="img-fluid rounded shadow" alt="Campus UniALFA"
                         loading="lazy">
                 </div>
                 <div class="col-lg-6">
-                    <p class="mb-4">Fundada em 1992, a UniALFA (Centro Universitário UniAlfa) se consolidou como uma das
-                        principais instituições de ensino superior do Paraná, com unidades em Umuarama e região.</p>
-
+                    <p class="mb-4">
+                        Fundada em 1992, a UniALFA (Centro Universitário UniAlfa) se consolidou como uma das principais
+                        instituições de ensino superior do Paraná, com unidades em Umuarama e região.
+                    </p>
                     <div class="d-flex mb-3">
                         <div class="flex-shrink-0 text-primary">
                             <i class="fas fa-graduation-cap fa-2x"></i>
@@ -57,19 +58,19 @@ require_once __DIR__ . '/../includes/header.php';
         </div>
     </div>
 
-    <!-- Seção Projeto -->
+    <!-- Seção Projeto αEventos -->
     <div class="card shadow-sm mb-5 border-success">
         <div class="card-header bg-success text-white">
-            <h2 class="h4 mb-0"><i class="fas fa-lightbulb me-2"></i>O Projeto αEventos</h2>
+            <h2 class="h4 mb-0"><i class="fas fa-lightbulb me-2"></i> O Projeto αEventos</h2>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
-                    <h5 class="text-success"><i class="fas fa-bullseye me-2"></i>Objetivo</h5>
+                    <h5 class="text-success"><i class="fas fa-bullseye me-2"></i> Objetivo</h5>
                     <p>Centralizar a divulgação de eventos acadêmicos, promovendo integração entre alunos, professores e
-                        comunidade através de uma plataforma unificada.</p>
+                        a comunidade através de uma plataforma unificada.</p>
 
-                    <h5 class="text-success mt-4"><i class="fas fa-users me-2"></i>Público</h5>
+                    <h5 class="text-success mt-4"><i class="fas fa-users me-2"></i> Público</h5>
                     <ul>
                         <li>Alunos de graduação e pós-graduação</li>
                         <li>Corpo docente e pesquisadores</li>
@@ -77,7 +78,7 @@ require_once __DIR__ . '/../includes/header.php';
                     </ul>
                 </div>
                 <div class="col-md-6">
-                    <h5 class="text-success"><i class="fas fa-cogs me-2"></i>Tecnologia</h5>
+                    <h5 class="text-success"><i class="fas fa-cogs me-2"></i> Tecnologia</h5>
                     <p>Desenvolvido durante o Hackathon UniALFA 2025, utilizando:</p>
                     <div class="d-flex flex-wrap gap-2">
                         <span class="badge bg-primary">PHP</span>
@@ -89,8 +90,8 @@ require_once __DIR__ . '/../includes/header.php';
                     </div>
 
                     <div class="mt-4">
-                        <a href="/views/info/sobre.php" class="btn btn-outline-success">
-                            <i class="fas fa-users me-2"></i>Conheça a equipe
+                        <a href="sobre.php" class="btn btn-outline-success">
+                            <i class="fas fa-users me-2"></i> Conheça a equipe
                         </a>
                     </div>
                 </div>
@@ -98,25 +99,24 @@ require_once __DIR__ . '/../includes/header.php';
         </div>
     </div>
 
-    <!-- Seção Links -->
+    <!-- Seção Links Externos -->
     <div class="text-center">
         <h4 class="mb-4">Conheça mais sobre a UniALFA</h4>
         <div class="d-flex flex-wrap justify-content-center gap-3">
-            <a href="https://www.alfaumuarama.edu.br/fau/index.php" target="_blank" class="btn btn-primary px-4"
-                rel="noopener noreferrer">
-                <i class="fas fa-globe me-2"></i>Site Oficial
+            <a href="https://www.alfaumuarama.edu.br/fau/index.php" target="_blank" class="btn text-white"
+                style="background-color: #0511F2;">
+                <i class="fas fa-globe me-2"></i> Site Oficial
             </a>
-            <a href="https://www.instagram.com/unialfaumuarama/" target="_blank" class="btn px-4 text-white"
-                style="background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);"
-                rel="noopener noreferrer">
-                <i class="fab fa-instagram me-2"></i>Instagram
+            <a href="https://www.instagram.com/unialfaumuarama/" target="_blank" class="btn text-white"
+                style="background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);">
+                <i class="fab fa-instagram me-2"></i> Instagram
             </a>
-            <a href="https://www.facebook.com/unialfaumuarama/" target="_blank" class="btn px-4 text-white"
-                style="background: #1877f2;" rel="noopener noreferrer">
-                <i class="fab fa-facebook-f me-2"></i>Facebook
+            <a href="https://www.facebook.com/unialfaumuarama/" target="_blank" class="btn text-white"
+                style="background-color: #1877f2;">
+                <i class="fab fa-facebook-f me-2"></i> Facebook
             </a>
         </div>
     </div>
 </div>
 
-<?php require_once __DIR__ . '/../includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>

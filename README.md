@@ -1,57 +1,96 @@
-# αEventos - Hotsite Acadêmico Simplificado
+# αEventos - Hotsite de Eventos Acadêmicos UniALFA
 
-## ✨ Visão do Projeto
-
-Sistema fácil para gerenciar eventos da faculdade, feito por alunos para alunos.
-
-### O que fazemos?
-
-- Mostra eventos de forma organizada
-- Permite se inscrever em palestras
-- Guarda informações dos palestrantes
-
-## 🛠 Como Usar
-
-1. **Baixe e instale**:
-
-   ```bash
-   git clone https://github.com/equipe/eventos-unialfa.git
-   cd eventos-unialfa
-   ```
-
-2. **Configure**:
-
-   - Coloque na pasta `htdocs` do XAMPP
-   - Importe o banco: `unialfa_eventos.sql`
-
-3. **Acesse**:
-   Abra no navegador: `http://localhost/eventos-unialfa`
-
-## 🧩 Partes do Sistema
-
-| Parte         | Tecnologia | Status       |
-| ------------- | ---------- | ------------ |
-| Lista Eventos | PHP        | 🟡 Quase lá  |
-| Rotas         | Node       | 🟡 Quase lá  |
-| Cadastro      | Java       | 🟡 Quase lá  |
-| Inscrições    | PHP        | 🔴 Ajustando |
-
-## 👨‍💻 Equipe
-
-- **Daniel**: Fez as páginas web
-- **Gaby**: Conectou com o banco de dados
-- **Jhonathan, Leonardo e o Alexandre**: Desenvolveram a parte de Java
-
-## 📅 O que vem depois?
-
-1. Terminar cadastro de eventos
-2. Arrumar inscrições
-3. Se der tempo: gerar certificados
-
-> "Feito por alunos para alunos!" - Equipe αEventos
+Sistema desenvolvido por alunos da UniALFA durante o **Hackathon 2025**, com foco em Programação Orientada a Objetos (POO), UX e integração de tecnologias.
 
 ---
 
-_Última atualização: Junho/2024_
+## 🎯 Objetivo
 
-[📁 Ver código-fonte](/backend) | [📊 Ver banco de dados](/banco-de-dados)
+Centralizar a divulgação de eventos acadêmicos da UniALFA, permitindo:
+
+- Visualização de eventos por área
+- Detalhes de cada evento
+- Inscrição online (em desenvolvimento)
+- Integração entre frontend, API backend e administração Java
+
+---
+
+## 🏗 Arquitetura do Projeto
+
+| Camada              | Tecnologia                 | Função                                       |
+| ------------------- | -------------------------- | -------------------------------------------- |
+| **Frontend Visual** | PHP puro + Bootstrap       | Exibição de páginas web e consumo da API     |
+| **API Backend**     | Node.js com Express + Knex | Regras de negócio e acesso ao banco de dados |
+| **Administração**   | Java (Swing + JDBC)        | Cadastro e manutenção de dados (CRUD)        |
+| **Banco de Dados**  | MySQL                      | Armazenamento relacional                     |
+
+---
+
+## 🚀 Como Executar Localmente
+
+1. **Clone o projeto:**
+
+```bash
+git clone https://github.com/equipe/hotsite-unialfa.git
+cd hotsite-unialfa
+```
+
+2. **Configurar Banco de Dados:**
+
+- Importar o SQL localizado em:  
+  `/banco-de-dados/schema.sql`
+
+3. **Configurar o PHP (Frontend Visual):**
+
+- Copiar a pasta `/php/` para o diretório `htdocs` do XAMPP.
+- Iniciar o Apache e o MySQL.
+
+4. **Configurar a API Node.js:**
+
+```bash
+cd node
+npm install
+npm run dev
+```
+
+> A API ficará disponível em:  
+> `http://localhost:3000`
+
+5. **Configurar o Java:**
+
+- Abrir o projeto da pasta `/java-app/` na IDE Java (NetBeans, IntelliJ ou Eclipse).
+- Configurar a conexão com o mesmo banco MySQL.
+
+---
+
+## ✅ Estado Atual
+
+| Parte           | Status                |
+| --------------- | --------------------- |
+| PHP Frontend    | 🟢 Quase Finalizado   |
+| Node API        | 🟡 Em Finalização     |
+| Java Backoffice | 🟡 Em desenvolvimento |
+| Inscrições      | 🔴 Em desenvolvimento |
+
+---
+
+## 👨‍💻 Equipe de Desenvolvimento
+
+- **Daniel & Alexandre:** UX, Frontend PHP, Bootstrap
+- **Gabrielle:** API Backend (Node.js + Knex)
+- **Jhonatan, Leonardo e Alexandre:** Sistema Java (CRUD e Administração)
+
+---
+
+## 📅 Próximas Entregas
+
+- Finalizar consumo da API no PHP
+- Concluir rotas REST na API Node.js
+- Completar o CRUD no Java
+- Implementar o fluxo de inscrições online
+- Se houver tempo: gerar certificados de participação
+
+---
+
+> "Feito por alunos, para alunos!"  
+> Hackathon UniALFA 2025

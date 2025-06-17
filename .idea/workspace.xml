@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea468a81-d1f4-4ed8-86ca-180d1d7ff7b3" name="Changes" comment="Adição do executável de Java">
-      <change beforePath="$PROJECT_DIR$/java-backoffice/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/java-backoffice/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
-    </list>
+    <list default="true" id="ea468a81-d1f4-4ed8-86ca-180d1d7ff7b3" name="Changes" comment="Renomeando o package" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,6 +43,19 @@
     &quot;last_opened_file_path&quot;: &quot;C:/Users/jhona/IdeaProjects/hotsite-unialfa/backend/java-backoffice&quot;
   }
 }</component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="hotsite-unialfa" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="hotsite-unialfa" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -78,12 +89,21 @@
       <option name="project" value="LOCAL" />
       <updated>1750020631928</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Renomeando o package">
+      <option name="closed" value="true" />
+      <created>1750199969429</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1750199969429</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Adição do sistema de Java" />
     <MESSAGE value="Adição do executável de Java" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adição do executável de Java" />
+    <MESSAGE value="Renomeando o package" />
+    <option name="LAST_COMMIT_MESSAGE" value="Renomeando o package" />
   </component>
 </project>

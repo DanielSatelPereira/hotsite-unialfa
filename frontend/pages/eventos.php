@@ -1,28 +1,24 @@
 <?php
+// Configurações
 $pageTitle = 'Eventos - αEventos';
-require_once __DIR__ . '/../../../backend/php-frontend/config/constants.php';
-require_once CLASSES_DIR . '/EventoDAO.php';
-require_once INCLUDES_DIR . '/header.php';
+require_once __DIR__ . '/../../backend/php-frontend/config/constants.php';
+require_once __DIR__ . '/../../backend/php-frontend/classes/EventoDAO.php';
+require_once __DIR__ . '/../../backend/php-frontend/classes/CursoDAO.php';
+require_once __DIR__ . '/../../backend/php-frontend/includes/header.php';
 
-// Verifica se há busca ou área válida
-$busca = $_GET['q'] ?? null;
-$idCurso = $_GET['id'] ?? null;
+// Validação de parâmetros
+$busca = filter_input(INPUT_GET, 'q', FILTER_SANITIZE_STRING);
+$idCurso = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 $titulo = "Todos os Eventos";
 
-// Define título e busca eventos
+// Lógica de busca
 if ($busca) {
     $eventos = EventoDAO::buscarPorTermo($busca);
     $titulo = "Resultados para: " . htmlspecialchars($busca);
 } elseif ($idCurso) {
     $eventos = EventoDAO::listarPorCurso($idCurso);
-
-    // Mapeia ID do curso para nome (substitua por uma consulta ao banco se necessário)
-    $nomesCursos = [
-        1 => 'Pedagogia',
-        2 => 'Sistemas para Internet',
-        3 => 'Direito'
-    ];
-    $titulo = "Eventos de " . ($nomesCursos[$idCurso] ?? 'Área Desconhecida');
+    $nomeCurso = CursoDAO::getNomeCurso($idCurso);
+    $titulo = "Eventos de " . htmlspecialchars($nomeCurso);
 } else {
     header('Location: ' . BASE_URL . '/');
     exit;
@@ -34,17 +30,27 @@ if ($busca) {
 <div class="row g-3">
     <?php if (!empty($eventos)): ?>
     <?php foreach ($eventos as $evento): ?>
+    <?php
+            // Pré-processamento dos dados
+            $idEvento = $evento['id'];
+            $tituloEvento = htmlspecialchars($evento['titulo']);
+            $imagemEvento = htmlspecialchars($evento['imagem'] ?? 'default.jpg');
+            $dataEvento = date('d/m/Y', strtotime($evento['data']));
+            $localEvento = htmlspecialchars($evento['local']);
+            $descricaoResumida = htmlspecialchars(substr($evento['descricao'], 0, 50));
+            ?>
+
     <div class="col-6 col-md-3">
-        <a href="<?= BASE_URL ?>/frontend/pages/eventos_detalhe.php?id=<?= $evento['id'] ?>"
-            class="text-decoration-none text-dark">
+        <a href="<?= BASE_URL ?>/frontend/pages/eventos_detalhe.php?id=<?= $idEvento ?>"
+            class="text-decoration-none text-dark" aria-label="Ver detalhes do evento <?= $tituloEvento ?>">
             <div class="card text-center p-2 h-100">
-                <strong class="text-primary"><?= htmlspecialchars($evento['titulo']) ?></strong>
-                <img src="<?= BASE_URL ?>/frontend/assets/img/<?= htmlspecialchars($evento['imagem'] ?? 'default.jpg') ?>"
-                    class="img-fluid my-2" alt="Imagem do evento <?= htmlspecialchars($evento['titulo']) ?>">
+                <strong class="text-primary"><?= $tituloEvento ?></strong>
+                <img src="<?= BASE_URL ?>/frontend/assets/img/<?= $imagemEvento ?>" class="img-fluid my-2"
+                    alt="Capa do evento <?= $tituloEvento ?>" loading="lazy">
                 <small>
-                    <?= date('d/m/Y', strtotime($evento['data'])) ?><br>
-                    <?= htmlspecialchars($evento['local']) ?><br>
-                    <b><?= htmlspecialchars(substr($evento['descricao'], 0, 50)) ?>...</b>
+                    <?= $dataEvento ?><br>
+                    <?= $localEvento ?><br>
+                    <b><?= $descricaoResumida ?>...</b>
                 </small>
             </div>
         </a>
@@ -52,15 +58,14 @@ if ($busca) {
     <?php endforeach; ?>
     <?php else: ?>
     <div class="col-12 text-center mt-5">
-        <h3 class="text-danger">
+        <div class="alert alert-warning">
             <i class="fas fa-search-minus"></i> Nenhum evento encontrado
-        </h3>
-        <p class="text-muted">Não encontramos resultados para sua busca.</p>
+        </div>
 
-        <?php if (!empty($busca)): ?>
+        <?php if ($busca): ?>
         <p>Você buscou por: <strong><?= htmlspecialchars($busca) ?></strong></p>
-        <?php elseif (!empty($idCurso)): ?>
-        <p>Área selecionada: <strong><?= $nomesCursos[$idCurso] ?? 'Área Desconhecida' ?></strong></p>
+        <?php elseif ($idCurso): ?>
+        <p>Área selecionada: <strong><?= htmlspecialchars($nomeCurso ?? 'Área Desconhecida') ?></strong></p>
         <?php endif; ?>
 
         <a href="<?= BASE_URL ?>/" class="btn btn-outline-primary mt-3">
@@ -70,4 +75,4 @@ if ($busca) {
     <?php endif; ?>
 </div>
 
-<?php include INCLUDES_DIR . '/footer.php'; ?>
+<?php include __DIR__ . '/../../backend/php-frontend/includes/footer.php'; ?>

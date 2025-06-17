@@ -1,4 +1,4 @@
-RewriteEngine On
+RewriteEngine Off
 RewriteBase /hotsite-unialfa/
 
 # Frontend
@@ -20,3 +20,10 @@ RewriteRule ^backend/ - [F]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ frontend/pages/$1.php [L]
+
+# Página 404 customizada
+ErrorDocument 404 /frontend/pages/404.php
+
+Options -Indexes
+
+RewriteRule ^login/?$ frontend/pages/login.php [L]

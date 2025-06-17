@@ -9,17 +9,17 @@ class EventoDAO
      * @param int $id ID do evento
      * @return array|null Retorna o evento com detalhes ou null se não encontrar
      */
-    public static function buscarPorId($id)
+    public static function buscarPorId(int $id): ?array
     {
-        $con = null;
+        $conn = null;
         try {
-            $con = Conexao::conectar();
-            $sql = "SELECT e.*, c.nome as nome_curso, p.nome as nome_palestrante 
+            $conn = Conexao::conectar();
+            $sql = "SELECT e.*, c.nome as nome_curso, u.nome as nome_organizador 
                     FROM eventos e
                     LEFT JOIN cursos c ON e.idCurso = c.id
-                    LEFT JOIN palestrantes p ON e.idPalestrante = p.id
+                    LEFT JOIN usuarios u ON e.idUsuarios = u.id
                     WHERE e.id = :id";
-            $stmt = $con->prepare($sql);
+            $stmt = $conn->prepare($sql);
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
 
@@ -28,39 +28,35 @@ class EventoDAO
             error_log("Erro ao buscar evento por ID: " . $e->getMessage());
             return null;
         } finally {
-            $con = null;
+            $conn = null;
         }
     }
 
     /**
      * Lista eventos por curso
      * @param int $idCurso ID do curso
-     * @param int|null $limite Limite de resultados
+     * @param int $limit Limite de resultados
+     * @param int $offset Offset para paginação
      * @return array Retorna array de eventos
      */
-    public static function listarPorCurso($idCurso, $limite = null)
+    public static function listarPorCurso(int $idCurso, int $limit = 10, int $offset = 0): array
     {
         $conn = null;
         try {
             $conn = Conexao::conectar();
-            $sql = "SELECT e.*, p.nome as nome_palestrante 
+            $sql = "SELECT e.*, u.nome as nome_organizador 
                     FROM eventos e
-                    LEFT JOIN palestrantes p ON e.idPalestrante = p.id
+                    JOIN usuarios u ON e.idUsuarios = u.id
                     WHERE e.idCurso = :idCurso
-                    ORDER BY e.data DESC, e.hora DESC";
-
-            if ($limite !== null && is_numeric($limite)) {
-                $sql .= " LIMIT :limite";
-            }
+                    ORDER BY e.data DESC, e.hora DESC
+                    LIMIT :limit OFFSET :offset";
 
             $stmt = $conn->prepare($sql);
             $stmt->bindValue(':idCurso', $idCurso, PDO::PARAM_INT);
-
-            if ($limite !== null && is_numeric($limite)) {
-                $stmt->bindValue(':limite', (int)$limite, PDO::PARAM_INT);
-            }
-
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
             $stmt->execute();
+
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             error_log("Erro ao listar eventos por curso: " . $e->getMessage());
@@ -75,55 +71,41 @@ class EventoDAO
      * @param string $termo Termo de busca
      * @return array Retorna array de eventos encontrados
      */
-    public static function buscarPorTermo($termo)
+    public static function buscarPorTermo(string $termo): array
     {
-        $conn = null;
+        $conn = Conexao::conectar();
         try {
-            $conn = Conexao::conectar();
-            $sql = "SELECT * FROM eventos 
-                    WHERE titulo LIKE :termo OR descricao LIKE :termo
-                    ORDER BY data_evento DESC";
-
-            $stmt = $conn->prepare($sql);
+            $stmt = $conn->prepare("SELECT e.*, c.nome as nome_curso 
+                               FROM eventos e
+                               LEFT JOIN cursos c ON e.idCurso = c.id
+                               WHERE e.titulo LIKE :termo OR e.descricao LIKE :termo
+                               ORDER BY e.data DESC");
             $stmt->bindValue(':termo', "%$termo%", PDO::PARAM_STR);
             $stmt->execute();
-
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             error_log("Erro ao buscar por termo: " . $e->getMessage());
             return [];
-        } finally {
-            $conn = null;
         }
     }
 
     /**
      * Lista todos os eventos
-     * @param int|null $limite Limite de resultados
+     * @param int|null $limit Limite de resultados
      * @return array Retorna array de eventos
      */
-    public static function listarTodos($limite = null)
+    public static function listarTodos(): array
     {
-        $conn = null;
+        $conn = Conexao::conectar();
         try {
-            $conn = Conexao::conectar();
-            $sql = "SELECT * FROM eventos ORDER BY data_evento DESC";
-
-            if ($limite !== null && is_numeric($limite)) {
-                $sql .= " LIMIT :limite";
-                $stmt = $conn->prepare($sql);
-                $stmt->bindValue(':limite', (int)$limite, PDO::PARAM_INT);
-            } else {
-                $stmt = $conn->prepare($sql);
-            }
-
-            $stmt->execute();
+            $stmt = $conn->query("SELECT e.*, c.nome as nome_curso 
+                             FROM eventos e
+                             LEFT JOIN cursos c ON e.idCurso = c.id
+                             ORDER BY e.data DESC");
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             error_log("Erro ao listar todos os eventos: " . $e->getMessage());
             return [];
-        } finally {
-            $conn = null;
         }
     }
 }

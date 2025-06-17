@@ -1,11 +1,11 @@
 import { Request, Response } from 'express'
 import { z } from 'zod'
-import { UsuarioModel } from '../models/usuarioModel'
+import { usuarioModel } from '../models/usuarioModel'
 
 export const usuarioController = {
 
     async listar(req: Request, res: Response) {
-        const usuarios = await UsuarioModel.listar()
+        const usuarios = await usuarioModel.listar()
         res.json({ usuarios })
     },
 
@@ -21,15 +21,15 @@ export const usuarioController = {
         try {
             const dadosUsuario = schema.parse(req.body)
 
-            const existeEmail = await UsuarioModel.buscarPorEmail(dadosUsuario.email)
-            
+            const existeEmail = await usuarioModel.buscarPorEmail(dadosUsuario.email)
+
             if (existeEmail) {
                 res.status(409).json({ mensagem: 'E-mail já cadastrado' })
                 return
             }
 
-            const id = await UsuarioModel.inserir(dadosUsuario)
-            const usuario = await UsuarioModel.buscarPorId(id)
+            const id = await usuarioModel.inserir(dadosUsuario)
+            const usuario = await usuarioModel.buscarPorId(id)
             res.status(201).json({ usuario })
 
         } catch (error) {
@@ -55,7 +55,7 @@ export const usuarioController = {
 
             const dadosUsuario = schema.parse(req.body)
 
-            const usuario = await UsuarioModel.buscarPorId(dadosUsuario.id)
+            const usuario = await usuarioModel.buscarPorId(dadosUsuario.id)
             if (!usuario || usuario.tipo !== 2) {
                 res.status(404).json({ mensagem: 'Palestrante não encontrado' })
                 return
@@ -63,8 +63,8 @@ export const usuarioController = {
 
             const usuarioAtualizando = { ...dadosUsuario, tipo: usuario.tipo }
 
-            await UsuarioModel.atualizar(usuarioAtualizando)
-            const usuarioAtualizado = await UsuarioModel.buscarPorId(dadosUsuario.id)
+            await usuarioModel.atualizar(usuarioAtualizando)
+            const usuarioAtualizado = await usuarioModel.buscarPorId(dadosUsuario.id)
 
             res.json({ usuario: usuarioAtualizado })
 
@@ -88,14 +88,14 @@ export const usuarioController = {
         try {
             const { id } = schema.parse(req.body)
 
-            const usuario = await UsuarioModel.buscarPorId(id)
+            const usuario = await usuarioModel.buscarPorId(id)
 
             if (!usuario || usuario.tipo !== 2) {
                 res.status(404).json({ mensagem: 'Palestrante não encontrado' })
                 return
             }
 
-            await UsuarioModel.deletar(id)
+            await usuarioModel.deletar(id)
             res.json({ mensagem: 'Palestrante deletado com sucesso' })
 
         } catch (error) {

@@ -9,7 +9,7 @@ export interface Usuario {
   tipo: number
 }
 
-export const UsuarioModel = {
+export const usuarioModel = {
   async listar() {
     return knex<Usuario>('usuarios')
   },

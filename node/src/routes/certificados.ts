@@ -1,15 +1,38 @@
 import {Router} from 'express'
 import knex from './../database/knex'
-import { z } from 'zod'
 
 const router = Router()
 
-router.get('/', (req,res) => {
-    knex('certificados')
-        .then((resposta) => {
-            res.json({certificados:resposta})
-        })
-})
+// router.get('/', async (req, res) => {
+
+//     const user = req.session.user
+
+//     if (!user) {
+//         res.status(401).json({ message: "Usuário não autenticado." })
+//         return
+//     }
+
+//     try {
+
+//         const certificados = await knex('certificados')
+//             .where({ idUsuario: user.id }) // filtrando pelos certificados do usuário logado
+//             .select()
+
+//         res.json({ certificados })
+
+//     } catch (error) {
+
+//         res.status(500).json({ message: "Erro ao buscar certificados." })
+
+//     }
+// })
+
+
+
+// aq no get da pra ver se eu conseguir pegar  o session de aluno, se ele tiver certificado aparece e se não
+// ele diz que o aluno ainda não possui nenhum certificado
+
+
 
 // router.post('/', async (req, res) => {
 

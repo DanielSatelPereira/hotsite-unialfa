@@ -6,7 +6,7 @@ export const usuarioController = {
 
     async listar(req: Request, res: Response) {
         const usuarios = await UsuarioModel.listar()
-        return res.json({ usuarios })
+        res.json({ usuarios })
     },
 
     async criar(req: Request, res: Response) {
@@ -22,18 +22,23 @@ export const usuarioController = {
             const dadosUsuario = schema.parse(req.body)
 
             const existeEmail = await UsuarioModel.buscarPorEmail(dadosUsuario.email)
-            if (existeEmail) return res.status(409).json({ mensagem: 'E-mail já cadastrado' })
+            
+            if (existeEmail) {
+                res.status(409).json({ mensagem: 'E-mail já cadastrado' })
+                return
+            }
 
             const id = await UsuarioModel.inserir(dadosUsuario)
             const usuario = await UsuarioModel.buscarPorId(id)
-            return res.status(201).json({ usuario })
+            res.status(201).json({ usuario })
 
         } catch (error) {
             if (error instanceof z.ZodError) {
-                return res.status(400).json({ mensagem: 'Dados inválidos', erros: error.errors })
+                res.status(400).json({ mensagem: 'Dados inválidos', erros: error.errors })
+                return
             }
             console.error(error)
-            return res.status(500).json({ mensagem: 'Erro ao cadastrar usuário' })
+            res.status(500).json({ mensagem: 'Erro ao cadastrar usuário' })
         }
     },
 
@@ -52,7 +57,8 @@ export const usuarioController = {
 
             const usuario = await UsuarioModel.buscarPorId(dadosUsuario.id)
             if (!usuario || usuario.tipo !== 2) {
-                return res.status(404).json({ mensagem: 'Palestrante não encontrado' })
+                res.status(404).json({ mensagem: 'Palestrante não encontrado' })
+                return
             }
 
             const usuarioAtualizando = { ...dadosUsuario, tipo: usuario.tipo }
@@ -60,14 +66,15 @@ export const usuarioController = {
             await UsuarioModel.atualizar(usuarioAtualizando)
             const usuarioAtualizado = await UsuarioModel.buscarPorId(dadosUsuario.id)
 
-            return res.json({ usuario: usuarioAtualizado })
+            res.json({ usuario: usuarioAtualizado })
 
         } catch (error) {
             if (error instanceof z.ZodError) {
-                return res.status(400).json({ mensagem: 'Dados inválidos', erros: error.errors })
+                res.status(400).json({ mensagem: 'Dados inválidos', erros: error.errors })
+                return 
             }
             console.error(error)
-            return res.status(500).json({ mensagem: 'Erro ao atualizar palestrante' })
+            res.status(500).json({ mensagem: 'Erro ao atualizar palestrante' })
         }
     },
 
@@ -84,17 +91,19 @@ export const usuarioController = {
             const usuario = await UsuarioModel.buscarPorId(id)
 
             if (!usuario || usuario.tipo !== 2) {
-                return res.status(404).json({ mensagem: 'Palestrante não encontrado' })
+                res.status(404).json({ mensagem: 'Palestrante não encontrado' })
+                return
             }
 
             await UsuarioModel.deletar(id)
-            return res.json({ mensagem: 'Palestrante deletado com sucesso' })
+            res.json({ mensagem: 'Palestrante deletado com sucesso' })
 
         } catch (error) {
             if (error instanceof z.ZodError) {
-                return res.status(400).json({ mensagem: 'Erro de validação', erros: error.errors })
+                res.status(400).json({ mensagem: 'Erro de validação', erros: error.errors })
+                return
             }
-            return res.status(500).json({ mensagem: 'Não é possível deletar um palestrante vinculado a um evento!' })
+            res.status(500).json({ mensagem: 'Não é possível deletar um palestrante vinculado a um evento!' })
         }
     }
 }

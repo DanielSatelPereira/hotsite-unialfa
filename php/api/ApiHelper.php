@@ -1,7 +1,9 @@
-class ApiHelper {
-private static $apiBaseUrl = 'http://localhost:3000/api';
+class ApiHelper
+{
+private static $apiBaseUrl = 'http://localhost:3001/api';
 
-public static function chamarAPI($endpoint, $params = [], $method = 'GET') {
+public static function chamarAPI($endpoint, $params = [], $method = 'GET')
+{
 $url = self::$apiBaseUrl . '/' . ltrim($endpoint, '/');
 
 $options = [

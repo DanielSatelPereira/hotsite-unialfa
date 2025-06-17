@@ -1,12 +1,12 @@
 <?php
 $pageTitle = "Institucional - UniALFA | αEventos";
-require_once __DIR__ . '/../../includes/header.php';
+require_once __DIR__ . '/../includes/header.php';
 ?>
 
 <div class="container py-5">
     <!-- Cabeçalho -->
     <div class="text-center mb-5">
-        <img src="<?= IMG_URL ?>/unialfa-logo.png" alt="Logo UniALFA" class="img-fluid mb-4" style="max-height: 80px">
+        <img src="/assets/img/unialfa-logo.png" alt="Logo UniALFA" class="img-fluid mb-4" style="max-height: 80px">
         <h1 class="display-5 fw-bold text-primary">
             <i class="fas fa-university me-2"></i>Sobre a UniALFA
         </h1>
@@ -21,7 +21,7 @@ require_once __DIR__ . '/../../includes/header.php';
         <div class="card-body">
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-4 mb-lg-0">
-                    <img src="<?= IMG_URL ?>/unialfa-campus.jpg" class="img-fluid rounded shadow" alt="Campus UniALFA"
+                    <img src="/assets/img/unialfa-campus.jpg" class="img-fluid rounded shadow" alt="Campus UniALFA"
                         loading="lazy">
                 </div>
                 <div class="col-lg-6">
@@ -89,7 +89,7 @@ require_once __DIR__ . '/../../includes/header.php';
                     </div>
 
                     <div class="mt-4">
-                        <a href="<?= BASE_URL ?>/php/views/info/sobre.php" class="btn btn-outline-success">
+                        <a href="/views/info/sobre.php" class="btn btn-outline-success">
                             <i class="fas fa-users me-2"></i>Conheça a equipe
                         </a>
                     </div>
@@ -119,25 +119,4 @@ require_once __DIR__ . '/../../includes/header.php';
     </div>
 </div>
 
-<?php require_once __DIR__ . '/../../includes/footer.php'; ?>
-
-<style>
-/* Efeito hover nos cards */
-.card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
-}
-
-/* Melhoria nos botões de redes sociais */
-.btn-instagram:hover {
-    opacity: 0.9;
-}
-
-.btn-facebook:hover {
-    opacity: 0.9;
-}
-</style>
+<?php require_once __DIR__ . '/../includes/footer.php'; ?>

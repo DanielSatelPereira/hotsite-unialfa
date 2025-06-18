@@ -1,5 +1,5 @@
 import routes from "./routes"
-const express = require('express')
+import express from "express"
 
 const PORT = 3001
 const app = express()

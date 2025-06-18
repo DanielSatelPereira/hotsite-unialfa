@@ -2,14 +2,14 @@ import knex from '../database/knex'
 import { Inscricao } from '../models/inscricaoModel'
 
 export interface Evento {
-  id?: number
-  titulo: string
-  descricao: string
-  data: string
-  hora: string
-  local: string
-  idCurso: number
-  idUsuarios: number
+    id?: string
+    titulo: string
+    descricao: string
+    data: string
+    hora: string
+    local: string
+    idCurso: number
+    idUsuarios: number
 }
 
 export const eventoModel = {
@@ -26,7 +26,7 @@ export const eventoModel = {
         return knex<Inscricao>('inscricoes').where({ id: idInscricao }).first();
     },
 
-    async buscarPorId(id: number) {
+    async buscarPorId(id: string) {
         return knex<Evento>('eventos').where({ id }).first()
     },
 }

@@ -15,7 +15,7 @@ function renderEventosPorArea($titulo, $eventos)
 
         echo <<<HTML
         <div class="col">
-            <a href="../views/detalhes.php?id={$id}" class="text-decoration-none text-dark">
+            <a href="detalhes.php?id={$id}" class="text-decoration-none text-dark">
                 <div class="card h-100 shadow-sm">
                     <img src="../assets/img/{$imagem}" class="card-img-top object-fit-cover" style="height: 150px;" alt="{$tituloEvento}">
                     <div class="card-body">

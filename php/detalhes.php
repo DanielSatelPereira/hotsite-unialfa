@@ -7,22 +7,14 @@ include './partials/header.php';
 
 $api = new ApiHelper();
 
-// ✅ Verificar se veio o ID via GET
-if (!isset($_GET['id']) || empty($_GET['id'])) {
-    header('Location: 404.php');
-    exit;
-}
+
 
 $idEvento = intval($_GET['id']);
 
 // ✅ Buscar os dados do evento via API Node
-$evento = $api->get('eventos/' . $idEvento);
+$evento = $api->get('/eventos/' . $idEvento);
 
-// ✅ Se evento não existir, redirecionar pro erro 404
-if (!$evento) {
-    header('Location: 404.php');
-    exit;
-}
+
 
 // ✅ Verificar se o usuário está logado (tipo aluno) e se já está inscrito
 $usuarioLogado = isset($_SESSION['usuario_ra']) && $_SESSION['usuario_tipo'] == 2;
@@ -84,19 +76,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['inscrever'])) {
 
             <!-- Inscrição -->
             <?php if ($usuarioLogado): ?>
-            <?php if ($jaInscrito): ?>
-            <div class="alert alert-success">Você já está inscrito neste evento.</div>
+                <?php if ($jaInscrito): ?>
+                    <div class="alert alert-success">Você já está inscrito neste evento.</div>
+                <?php else: ?>
+                    <form method="POST">
+                        <button type="submit" name="inscrever" class="btn btn-success">
+                            <i class="fas fa-check-circle me-1"></i> Inscrever-se
+                        </button>
+                    </form>
+                <?php endif; ?>
             <?php else: ?>
-            <form method="POST">
-                <button type="submit" name="inscrever" class="btn btn-success">
-                    <i class="fas fa-check-circle me-1"></i> Inscrever-se
-                </button>
-            </form>
-            <?php endif; ?>
-            <?php else: ?>
-            <a href="login.php" class="btn btn-warning">
-                <i class="fas fa-sign-in-alt me-1"></i> Faça login para se inscrever
-            </a>
+                <a href="login.php" class="btn btn-warning">
+                    <i class="fas fa-sign-in-alt me-1"></i> Faça login para se inscrever
+                </a>
             <?php endif; ?>
         </div>
     </div>

@@ -8,7 +8,7 @@ export const eventoController = {
         try {
             const eventos = await eventoModel.listar()
             if (eventos.length === 0) {
-                res.status(404).json({message: "Nenhum evento encontrado"});
+                res.status(404).json({ message: "Nenhum evento encontrado" });
             }
             res.json({ eventos })
         } catch (error) {
@@ -16,19 +16,31 @@ export const eventoController = {
             res.status(500).json({ mensagem: 'Erro ao encontrar Eventos' })
         }
     },
-    
-    async listarPorCurso(req: Request, res:Response) {
+
+    async listarEvento(req: Request, res: Response) {
+        try {
+            const schema = z.string();
+            const id = schema.parse(req.params.id)
+            const eventos = await eventoModel.buscarPorId(id);
+            res.json(eventos)
+        } catch (error) {
+            console.error(error)
+            res.status(500).json({ mensagem: 'Erro ao encontrar Eventos' })
+        }
+    },
+
+    async listarPorCurso(req: Request, res: Response) {
         const schema = z.object({
             idCurso: z.number()
         })
-        try{
+        try {
             const { idCurso } = schema.parse(req.query);
             const eventos = await eventoModel.listarPorCurso(idCurso);
             if (eventos.length === 0) {
-                res.status(404).json({message: "Nenhum evento encontrado para este curso"});
+                res.status(404).json({ message: "Nenhum evento encontrado para este curso" });
             }
             res.json({ eventos });
-        } catch (error){
+        } catch (error) {
             if (error instanceof z.ZodError) {
                 res.status(400).json({ mensagem: 'Dados inválidos', erros: error.errors })
                 return
@@ -38,19 +50,19 @@ export const eventoController = {
         }
     },
 
-    async listarPorInscricao(req: Request, res:Response) {
+    async listarPorInscricao(req: Request, res: Response) {
         const schema = z.object({
             idInscricao: z.number()
         })
-        try{
+        try {
             const { idInscricao } = schema.parse(req.query);
             const eventos = await eventoModel.buscarInscricaoPorId(idInscricao);
             if (!eventos) {
-                res.status(404).json({message: "Nenhum evento encontrado para esta inscrição"});
+                res.status(404).json({ message: "Nenhum evento encontrado para esta inscrição" });
                 return
             }
             res.json({ eventos });
-        } catch (error){
+        } catch (error) {
             if (error instanceof z.ZodError) {
                 res.status(400).json({ mensagem: 'Dados inválidos', erros: error.errors })
                 return

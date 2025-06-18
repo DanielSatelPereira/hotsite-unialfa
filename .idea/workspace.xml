@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ea468a81-d1f4-4ed8-86ca-180d1d7ff7b3" name="Changes" comment="Renomeando o package">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/src/controllers/eventosController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/node/src/controllers/eventosController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/src/models/eventoModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/node/src/models/eventoModel.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/src/routes/eventos.ts" beforeDir="false" afterPath="$PROJECT_DIR$/node/src/routes/eventos.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node/src/routes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/node/src/routes/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/detalhes.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/detalhes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/partials/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/partials/helpers.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,23 +40,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/jhona/IdeaProjects/hotsite-unialfa/backend/java-backoffice&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/xampp/htdocs/hotsite-unialfa/java-app"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="hotsite-unialfa" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
       <module name="hotsite-unialfa" />
       <option name="filePath" />

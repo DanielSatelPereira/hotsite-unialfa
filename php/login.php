@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="card-body login-body">
 
                         <?php if (!empty($mensagem)): ?>
-                        <div class="alert alert-info"><?= htmlspecialchars($mensagem) ?></div>
+                            <div class="alert alert-info"><?= htmlspecialchars($mensagem) ?></div>
                         <?php endif; ?>
 
                         <form method="POST" class="needs-validation" novalidate>
@@ -80,13 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <i class="fas fa-user-plus me-2"></i>Criar Nova Conta
                                 </a>
                             </div>
-
-                            <div class="login-links">
-                                <p class="mt-3 mb-1">Problemas para acessar? <a href="suporte.php">Contate o suporte</a>
-                                </p>
-                            </div>
                         </form>
-
                     </div>
                 </div>
             </div>
@@ -95,35 +89,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </main>
 
 <script>
-// Mostrar/esconder senha
-document.querySelectorAll('.toggle-password').forEach(button => {
-    button.addEventListener('click', function() {
-        const input = this.parentElement.querySelector('input');
-        const icon = this.querySelector('i');
-        if (input.type === 'password') {
-            input.type = 'text';
-            icon.classList.replace('fa-eye', 'fa-eye-slash');
-        } else {
-            input.type = 'password';
-            icon.classList.replace('fa-eye-slash', 'fa-eye');
-        }
-    });
-});
-
-// Validação do formulário
-(() => {
-    'use strict'
-    const forms = document.querySelectorAll('.needs-validation')
-    Array.from(forms).forEach(form => {
-        form.addEventListener('submit', event => {
-            if (!form.checkValidity()) {
-                event.preventDefault()
-                event.stopPropagation()
+    // Mostrar/esconder senha
+    document.querySelectorAll('.toggle-password').forEach(button => {
+        button.addEventListener('click', function() {
+            const input = this.parentElement.querySelector('input');
+            const icon = this.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
             }
-            form.classList.add('was-validated')
-        }, false)
-    })
-})()
+        });
+    });
+
+    // Validação do formulário
+    (() => {
+        'use strict'
+        const forms = document.querySelectorAll('.needs-validation')
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
 </script>
 
 <?php

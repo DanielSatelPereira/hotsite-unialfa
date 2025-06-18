@@ -2,8 +2,7 @@
     <div class="container">
         <div class="row g-4">
             <div class="col-lg-4">
-                <img src="<?= $pathPrefix ?>assets/img/unialfa-logo-navbar.png" alt="UniALFA" class="img-fluid mb-3"
-                    style="max-height: 50px;">
+                <img src="./img/logo_novo.png" alt="UniALFA" class="img-fluid mb-3" style="max-height: 50px;">
                 <p class="small">Promovendo educação de qualidade desde 1992. Transformando vidas através do
                     conhecimento e inovação.</p>
             </div>
@@ -11,14 +10,12 @@
             <div class="col-lg-2 col-md-4">
                 <h5 class="text-uppercase text-primary mb-3">Links</h5>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><a href="<?= $pathPrefix ?>public/views/institucional.php"
+                    <li class="mb-2"><a href="institucional.php"
                             class="text-white text-decoration-none">Institucional</a></li>
-                    <li class="mb-2"><a href="<?= $pathPrefix ?>public/views/sobre.php"
-                            class="text-white text-decoration-none">Sobre o Projeto</a></li>
-                    <li class="mb-2"><a href="<?= $pathPrefix ?>public/views/todos_eventos.php"
-                            class="text-white text-decoration-none">Eventos</a></li>
-                    <li class="mb-2"><a href="<?= $pathPrefix ?>index.php"
-                            class="text-white text-decoration-none">Início</a></li>
+                    <li class="mb-2"><a href="sobreNos.php" class="text-white text-decoration-none">Sobre o
+                            Projeto</a></li>
+                    <li class="mb-2"><a href="eventos.php" class="text-white text-decoration-none">Eventos</a></li>
+                    <li class="mb-2"><a href="/" class="text-white text-decoration-none">Início</a></li>
                 </ul>
             </div>
 
@@ -36,10 +33,14 @@
             <div class="col-lg-3 col-md-4">
                 <h5 class="text-uppercase text-primary mb-3">Redes Sociais</h5>
                 <div class="d-flex gap-3 mb-3">
-                    <a href="#" class="text-white fs-5"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-white fs-5"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-white fs-5"><i class="fab fa-youtube"></i></a>
-                    <a href="#" class="text-white fs-5"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.facebook.com/faculdadeAlfaUmuarama" class="text-white fs-5"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/unialfaumuarama/" class="text-white fs-5"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/channel/UCDaf6TTBhHQg5hRNZ3lX8wg" class="text-white fs-5"><i
+                            class="fab fa-youtube"></i></a>
+                    <a href="https://www.linkedin.com/school/faculdadealfa" class="text-white fs-5"><i
+                            class="fab fa-linkedin-in"></i></a>
                 </div>
                 <a href="https://www.alfaumuarama.edu.br/fau/index.php" target="_blank"
                     class="btn btn-outline-light btn-sm">Site Oficial</a>
@@ -53,7 +54,7 @@
                 <p class="small mb-0">&copy; 2025 UniALFA - Todos os direitos reservados.</p>
             </div>
             <div class="col-md-6 text-center text-md-end">
-                <p class="small mb-0">Desenvolvido por <a href="<?= $pathPrefix ?>public/views/sobre.php"
+                <p class="small mb-0">Desenvolvido por <a href="sobreNos.php"
                         class="text-primary text-decoration-none">Equipe αEventos</a></p>
             </div>
         </div>

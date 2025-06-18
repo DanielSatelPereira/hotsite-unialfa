@@ -1,6 +1,6 @@
 <?php
 $pageTitle = 'Erro 404 - Página Não Encontrada | αEventos';
-include '../includes/header.php';
+include './partials/header.php';
 ?>
 
 <div class="card-container" style="padding-top: 60px; padding-bottom: 60px;">
@@ -21,11 +21,11 @@ include '../includes/header.php';
 
         <!-- Botões -->
         <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 30px;">
-            <a href="../../index.php" class="btn-primary"
+            <a href="/" class="btn-primary"
                 style="padding: 10px 20px; border-radius: 5px; color: white; text-decoration: none;">
                 <i class="fas fa-home" style="margin-right: 5px;"></i>Página Inicial
             </a>
-            <a href="../../login.php" class="btn-outline-primary"
+            <a href="login.php" class="btn-outline-primary"
                 style="padding: 10px 20px; border-radius: 5px; text-decoration: none;">
                 <i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i>Fazer Login
             </a>
@@ -33,4 +33,4 @@ include '../includes/header.php';
     </div>
 </div>
 
-<?php include '../includes/footer.php'; ?>
+<?php include './partials/footer.php'; ?>

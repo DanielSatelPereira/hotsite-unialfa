@@ -9,7 +9,7 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- CSS Personalizado -->
-    <link rel="stylesheet" href="<?= $pathPrefix ?>assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
@@ -17,7 +17,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0511F2;">
         <div class="container-fluid px-4">
 
-            <a class="navbar-brand fw-bold" href="<?= $pathPrefix ?>index.php">
+            <a class="navbar-brand fw-bold" href="index.php">
                 <i class="fas fa-graduation-cap me-2"></i> αEventos
             </a>
 
@@ -37,8 +37,7 @@
 
                 <!-- Search + Botões -->
                 <div class="d-flex flex-wrap gap-2">
-                    <form class="d-flex flex-grow-1" action="<?= $pathPrefix ?>public/views/search.php" method="get"
-                        role="search">
+                    <form class="d-flex flex-grow-1" action="public/views/search.php" method="get" role="search">
                         <input class="form-control me-2 w-100" type="search" name="q" placeholder="Buscar eventos..."
                             aria-label="Buscar">
                         <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>

@@ -67,20 +67,20 @@ if ($usuarioLogado) {
 
             <!-- Botão de Inscrição -->
             <?php if ($usuarioLogado): ?>
-            <?php if ($jaInscrito): ?>
-            <button class="btn btn-secondary" disabled>
-                <i class="fas fa-check"></i> Você já está inscrito
-            </button>
+                <?php if ($jaInscrito): ?>
+                    <button class="btn btn-secondary" disabled>
+                        <i class="fas fa-check"></i> Você já está inscrito
+                    </button>
+                <?php else: ?>
+                    <a href="inscrever.php?id=<?= urlencode($evento['id']) ?>" class="btn text-white"
+                        style="background-color: #0511F2;">
+                        <i class="fas fa-check-circle me-1"></i> Inscrever-se
+                    </a>
+                <?php endif; ?>
             <?php else: ?>
-            <a href="inscrever.php?id=<?= urlencode($evento['id']) ?>" class="btn text-white"
-                style="background-color: #0511F2;">
-                <i class="fas fa-check-circle me-1"></i> Inscrever-se
-            </a>
-            <?php endif; ?>
-            <?php else: ?>
-            <a href="../../login.php" class="btn btn-warning text-dark">
-                <i class="fas fa-sign-in-alt me-1"></i> Faça login para se inscrever
-            </a>
+                <a href="login.php" class="btn btn-warning text-dark">
+                    <i class="fas fa-sign-in-alt me-1"></i> Faça login para se inscrever
+                </a>
             <?php endif; ?>
         </div>
 

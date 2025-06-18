@@ -1,7 +1,3 @@
-<?php
-// Detecta caminho base para assets
-$pathPrefix = file_exists('./assets/css/style.css') ? './' : '../';
-?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -32,13 +28,11 @@ $pathPrefix = file_exists('./assets/css/style.css') ? './' : '../';
             <div class="collapse navbar-collapse" id="navbarConteudo">
 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="<?= $pathPrefix ?>index.php">Início</a></li>
-                    <li class="nav-item"><a class="nav-link"
-                            href="<?= $pathPrefix ?>public/views/todos_eventos.php">Eventos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?= $pathPrefix ?>public/views/sobre.php">Sobre</a>
+                    <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="eventos.php">Eventos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="sobreNos.php">Sobre</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link"
-                            href="<?= $pathPrefix ?>public/views/institucional.php">Institucional</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Institucional.php">Institucional</a></li>
                 </ul>
 
                 <!-- Search + Botões -->
@@ -50,10 +44,10 @@ $pathPrefix = file_exists('./assets/css/style.css') ? './' : '../';
                         <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
                     </form>
 
-                    <a href="<?= $pathPrefix ?>login.php" class="btn btn-light"><i class="fas fa-sign-in-alt"></i>
+                    <a href="login.php" class="btn btn-light"><i class="fas fa-sign-in-alt"></i>
                         Login</a>
-                    <a href="<?= $pathPrefix ?>cadastro.php" class="btn btn-warning text-dark"><i
-                            class="fas fa-user-plus"></i> Cadastro</a>
+                    <a href="cadastro.php" class="btn btn-warning text-dark"><i class="fas fa-user-plus"></i>
+                        Cadastro</a>
                 </div>
 
             </div>

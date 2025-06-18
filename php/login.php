@@ -3,7 +3,7 @@ session_start();
 
 $pageTitle = "Login - αEventos";
 require './api/ApiHelper.php';
-include './public/includes/header.php';
+include './partials/header.php';
 
 $api = new ApiHelper();
 $mensagem = "";
@@ -127,5 +127,5 @@ document.querySelectorAll('.toggle-password').forEach(button => {
 </script>
 
 <?php
-include './public/includes/footer.php';
+include './partials/footer.php';
 ?>

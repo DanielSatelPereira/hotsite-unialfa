@@ -28,6 +28,8 @@ router.get('/area/:area', async (req, res) => {
     }
 });
 
+
+
 // (Se quiser, futuramente pode adicionar rotas GET /eventos ou GET /eventos/:id aqui)
 
 export default router;

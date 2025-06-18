@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "Cadastro - αEventos";
-include './public/includes/header.php';
+include './partials/header.php';
 require './api/ApiHelper.php';
 
 $api = new ApiHelper();
@@ -186,5 +186,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </script>
 
 <?php
-include './public/includes/footer.php';
+include './partials/footer.php';
 ?>

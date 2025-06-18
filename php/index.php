@@ -3,8 +3,8 @@ session_start();
 
 $pageTitle = "Início - αEventos";
 require './api/ApiHelper.php';
-require './public/includes/helpers.php';
-include './public/includes/header.php';
+require './partials/helpers.php';
+include './partials/header.php';
 
 $api = new ApiHelper();
 
@@ -24,10 +24,10 @@ $direito = $api->get('eventos/area/' . urlencode('Direito'));
 <div id="carouselEventos" class="carousel slide mb-4" data-bs-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="./public/assets/img/cteste_1.jpg" class="d-block w-100" alt="Banner do Evento 1">
+            <img src="./img/cteste_1.jpg" class="d-block w-100" alt="Banner do Evento 1">
         </div>
         <div class="carousel-item">
-            <img src="./public/assets/img/cteste_2.jpg" class="d-block w-100" alt="Banner do Evento 2">
+            <img src="./img/cteste_2.jpg" class="d-block w-100" alt="Banner do Evento 2">
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselEventos" data-bs-slide="prev">
@@ -54,5 +54,5 @@ if ($direito && is_array($direito)) {
 ?>
 
 <?php
-include './public/includes/footer.php';
+include './partials/footer.php';
 ?>

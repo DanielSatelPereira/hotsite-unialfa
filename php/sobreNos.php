@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "Sobre o Projeto - αEventos";
-include '../includes/header.php';
+include './partials/header.php';
 ?>
 
 <main class="about-container">
@@ -99,5 +99,5 @@ include '../includes/header.php';
 </main>
 
 <?php
-include '../includes/footer.php';
+include './partials/footer.php';
 ?>

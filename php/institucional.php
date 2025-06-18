@@ -1,12 +1,12 @@
 <?php
 $pageTitle = "Institucional - UniALFA | αEventos";
-include '../includes/header.php';
+include './partials/header.php';
 ?>
 
 <div class="container py-5">
     <!-- Cabeçalho -->
     <div class="text-center mb-5">
-        <img src="../assets/img/unialfa-logo.png" alt="Logo UniALFA" class="img-fluid mb-4" style="max-height: 80px">
+        <img src="./img/logo_novo.png" alt="Logo UniALFA" class="img-fluid mb-4" style="max-height: 80px">
         <h1 class="display-5 fw-bold text-primary">
             <i class="fas fa-university me-2"></i> Sobre a UniALFA
         </h1>
@@ -119,4 +119,4 @@ include '../includes/header.php';
     </div>
 </div>
 
-<?php include '../includes/footer.php'; ?>
+<?php include './partials/footer.php'; ?>

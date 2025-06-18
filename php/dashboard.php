@@ -2,15 +2,12 @@
 session_start();
 
 $pageTitle = "Dashboard - αEventos";
-require '../../api/ApiHelper.php';
-include '../includes/header.php';
+require './api/ApiHelper.php';
+include './partials/header.php';
 
 $api = new ApiHelper();
 
-if (!isset($_SESSION['usuario_tipo']) || $_SESSION['usuario_tipo'] !== 0) {
-    header('Location: ../error/erro403.php');
-    exit;
-}
+
 
 // Verificar o tipo de usuário
 $tipoUsuario = $_SESSION['usuario_tipo'];
@@ -66,4 +63,4 @@ $tipoUsuario = $_SESSION['usuario_tipo'];
     <?php endif; ?>
 </div>
 
-<?php include '../includes/footer.php'; ?>
+<?php include './partials/footer.php'; ?>

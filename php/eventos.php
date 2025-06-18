@@ -6,7 +6,7 @@ include './partials/header.php';
 require './api/ApiHelper.php';
 
 $api = new ApiHelper();
-$eventos = $api->get('eventos/area/a');
+$eventos = $api->get('eventos'); // Pegando todos os eventos
 ?>
 
 <div class="container py-4">
@@ -19,11 +19,30 @@ $eventos = $api->get('eventos/area/a');
     <div class="row g-4">
         <?php if ($eventos && is_array($eventos)): ?>
         <?php foreach ($eventos as $evento): ?>
+        <?php
+                // ✅ Mapeamento manual das imagens
+                $imagem = '';
+
+                switch (strtolower($evento['titulo'])) {
+                    case 'introdução à didática':
+                        $imagem = 'workshop.jpg';
+                        break;
+                    case 'direito digital':
+                        $imagem = 'direito-digital.jpg';
+                        break;
+                    case 'front-end moderno':
+                        $imagem = 'maratona.jpg';
+                        break;
+                    default:
+                        $imagem = 'default.jpg';
+                }
+                ?>
+
         <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="card h-100 border-0 shadow-sm">
                 <div class="card-img-top-container" style="height: 180px; overflow: hidden;">
-                    <img src="../assets/img/eventos/<?= htmlspecialchars($evento['imagem'] ?? 'default.jpg') ?>"
-                        class="img-fluid w-100 h-100 object-fit-cover" alt="<?= htmlspecialchars($evento['titulo']) ?>">
+                    <img src="./img/<?= $imagem ?>" class="img-fluid w-100 h-100 object-fit-cover"
+                        alt="<?= htmlspecialchars($evento['titulo']) ?>">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title text-truncate"><?= htmlspecialchars($evento['titulo']) ?></h5>

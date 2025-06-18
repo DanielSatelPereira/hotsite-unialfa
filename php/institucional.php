@@ -90,7 +90,7 @@ include './partials/header.php';
                     </div>
 
                     <div class="mt-4">
-                        <a href="sobre.php" class="btn btn-outline-success">
+                        <a href="sobreNos.php" class="btn btn-outline-success">
                             <i class="fas fa-users me-2"></i> Conheça a equipe
                         </a>
                     </div>

@@ -17,7 +17,7 @@ function renderEventosPorArea($titulo, $eventos)
         <div class="col">
             <a href="../views/detalhes.php?id={$id}" class="text-decoration-none text-dark">
                 <div class="card h-100 shadow-sm">
-                    <img src="../assets/img/eventos/{$imagem}" class="card-img-top object-fit-cover" style="height: 150px;" alt="{$tituloEvento}">
+                    <img src="../assets/img/{$imagem}" class="card-img-top object-fit-cover" style="height: 150px;" alt="{$tituloEvento}">
                     <div class="card-body">
                         <h6 class="card-title text-primary fw-bold text-truncate">{$tituloEvento}</h6>
                         <p class="card-text small text-muted mb-1"><i class="fas fa-calendar-day me-1"></i>{$data}</p>

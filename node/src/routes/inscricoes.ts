@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { inscricoesController } from '../controllers/inscricoesController';
 import knex from '../database/knex';
 
 const router = Router();
@@ -19,5 +20,11 @@ router.get('/usuario/:ra', async (req, res) => {
         res.status(500).json({ mensagem: 'Erro ao buscar inscrições do usuário' });
     }
 });
+
+
+router.get('/usuario/:ra', inscricoesController.listarPorUsuario);
+router.post('/', inscricoesController.criar);
+router.delete('/', inscricoesController.deletar);
+
 
 export default router;

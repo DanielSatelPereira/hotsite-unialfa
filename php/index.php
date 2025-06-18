@@ -18,9 +18,6 @@ if (isset($_SESSION['mensagem_sucesso'])) {
 $pedagogia = $api->get('eventos/area/' . urlencode('Pedagogia'));
 $sistemas = $api->get('eventos/area/' . urlencode('Sistemas'));
 $direito = $api->get('eventos/area/' . urlencode('Direito'));
-
-var_dump($sistemas);
-//die();
 ?>
 
 <!-- Carrossel -->

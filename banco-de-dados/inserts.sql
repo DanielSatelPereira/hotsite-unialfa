@@ -41,7 +41,9 @@ CREATE TABLE inscricoes (
 CREATE TABLE certificados (
   id INT AUTO_INCREMENT PRIMARY KEY,
   idInscricao INT UNIQUE,
-  FOREIGN KEY (idInscricao) REFERENCES inscricoes(id)
+  FOREIGN KEY (idInscricao) 
+  REFERENCES inscricoes(id)
+  ON DELETE CASCADE
 );
 
 -- Cursos

@@ -34,11 +34,11 @@ $pathPrefix = file_exists('./assets/css/style.css') ? './' : '../';
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" href="<?= $pathPrefix ?>index.php">Início</a></li>
                     <li class="nav-item"><a class="nav-link"
-                            href="<?= $pathPrefix ?>/views/todos_eventos.php">Eventos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?= $pathPrefix ?>/views/sobre.php">Sobre</a>
+                            href="<?= $pathPrefix ?>public/views/todos_eventos.php">Eventos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= $pathPrefix ?>public/views/sobre.php">Sobre</a>
                     </li>
                     <li class="nav-item"><a class="nav-link"
-                            href="<?= $pathPrefix ?>/views/institucional.php">Institucional</a></li>
+                            href="<?= $pathPrefix ?>public/views/institucional.php">Institucional</a></li>
                 </ul>
 
                 <!-- Search + Botões -->

@@ -19,10 +19,10 @@ include '../includes/header.php';
                 </div>
             </div>
             <div class="d-flex justify-content-center gap-3 mt-5">
-                <a href="/" class="btn btn-primary px-4">
+                <a href="../../index.php" class="btn btn-primary px-4">
                     <i class="fas fa-home me-2"></i>Página Inicial
                 </a>
-                <a href="/login" class="btn btn-outline-primary px-4">
+                <a href="../../login.php" class="btn btn-outline-primary px-4">
                     <i class="fas fa-sign-in-alt me-2"></i>Fazer Login
                 </a>
             </div>

@@ -10,7 +10,7 @@ router.get('/area/:area', async (req, res) => {
     try {
         const eventos = await knex('eventos')
             .join('cursos', 'eventos.idCurso', '=', 'cursos.id')
-            .where('cursos.nome', area)
+            .where('cursos.nome', 'like', `%${area}%`)
             .select(
                 'eventos.id',
                 'eventos.titulo',

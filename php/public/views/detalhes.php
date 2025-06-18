@@ -20,6 +20,12 @@ $evento = $api->get('eventos/' . $eventoId);
 if (!$evento) {
     echo '<div class="container py-5"><div class="alert alert-warning">Evento não encontrado.</div></div>';
     include '../includes/footer.php';
+    header('Location: ../error/erro404.php');
+    exit;
+}
+
+if (!$evento) {
+
     exit;
 }
 

@@ -1,13 +1,25 @@
 <?php
-$pageTitle = 'Todos os Eventos - αEventos';
 session_start();
+$pageTitle = 'Todos os Eventos - αEventos';
 require '../../api/ApiHelper.php';
 include '../includes/header.php';
 
 $api = new ApiHelper();
 
+if ($eventos === null) {
+    header('Location: ../error/erro500.php');
+    exit;
+}
+
+
 // Buscar todos os eventos
 $eventos = $api->get('eventos');
+
+
+if ($eventos === null) {
+    header('Location: ../error/erro500.php');
+    exit;
+}
 ?>
 
 <div class="container py-5">

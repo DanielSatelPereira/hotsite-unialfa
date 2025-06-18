@@ -5,13 +5,12 @@ $pageTitle = "Dashboard - αEventos";
 require '../../api/ApiHelper.php';
 include '../includes/header.php';
 
-// Verificar se está logado
-if (!isset($_SESSION['usuario_tipo'])) {
-    header('Location: ../../login.php');
+$api = new ApiHelper();
+
+if (!isset($_SESSION['usuario_tipo']) || $_SESSION['usuario_tipo'] !== 0) {
+    header('Location: ../error/erro403.php');
     exit;
 }
-
-$api = new ApiHelper();
 
 // Verificar o tipo de usuário
 $tipoUsuario = $_SESSION['usuario_tipo'];

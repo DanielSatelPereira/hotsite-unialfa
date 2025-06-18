@@ -1,10 +1,23 @@
 <?php
 session_start();
+
 $pageTitle = "Inscrição no Evento - αEventos";
 require '../../api/ApiHelper.php';
 include '../includes/header.php';
 
 $api = new ApiHelper();
+
+$evento = $api->get('eventos/' . $eventoId);
+
+if (!$evento) {
+    header('Location: ../error/erro404.php');
+    exit;
+}
+
+if (!isset($_GET['id']) || empty($_GET['id'])) {
+    header('Location: ../error/erro404.php');
+    exit;
+}
 
 // Verificar se o usuário está logado
 if (!isset($_SESSION['usuario_ra'])) {
@@ -46,7 +59,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $mensagem = "Erro ao realizar a inscrição. Tente novamente.";
     }
+
+    if (!$resultado || !isset($resultado['sucesso']) || !$resultado['sucesso']) {
+        header('Location: ../error/erro500.php');
+        exit;
+    }
 }
+
+if (!$resultado || !isset($resultado['sucesso']) || !$resultado['sucesso']) {
+    header('Location: ../error/erro500.php');
+    exit;
+}
+
 ?>
 
 <div class="container py-5">

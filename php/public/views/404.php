@@ -21,17 +21,13 @@ include '../includes/header.php';
 
         <!-- Botões -->
         <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 30px;">
-            <a href="/" class="btn-primary"
+            <a href="../../index.php" class="btn-primary"
                 style="padding: 10px 20px; border-radius: 5px; color: white; text-decoration: none;">
                 <i class="fas fa-home" style="margin-right: 5px;"></i>Página Inicial
             </a>
-            <a href="/login" class="btn-outline-primary"
+            <a href="../../login.php" class="btn-outline-primary"
                 style="padding: 10px 20px; border-radius: 5px; text-decoration: none;">
                 <i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i>Fazer Login
-            </a>
-            <a href="/contato" class="btn-outline-primary"
-                style="padding: 10px 20px; border-radius: 5px; text-decoration: none;">
-                <i class="fas fa-headset" style="margin-right: 5px;"></i>Suporte
             </a>
         </div>
     </div>

@@ -19,11 +19,8 @@ include '../includes/header.php';
                 </div>
             </div>
             <div class="d-flex justify-content-center gap-3 mt-5">
-                <a href="/" class="btn btn-primary px-4">
+                <a href="../../index.php" class="btn btn-primary px-4">
                     <i class="fas fa-home me-2"></i>Página Inicial
-                </a>
-                <a href="/contato" class="btn btn-outline-secondary px-4">
-                    <i class="fas fa-headset me-2"></i>Suporte
                 </a>
             </div>
         </div>

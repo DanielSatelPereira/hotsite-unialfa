@@ -1,0 +1,110 @@
+/* style.css - Versão Limpa e Baseada no Azul UniALFA */
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Cores principais */
+:root {
+    --azul-principal: #0511F2;
+    --laranja-contraste: #FFA500;
+    --branco: #FFFFFF;
+    --cinza-claro: #F2F2F2;
+}
+
+/* Layout geral */
+body {
+    background-color: var(--cinza-claro);
+    color: #333;
+    line-height: 1.6;
+    padding-bottom: 60px;
+    /* Espaço para o footer fixo */
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--azul-principal);
+    color: var(--branco);
+    padding: 10px 20px;
+}
+
+.navbar a {
+    color: var(--branco);
+    text-decoration: none;
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+.navbar a:hover,
+.navbar .nav-link:hover {
+    color: var(--laranja-contraste);
+}
+
+/* Footer */
+footer {
+    background-color: var(--azul-principal);
+    color: var(--branco);
+    text-align: center;
+    padding: 15px 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+/* Botões padrão */
+.btn {
+    background-color: var(--azul-principal);
+    color: var(--branco);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn:hover {
+    background-color: var(--laranja-contraste);
+    color: #000;
+}
+
+/* Botões Bootstrap customizados */
+.btn-light:hover {
+    background-color: #f8f9fa;
+    color: #000;
+}
+
+.btn-warning:hover {
+    background-color: #e69500;
+}
+
+/* Cards */
+.card {
+    background-color: var(--branco);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsividade básica */
+@media (max-width: 768px) {
+    .navbar {
+        text-align: center;
+    }
+
+    .navbar a {
+        display: block;
+        margin: 5px 0;
+    }
+
+    footer {
+        position: static;
+    }
+}

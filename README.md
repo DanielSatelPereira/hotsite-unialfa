@@ -1,96 +1,115 @@
-# αEventos - Hotsite de Eventos Acadêmicos UniALFA
 
-Sistema desenvolvido por alunos da UniALFA durante o **Hackathon 2025**, com foco em Programação Orientada a Objetos (POO), UX e integração de tecnologias.
+# 🎓 αEventos - Hotsite de Eventos Acadêmicos UniALFA
 
----
+Sistema web simples desenvolvido durante o Hackathon UniALFA 2025, utilizando PHP, Node.js, Java e MySQL.
 
-## 🎯 Objetivo
+## ✅ Tecnologias Utilizadas
 
-Centralizar a divulgação de eventos acadêmicos da UniALFA, permitindo:
+- **Frontend:** PHP puro (com Programação Orientada a Objetos), HTML, CSS customizado, Bootstrap 5, FontAwesome
+- **Backend:** API RESTful com Node.js (TypeScript, Express, Knex, MySQL)
+- **Desktop (Backoffice):** Java Swing com JDBC e MySQL
+- **Banco de Dados:** MySQL
+- **Versionamento:** Git + GitHub
 
-- Visualização de eventos por área
-- Detalhes de cada evento
-- Inscrição online (em desenvolvimento)
-- Integração entre frontend, API backend e administração Java
+## ✅ Estrutura de Pastas
 
----
+```
+📂 php
+ ├─ index.php
+ ├─ login.php
+ ├─ cadastro.php
+ ├─ public/
+ │   ├─ assets/ (css, js, img)
+ │   ├─ includes/ (header.php, footer.php, helpers.php)
+ │   └─ views/ (detalhes.php, todos_eventos.php, inscrever.php, sobre.php, institucional.php, dashboard.php, erro404.php, erro403.php, erro500.php)
+ └─ api/ (ApiHelper.php)
 
-## 🏗 Arquitetura do Projeto
+📂 node
+ ├─ src/
+ │   ├─ routes/ (eventos.ts, usuarios.ts, session.ts, inscricoes.ts, relatorios.ts)
+ │   ├─ controllers/ (usuarioController.ts)
+ │   ├─ models/ (usuarioModel.ts)
+ │   └─ database/knex/ (index.ts)
+ ├─ knexfile.js
+ └─ server.ts
 
-| Camada              | Tecnologia                 | Função                                       |
-| ------------------- | -------------------------- | -------------------------------------------- |
-| **Frontend Visual** | PHP puro + Bootstrap       | Exibição de páginas web e consumo da API     |
-| **API Backend**     | Node.js com Express + Knex | Regras de negócio e acesso ao banco de dados |
-| **Administração**   | Java (Swing + JDBC)        | Cadastro e manutenção de dados (CRUD)        |
-| **Banco de Dados**  | MySQL                      | Armazenamento relacional                     |
+📂 java-app
+ └─ src/ (CRUD Swing de Usuários via JDBC)
 
----
+📂 banco-de-dados/
+ ├─ schema.sql
+ └─ Thunder Collection (para testes de API)
 
-## 🚀 Como Executar Localmente
-
-1. **Clone o projeto:**
-
-```bash
-git clone https://github.com/equipe/hotsite-unialfa.git
-cd hotsite-unialfa
+📂 docs/
+ └─ LICENSE
 ```
 
-2. **Configurar Banco de Dados:**
+## ✅ Funcionalidades Principais
 
-- Importar o SQL localizado em:  
-  `/banco-de-dados/schema.sql`
+| Funcionalidade | Status |
+|---|---|
+| Listagem de eventos por área | ✅ |
+| Página de detalhes dos eventos | ✅ |
+| Cadastro de usuário com RA pré-cadastrado | ✅ |
+| Login de usuário | ✅ |
+| Inscrição em evento | ✅ |
+| Dashboard (Aluno: eventos inscritos / Admin: relatório por evento) | ✅ |
+| Controle de erros (404, 403, 500) | ✅ |
+| Consumo da API Node via PHP cURL | ✅ |
+| Painel Java para cadastro/edição/exclusão de usuários | ✅ |
 
-3. **Configurar o PHP (Frontend Visual):**
+## ✅ Módulo Java - Backoffice de Usuários
 
-- Copiar a pasta `/php/` para o diretório `htdocs` do XAMPP.
-- Iniciar o Apache e o MySQL.
+Desenvolvido por **Jhonatan** e **Leonardo**.
 
-4. **Configurar a API Node.js:**
+### Funções do aplicativo Java:
 
+- CRUD de usuários (Alunos, Palestrantes, Admins)
+- Integração direta com o banco de dados MySQL via JDBC
+- Estruturado com Programação Orientada a Objetos
+- Interface feita com Java Swing
+- Garante que os cadastros estejam prontos para serem utilizados via PHP e API Node
+
+## ✅ Requisitos para Execução Local
+
+### Banco de Dados:
+1. Rodar o `schema.sql` disponível em `/banco-de-dados/`
+2. Ajustar conexão no `knexfile.js` (Node) e no Java (JDBC)
+
+### Node API:
 ```bash
-cd node
 npm install
 npm run dev
 ```
+(Roda na porta 3001)
 
-> A API ficará disponível em:  
-> `http://localhost:3000`
+### PHP Frontend:
+Executar no XAMPP/WAMP (Apache)
 
-5. **Configurar o Java:**
+### Java CRUD:
+Importar como projeto Java padrão e rodar via IDE (ex: NetBeans, Eclipse)
 
-- Abrir o projeto da pasta `/java-app/` na IDE Java (NetBeans, IntelliJ ou Eclipse).
-- Configurar a conexão com o mesmo banco MySQL.
+## ✅ Testes de API:
 
----
+Usar Thunder Client (collection incluída na pasta `/banco-de-dados/`)
 
-## ✅ Estado Atual
+## ✅ Membros da Equipe αEventos:
 
-| Parte           | Status                |
-| --------------- | --------------------- |
-| PHP Frontend    | 🟢 Quase Finalizado   |
-| Node API        | 🟡 Em Finalização     |
-| Java Backoffice | 🟡 Em desenvolvimento |
-| Inscrições      | 🔴 Em desenvolvimento |
+| Nome | Área |
+|---|---|
+| Daniel Satel Pereira | Frontend, UX, Integração PHP |
+| Alexandre | UX |
+| Gabrielle | API Node.js |
+| Jhonatan | Java (Backoffice) |
+| Leonardo | Java (Backoffice) |
 
----
+## ✅ Observações Finais:
 
-## 👨‍💻 Equipe de Desenvolvimento
-
-- **Daniel & Alexandre:** UX, Frontend PHP, Bootstrap
-- **Gabrielle:** API Backend (Node.js + Knex)
-- **Jhonatan, Leonardo e Alexandre:** Sistema Java (CRUD e Administração)
-
----
-
-## 📅 Próximas Entregas
-
-- Finalizar consumo da API no PHP
-- Concluir rotas REST na API Node.js
-- Completar o CRUD no Java
-- Implementar o fluxo de inscrições online
-- Se houver tempo: gerar certificados de participação
+- Projeto limitado a tecnologias básicas conforme regras do Hackathon.
+- Backend de verdade ficou centralizado no Node.js.
+- Java ficou exclusivo para o CRUD de usuários.
+- PHP focado apenas como frontend visual consumindo a API.
 
 ---
 
-> "Feito por alunos, para alunos!"  
-> Hackathon UniALFA 2025
+Projeto feito com dedicação durante o Hackathon UniALFA 2025 🚀.

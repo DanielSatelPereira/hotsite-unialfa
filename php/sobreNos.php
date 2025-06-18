@@ -7,7 +7,7 @@ include './partials/header.php';
     <div class="container py-5">
 
         <!-- Cabeçalho -->
-        <section class="mb-5">
+        <section class="mb-5 text-center">
             <h1 class="mb-3 text-primary"><i class="fas fa-lightbulb me-2"></i> Sobre o Projeto</h1>
             <p class="lead">O αEventos é um sistema acadêmico desenvolvido durante o <strong>Hackathon UniALFA
                     2025</strong>, por alunos para alunos.</p>
@@ -18,29 +18,50 @@ include './partials/header.php';
         <!-- Objetivo -->
         <section class="mb-5">
             <h2 class="h4 mb-3"><i class="fas fa-bullseye me-2 text-warning"></i> Objetivo do Sistema</h2>
-            <ul>
-                <li>Divulgar eventos por área de conhecimento</li>
-                <li>Facilitar o processo de inscrição</li>
-                <li>Integrar diferentes tecnologias aprendidas em sala</li>
-                <li>Praticar o uso de APIs, programação orientada a objetos e front-end com UX</li>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Divulgar eventos por área de conhecimento</li>
+                <li class="list-group-item">Facilitar o processo de inscrição</li>
+                <li class="list-group-item">Integrar diferentes tecnologias aprendidas em sala</li>
+                <li class="list-group-item">Praticar o uso de APIs, programação orientada a objetos e front-end com UX
+                </li>
             </ul>
         </section>
 
         <!-- Equipe -->
         <section class="mb-5">
-            <h2 class="h4 mb-3"><i class="fas fa-users me-2 text-warning"></i> Nossa Equipe</h2>
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <h5>Daniel</h5>
-                    <p class="text-muted">Frontend, UX e PHP</p>
+            <h2 class="h4 mb-4"><i class="fas fa-users me-2 text-warning"></i> Nossa Equipe</h2>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <h5>Daniel</h5>
+                            <p class="text-muted">Frontend, UX e PHP</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <h5>Gabriela</h5>
-                    <p class="text-muted">API com Node.js e integração</p>
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <h5>Alexandre</h5>
+                            <p class="text-muted">Figma, UX</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <h5>Alexandre, Leonardo e Jhonnatan</h5>
-                    <p class="text-muted">Aplicação Java para Backoffice</p>
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <h5>Gabrielle</h5>
+                            <p class="text-muted">API com Node.js e integração</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <h5>Leonardo e Jhonatan</h5>
+                            <p class="text-muted">Aplicação Java para Backoffice</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -48,7 +69,7 @@ include './partials/header.php';
         <!-- Tecnologias -->
         <section class="mb-5">
             <h2 class="h4 mb-3"><i class="fas fa-layer-group me-2 text-warning"></i> Tecnologias Utilizadas</h2>
-            <div class="row">
+            <div class="row g-4">
                 <div class="col-md-6">
                     <h5><i class="fas fa-desktop me-2"></i> Frontend (PHP)</h5>
                     <ul>
@@ -87,17 +108,15 @@ include './partials/header.php';
         <!-- Roadmap -->
         <section>
             <h2 class="h4 mb-3"><i class="fas fa-road me-2 text-warning"></i> Próximas Etapas</h2>
-            <ul>
-                <li>Finalizar a API Node.js</li>
-                <li>Concluir o sistema de inscrições via frontend</li>
-                <li>Integrar o painel administrativo em Java</li>
-                <li>Se possível, gerar certificados automatizados</li>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Finalizar toda API Node.js</li>
+                <li class="list-group-item">Concluir o sistema de inscrições via frontend</li>
+                <li class="list-group-item">Integrar o painel administrativo em Java</li>
+                <li class="list-group-item">Se possível, gerar certificados automatizados</li>
             </ul>
         </section>
 
     </div>
 </main>
 
-<?php
-include './partials/footer.php';
-?>
+<?php include './partials/footer.php'; ?>

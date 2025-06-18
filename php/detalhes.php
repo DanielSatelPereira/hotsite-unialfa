@@ -14,6 +14,7 @@ $idEvento = intval($_GET['id']);
 // ✅ Buscar os dados do evento via API Node
 $evento = $api->get('/eventos/' . $idEvento);
 
+$imagem = getImagemEvento($evento['titulo']);
 
 
 // ✅ Verificar se o usuário está logado (tipo aluno) e se já está inscrito
